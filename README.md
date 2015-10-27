@@ -19,7 +19,7 @@ These are requirements that we are required to include in our application:
 The following is a tentative list of the various requirements that we will promise our end user:
 
 * Onion skin slider that shows a transparent version of the previous sprite onto the current frame
-* Ability to export the project into a .gif file
+* Ability to export the project into a .gif file - use https://github.com/Kopakc/WriteAnimatedGIF library
 * A collection of extra tools:
     * Eraser
     * Select and Move & copy and paste commands
