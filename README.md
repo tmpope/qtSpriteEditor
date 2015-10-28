@@ -24,6 +24,7 @@ The following is a tentative list of the various requirements that we will promi
     * Eraser
     * Clone onto all frames
     * Undo/Redo
+    * Eyedropper
 
 ## Notes
 
