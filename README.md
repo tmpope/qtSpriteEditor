@@ -8,23 +8,23 @@ Sprite Editor application powered by Qt for CS3505.
 
 These are requirements that we are required to include in our application:
 
-* Set the size of the sprite in pixels
-* Set and adjust the number of frames in the sprite
-* Allow the user to modify the pixels of the sprite (to draw the thing)
-* Provide a preview of the sprite animation cycle
-* Save and load various projects using the file format defined in class - .ssp
+* Set the size of the sprite in pixels - Jordan
+* Set and adjust the number of frames in the sprite - Quinn
+* Allow the user to modify the pixels of the sprite (to draw the thing) - Andre
+* Provide a preview of the sprite animation cycle - Taylor
+* Save and load various projects using the file format defined in class - .ssp - Quinn
 
 ## Extra Requirements
 
 The following is a tentative list of the various requirements that we will promise our end user:
 
-* Onion skin selector that shows a transparent version of the previous sprite onto the current frame
-* Ability to export the project into a .gif file - use https://github.com/Kopakc/WriteAnimatedGIF library
+* Onion skin selector that shows a transparent version of the previous sprite onto the current frame - Andre
+* Ability to export the project into a .gif file - use https://github.com/Kopakc/WriteAnimatedGIF library - Taylor
 * A collection of extra tools:
-    * Eraser
-    * Clone frame
-    * Undo/Redo
-    * Eyedropper
+    * Eraser - Jordan
+    * Clone frame - Andre
+    * Undo/Redo - Taylor
+    * Eyedropper - Quinn
 
 ## Notes
 
