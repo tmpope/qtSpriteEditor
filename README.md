@@ -22,11 +22,8 @@ The following is a tentative list of the various requirements that we will promi
 * Ability to export the project into a .gif file - use https://github.com/Kopakc/WriteAnimatedGIF library
 * A collection of extra tools:
     * Eraser
-    * Select and Move & copy and paste commands
-    * Eyedropper
     * Clone onto all frames
     * Undo/Redo
-    * Rotate frame 90/180/270 degrees - potentially with the select and move tool
 
 ## Notes
 
