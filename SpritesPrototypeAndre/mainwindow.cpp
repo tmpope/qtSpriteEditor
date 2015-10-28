@@ -10,10 +10,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Instantiate some variables
     colorDialog = new QColorDialog(this);
-//    canvas = new CanvasWidget(this);
+    ui->selectColorButton->setAutoFillBackground(true);
+    QPalette palette = ui->selectColorButton->palette();
+    palette.setColor(ui->selectColorButton->backgroundRole(), Qt::blue);
+    palette.setColor(ui->selectColorButton->foregroundRole(), Qt::blue);
+    ui->selectColorButton->setPalette(palette);
 
-//    setCentralWidget(canvas);
-
+    // To have the background color show up properly, we need to set this value to true
+    ui->currentColorWidget->setAutoFillBackground(true);
 
     // Connect dem sockets
     connect(ui->selectColorButton, SIGNAL(clicked()), this, SLOT(showColorDialog()));
@@ -45,9 +49,11 @@ void MainWindow::colorDialogColorSelected(){
     currentColor = colorDialog->selectedColor();
 
     // Get the palette and put the currentColor into that palette
-    QPalette palette = ui->currentColorWidget->palette();
-    palette.setColor(ui->currentColorWidget->backgroundRole(), currentColor);
-    palette.setColor(ui->currentColorWidget->foregroundRole(), currentColor);
-    ui->currentColorWidget->setPalette(palette);
-    ui->currentColorWidget->setAutoFillBackground(true);
+    QPalette palette = ui->currentColorWidget->palette(); // Get the palette
+    palette.setColor(ui->currentColorWidget->backgroundRole(), currentColor); // Set the current color to the palette
+    ui->currentColorWidget->setPalette(palette); // Set the palette up properly
+
+    palette.setColor(ui->selectColorButton->backgroundRole(), currentColor);
+    palette.setColor(ui->selectColorButton->foregroundRole(), currentColor);
+    ui->selectColorButton->setPalette(palette);
 }

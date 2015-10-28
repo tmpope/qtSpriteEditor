@@ -24,4 +24,7 @@ void CanvasWidget::mouseReleaseEvent(QMouseEvent *event){
         std::cout << "(" << point.x() << ", " << point.y() << ")";
     }
 }
-void CanvasWidget::paintEvent(QPaintEvent *event){}
+
+void CanvasWidget::paintEvent(QPaintEvent *event){
+    // TODO: Implement this?
+}
