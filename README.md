@@ -22,7 +22,7 @@ The following is a tentative list of the various requirements that we will promi
 * Ability to export the project into a .gif file - use https://github.com/Kopakc/WriteAnimatedGIF library
 * A collection of extra tools:
     * Eraser
-    * Clone onto all frames
+    * Clone frame
     * Undo/Redo
     * Eyedropper
 
