@@ -82,8 +82,10 @@ int getBlue(int frame, int x, int y, const int ImageWidth, const int ImageHeight
 
 void drawImage(unsigned char* image, const int ImageWidth, const int ImageHeight, const int frame, const int FrameCount)
 {
-	for(int y=0; y<ImageHeight; y++){
-		for(int x=0; x<ImageWidth; x++){
+	for (int y=0; y < ImageHeight; y++)
+	{
+		for (int x=0; x < ImageWidth; x++)
+		{
 			{
 				unsigned char* rgb = image + 3 * (ImageWidth * y + x);
 				setPixel(rgb, getRed(frame, x, y, ImageWidth, ImageHeight, FrameCount), getGreen(frame, x, y, ImageWidth, ImageHeight, FrameCount), getBlue(frame, x, y, ImageWidth, ImageHeight, FrameCount));
@@ -92,11 +94,19 @@ void drawImage(unsigned char* image, const int ImageWidth, const int ImageHeight
 	}
 }
 
+/**
+ * This function does this.
+ * @param image  [this will be changed. Look out!]
+ * @param sprite [description]
+ * @param frame  [description]
+ */
 void drawImage(unsigned char* image, const std::vector<int> sprite, const int frame)
 {
 	int pixel = 0;
-	for(int y=0; y< sprite[0]; y++){
-		for(int x=0; x< sprite[1]; x++){
+	for (int y=0; y< sprite[0]; y++)
+	{
+		for (int x=0; x< sprite[1]; x++)
+		{
 			{
 				pixel = 3 + (frame * sprite[0] * sprite[1] * 4) + 4 * (sprite[1] * y + x);
 				unsigned char* rgb = image + 3 * (sprite[1] * y + x);
