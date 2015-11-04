@@ -3,10 +3,9 @@
 #include <QMouseEvent>
 #include <QPainter>
 
-CanvasWidget::CanvasWidget(int width, int height)
+CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
 {
-    spriteWidth = width;
-    spriteHeight = height;
+
 }
 
 CanvasWidget::~CanvasWidget(){
@@ -27,12 +26,10 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event){
     int gridX = x * spriteWidth / width();
     int gridY = y * spriteHeight / height();
 
-    std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
+//    std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
 
     lastX = gridX;
     lastY = gridY;
-
-    drawGrid();
 }
 
 /* Indicates to the model what's the haps */
@@ -45,21 +42,18 @@ void CanvasWidget::mouseMoveEvent(QMouseEvent *event){
 
         if(gridX != lastX || gridY != lastY){
 
-        std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
+//        std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
         lastX = gridX;
         lastY = gridY;
-
-        drawGrid();
     }
 }
 
 void CanvasWidget::paintEvent(QPaintEvent *paintEvent){
+
     // TODO: Request information from the model to handle this
     QPainter painter(this);
     double singleWidth = width() / (double)spriteWidth;
     double singleHeight = height() / (double)spriteHeight;
-
-
 
     for(int row = 0; row < spriteHeight; row++)
         for(int col = 0; col < spriteWidth; col++){
@@ -69,21 +63,12 @@ void CanvasWidget::paintEvent(QPaintEvent *paintEvent){
             QRect rect(x, y, singleWidth, singleHeight);
             QColor color(0, 0, 0);
             painter.drawRect(rect);
+
+            if(row == 0){
+                std::cout << x << " " << y << std::endl;
+            }
         }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

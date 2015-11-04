@@ -19,7 +19,7 @@ public:
      *
      * Creates a canvas widget. Requires a sprite width and height to start.
      */
-    CanvasWidget(int, int);
+    CanvasWidget(QWidget *);
     ~CanvasWidget();
 
     /**
@@ -31,14 +31,6 @@ public:
      * @param height of the sprite
      */
     void setSpriteDimensions(int, int);
-
-    /**
-     * @brief drawGrid
-     *
-     * Draws the grid onto the QWidget. Does so with the model if the model
-     * exists. If the model does not exists, then this method does nothing.
-     */
-    void drawGrid();
 
 
 protected:
@@ -53,7 +45,8 @@ protected:
 
 
     /**
-     * I guess we need to override the paintEvent as well.
+     * I guess we need to override the paintEvent as well. This is what draws stuff
+     * to the widget.
      */
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 
