@@ -12,10 +12,15 @@ public: //because color needs to be defined before we use it, but needs to be pu
 	struct color
 	{
 		color() : r(255), g(255), b(255), a(0) {}
+		color(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a) : r(_r), g(_g), b(_b), a(_a) {}
 		uint8_t r;
 		uint8_t g; 
 		uint8_t b; 
 		uint8_t a;
+		inline bool operator==(const color& other) const
+		{
+	       return (other.r == r && other.g == g && other.b == b && other.a == a);
+	    }
 	};
 private:
 	int width;
@@ -32,13 +37,16 @@ public:
 	 */
 	Sprite(int height, int width);
 	~Sprite();
-	int getHeight() {
+	int getHeight() const 
+	{
 		return this->height;
 	}
-	int getWidth() {
+	int getWidth() const
+	{
 		return this->width;
 	}
-	int getFrameCount() {
+	int getFrameCount() const 
+	{
 		return this->frameCount;
 	}
 	/**
@@ -55,13 +63,19 @@ public:
 	 * @param pixels should have four values, one for each RGBA
 	 */
 	void setPixel(int x, int y, int frame, struct color color);
+	void setPixel(int x, int y, int frame, int r, int g, int b, int a)
+	{
+		struct color color(r, g, b, a);
+		setPixel(x, y, frame, color);
+	}
 	/**
 	 * For paint bucket. Does not check input. Check your own input.
 	 * @param x      [description]
 	 * @param y      [description]
 	 * @param pixels should have four values, one for each RGBA
 	 */
-	void fillPixel(int x, int y, int frame, char* pixels);
+	void fillPixel(int x, int y, int frame, struct color color);
+	// void fillRecursive(int x, int y, int frame, struct color color);
 	void exportToGif(std::string fileName);
 	/**
 	 * Adds a new frame to the sprite
