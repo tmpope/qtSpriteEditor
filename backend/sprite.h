@@ -8,7 +8,7 @@
 
 class Sprite
 {
-private:
+public: //because color needs to be defined before we use it, but needs to be public
 	struct color
 	{
 		color() : r(255), g(255), b(255), a(0) {}
@@ -17,6 +17,7 @@ private:
 		uint8_t b; 
 		uint8_t a;
 	};
+private:
 	int width;
 	int height;
 	int frameCount;
@@ -53,14 +54,14 @@ public:
 	 * @param y      [description]
 	 * @param pixels should have four values, one for each RGBA
 	 */
-	void setPixel(int x, int y, struct color color);
+	void setPixel(int x, int y, int frame, struct color color);
 	/**
 	 * For paint bucket. Does not check input. Check your own input.
 	 * @param x      [description]
 	 * @param y      [description]
 	 * @param pixels should have four values, one for each RGBA
 	 */
-	void fillPixel(int x, int y, char* pixels);
+	void fillPixel(int x, int y, int frame, char* pixels);
 	void exportToGif(std::string fileName);
 	/**
 	 * Adds a new frame to the sprite
@@ -74,6 +75,11 @@ public:
 	 * @return The number of frames after the new frame has been added
 	 */
 	int removeFrame(int frame);
+	/**
+	 * Returns the string that needs to be written to a .ssp file
+	 * @return [description]
+	 */
+	std::string toString();
 };
 
 #endif

@@ -31,16 +31,16 @@ struct Sprite::color Sprite::getPixel(int x, int y, int frame){
 	return pixels[frame * width * height + x + y * width];
 }
 
-void Sprite::setPixel(int x, int y, struct color color) {
-	pixels[x + y * width] = color;
+void Sprite::setPixel(int x, int y, int frame, struct color color) {
+	pixels[frame * width * height + x + y * width] = color;
 }
 
-void Sprite::fillPixel(int x, int y, char* pixels){
-
+void Sprite::fillPixel(int x, int y, int frame, char* pixels){
+	//TODO implement (recursively)
 }
 
 void Sprite::exportToGif(std::string fileName){
-
+	//Should be very straightforward
 }
 
 int Sprite::addFrame(){
@@ -72,6 +72,7 @@ int Sprite::removeFrame(int frame){
 
 int main() {
 	Sprite s(1, 1);
+	std::cout << "-----------" << std::endl;
 	for(int i = 0; i < s.getFrameCount(); i++) {
 		std::cout 
 		<< s.getPixel(0, 0, i).r 
@@ -81,6 +82,14 @@ int main() {
 		<< std::endl;
 	}
 	s.addFrame();
+	s.addFrame();
+	struct Sprite::color newColor;
+	newColor.r = 55;
+	newColor.g = 55;
+	newColor.b = 55;
+	newColor.a = 55;
+	s.setPixel(0, 0, 2, newColor);
+	std::cout << "-----------" << std::endl;
 	for(int i = 0; i < s.getFrameCount(); i++) {
 		std::cout 
 		<< s.getPixel(0, 0, i).r 
@@ -90,6 +99,7 @@ int main() {
 		<< std::endl;
 	}
 	s.removeFrame(0);
+	std::cout << "-----------" << std::endl;
 	for(int i = 0; i < s.getFrameCount(); i++) {
 		std::cout 
 		<< s.getPixel(0, 0, i).r 
