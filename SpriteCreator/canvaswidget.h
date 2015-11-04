@@ -12,8 +12,6 @@ class CanvasWidget : public QWidget
     /* The last points that were used */
     int lastX, lastY;
 
-    QPainter *painter;
-
 
 public:
     /**
@@ -34,6 +32,14 @@ public:
      */
     void setSpriteDimensions(int, int);
 
+    /**
+     * @brief drawGrid
+     *
+     * Draws the grid onto the QWidget. Does so with the model if the model
+     * exists. If the model does not exists, then this method does nothing.
+     */
+    void drawGrid();
+
 
 protected:
 
@@ -45,12 +51,13 @@ protected:
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
+
     /**
-     * @brief drawGrid
-     *
-     * Draws the grid onto the QWidget.
+     * I guess we need to override the paintEvent as well.
      */
-    void drawGrid();
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+
+    // TODO: Resize listener?
 };
 
 #endif // CANVASWIDGET_H

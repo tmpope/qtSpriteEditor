@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     canvas = new CanvasWidget(12, 12);
-//    canvas->setSpriteDimensions(12, 12);
+    canvas->drawGrid();
     setCentralWidget(canvas);
 }
 

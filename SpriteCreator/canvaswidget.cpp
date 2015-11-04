@@ -7,12 +7,10 @@ CanvasWidget::CanvasWidget(int width, int height)
 {
     spriteWidth = width;
     spriteHeight = height;
-
-    painter = new QPainter();
 }
 
 CanvasWidget::~CanvasWidget(){
-    delete painter;
+
 }
 
 
@@ -33,6 +31,8 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event){
 
     lastX = gridX;
     lastY = gridY;
+
+    drawGrid();
 }
 
 /* Indicates to the model what's the haps */
@@ -48,9 +48,44 @@ void CanvasWidget::mouseMoveEvent(QMouseEvent *event){
         std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
         lastX = gridX;
         lastY = gridY;
+
+        drawGrid();
     }
 }
 
-void CanvasWidget::drawGrid(){
-    // TODO: Setup a painter object and have that draw the grid here
+void CanvasWidget::paintEvent(QPaintEvent *paintEvent){
+    // TODO: Request information from the model to handle this
+    QPainter painter(this);
+    double singleWidth = width() / (double)spriteWidth;
+    double singleHeight = height() / (double)spriteHeight;
+
+
+
+    for(int row = 0; row < spriteHeight; row++)
+        for(int col = 0; col < spriteWidth; col++){
+            int x = singleWidth * col + singleWidth / 2;
+            int y = singleWidth * row + singleHeight / 2;
+
+            QRect rect(x, y, singleWidth, singleHeight);
+            QColor color(0, 0, 0);
+            painter.drawRect(rect);
+        }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
