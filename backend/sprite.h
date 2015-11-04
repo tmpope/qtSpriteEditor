@@ -16,6 +16,10 @@ public: //because color needs to be defined before we use it, but needs to be pu
 		uint8_t g; 
 		uint8_t b; 
 		uint8_t a;
+		inline bool operator==(color other) 
+		{
+	       return (other.r == r && other.g == g && other.b == b && other.a == a);
+	    }
 	};
 private:
 	int width;
@@ -61,7 +65,8 @@ public:
 	 * @param y      [description]
 	 * @param pixels should have four values, one for each RGBA
 	 */
-	void fillPixel(int x, int y, int frame, char* pixels);
+	void fillPixel(int x, int y, int frame, struct color color);
+	// void fillRecursive(int x, int y, int frame, struct color color);
 	void exportToGif(std::string fileName);
 	/**
 	 * Adds a new frame to the sprite
