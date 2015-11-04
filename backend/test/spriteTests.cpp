@@ -13,6 +13,37 @@ TEST(BasicCases, AddUser) {
 	EXPECT_EQ(10, sprite.getWidth());
 }
 
+void printPixel(Sprite& s, int x, int y) {
+	std::cout << "-----------" << std::endl;
+	for(int i = 0; i < s.getFrameCount(); i++) {
+		std::cout 
+		<< s.getPixel(x, y, i).r 
+		<< s.getPixel(x, y, i).g 
+		<< s.getPixel(x, y, i).b 
+		<< s.getPixel(x, y, i).a 
+		<< std::endl;
+	}
+}
+
+TEST(BasicCases, Frames) {
+	Sprite s(1, 1);
+	struct Sprite::color defaultColor(255,255,255,0);
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,0));
+	EXPECT_EQ(1, s.getFrameCount());
+	s.addFrame();
+	s.addFrame();
+	EXPECT_EQ(3, s.getFrameCount());
+	struct Sprite::color newColor(55, 55, 55, 55);
+	s.setPixel(0, 0, 2, newColor);
+	EXPECT_EQ(3, s.getFrameCount());
+	s.removeFrame(0);
+	EXPECT_EQ(2, s.getFrameCount());
+	s.addFrame();
+	EXPECT_EQ(3, s.getFrameCount());
+	s.removeFrame(1);
+	EXPECT_EQ(2, s.getFrameCount());
+}
+
 // TEST(BasicCases, AddSeveralUsers) {
 // 	Students students = setup();
 // 	EXPECT_EQ(1, students.idForName("Taylor"));

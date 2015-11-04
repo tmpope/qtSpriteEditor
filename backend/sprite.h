@@ -12,11 +12,12 @@ public: //because color needs to be defined before we use it, but needs to be pu
 	struct color
 	{
 		color() : r(255), g(255), b(255), a(0) {}
+		color(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a) : r(_r), g(_g), b(_b), a(_a) {}
 		uint8_t r;
 		uint8_t g; 
 		uint8_t b; 
 		uint8_t a;
-		inline bool operator==(color other) 
+		inline bool operator==(const color& other) const
 		{
 	       return (other.r == r && other.g == g && other.b == b && other.a == a);
 	    }
@@ -36,13 +37,16 @@ public:
 	 */
 	Sprite(int height, int width);
 	~Sprite();
-	int getHeight() {
+	int getHeight() const 
+	{
 		return this->height;
 	}
-	int getWidth() {
+	int getWidth() const
+	{
 		return this->width;
 	}
-	int getFrameCount() {
+	int getFrameCount() const 
+	{
 		return this->frameCount;
 	}
 	/**
