@@ -6,42 +6,104 @@ int main(int argc, char** argv) {
 	return RUN_ALL_TESTS();
 }
 
-TEST(BasicCases, AddUser) {
+TEST(BasicCases, Instantiate) {
 	Sprite sprite(10,10);
-	sprite.addFrame();
 	EXPECT_EQ(10, sprite.getHeight());
 	EXPECT_EQ(10, sprite.getWidth());
+	EXPECT_EQ(1, sprite.getFrameCount());
 }
 
-void printPixel(Sprite& s, int x, int y) {
-	std::cout << "-----------" << std::endl;
-	for(int i = 0; i < s.getFrameCount(); i++) {
-		std::cout 
-		<< s.getPixel(x, y, i).r 
-		<< s.getPixel(x, y, i).g 
-		<< s.getPixel(x, y, i).b 
-		<< s.getPixel(x, y, i).a 
-		<< std::endl;
-	}
-}
-
-TEST(BasicCases, Frames) {
-	Sprite s(1, 1);
-	struct Sprite::color defaultColor(255,255,255,0);
-	EXPECT_EQ(defaultColor, s.getPixel(0,0,0));
+TEST(Frames, RemoveEndFrames) {
+	Sprite s(10, 10);
 	EXPECT_EQ(1, s.getFrameCount());
 	s.addFrame();
 	s.addFrame();
 	EXPECT_EQ(3, s.getFrameCount());
-	struct Sprite::color newColor(55, 55, 55, 55);
-	s.setPixel(0, 0, 2, newColor);
-	EXPECT_EQ(3, s.getFrameCount());
-	s.removeFrame(0);
+	s.removeFrame(2);
 	EXPECT_EQ(2, s.getFrameCount());
+	s.removeFrame(1);
+	EXPECT_EQ(1, s.getFrameCount());
+	s.removeFrame(0);
+	EXPECT_EQ(0, s.getFrameCount());
+}
+
+TEST(Frames, RemoveMiddleFrames) {
+	Sprite s(7, 32);
+	EXPECT_EQ(1, s.getFrameCount());
+	s.addFrame();
 	s.addFrame();
 	EXPECT_EQ(3, s.getFrameCount());
 	s.removeFrame(1);
 	EXPECT_EQ(2, s.getFrameCount());
+}
+
+TEST(Frames, RemoveBeginingFrames) {
+	Sprite s(3, 100);
+	EXPECT_EQ(1, s.getFrameCount());
+	s.addFrame();
+	s.addFrame();
+	EXPECT_EQ(3, s.getFrameCount());
+	s.removeFrame(0);
+	EXPECT_EQ(2, s.getFrameCount());
+	s.removeFrame(0);
+	EXPECT_EQ(1, s.getFrameCount());
+	s.removeFrame(0);
+	EXPECT_EQ(0, s.getFrameCount());
+}
+
+TEST(Frames, RemoveCorrectFrames) {
+	Sprite s(1, 1);
+	s.addFrame();
+	s.addFrame();
+	s.setPixel(0, 0, 1, 5, 5, 5, 5);
+	s.setPixel(0, 0, 2, 55, 55, 55, 55);
+	struct Sprite::color defaultColor(255,255,255,0);
+	struct Sprite::color frameOneColor(5, 5, 5, 5);
+	struct Sprite::color frameTwoColor(55, 55, 55, 55);
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,0));
+	EXPECT_EQ(frameOneColor, s.getPixel(0,0,1));
+	EXPECT_EQ(frameTwoColor, s.getPixel(0,0,2));
+	EXPECT_EQ(3, s.getFrameCount());
+	s.removeFrame(0);
+	EXPECT_EQ(2, s.getFrameCount());
+	EXPECT_EQ(frameOneColor, s.getPixel(0,0,0));
+	EXPECT_EQ(frameTwoColor, s.getPixel(0,0,1));
+	s.addFrame();
+	EXPECT_EQ(3, s.getFrameCount());
+	EXPECT_EQ(frameOneColor, s.getPixel(0,0,0));
+	EXPECT_EQ(frameTwoColor, s.getPixel(0,0,1));
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,2));
+	s.removeFrame(1);
+	EXPECT_EQ(2, s.getFrameCount());
+	EXPECT_EQ(frameOneColor, s.getPixel(0,0,0));
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,1));
+}
+
+TEST(SetPixel, BasicSet) {
+	Sprite s(5, 5);
+	s.addFrame();
+	s.addFrame();
+	for (int i = 0; i < s.getFrameCount(); i++) 
+	{
+		for (int j = 0; j < s.getWidth(); j++)
+		{
+			for (int k = 0; k < s.getHeight(); k++)
+			{
+				s.setPixel(j, k, i, j, k, i, 0);
+			}
+		}
+	}
+	for (int i = 0; i < s.getFrameCount(); i++) 
+	{
+		for (int j = 0; j < s.getWidth(); j++)
+		{
+			for (int k = 0; k < s.getHeight(); k++)
+			{
+				struct Sprite::color check(j, k, i, 0);
+				EXPECT_EQ(check, s.getPixel(j, k, i));
+			}
+		}
+	}
 }
 
 // TEST(BasicCases, AddSeveralUsers) {

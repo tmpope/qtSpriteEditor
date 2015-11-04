@@ -63,6 +63,11 @@ public:
 	 * @param pixels should have four values, one for each RGBA
 	 */
 	void setPixel(int x, int y, int frame, struct color color);
+	void setPixel(int x, int y, int frame, int r, int g, int b, int a)
+	{
+		struct color color(r, g, b, a);
+		setPixel(x, y, frame, color);
+	}
 	/**
 	 * For paint bucket. Does not check input. Check your own input.
 	 * @param x      [description]
