@@ -6,31 +6,22 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>773</width>
+    <height>578</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralWidget">
-   <widget class="CanvasWidget" name="canvas" native="true">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>401</width>
-      <height>261</height>
-     </rect>
-    </property>
-   </widget>
+  <widget class="CanvasWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout_2"/>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>773</width>
      <height>21</height>
     </rect>
    </property>

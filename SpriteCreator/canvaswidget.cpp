@@ -26,7 +26,7 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event){
     int gridX = x * spriteWidth / width();
     int gridY = y * spriteHeight / height();
 
-//    std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
+    std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
 
     lastX = gridX;
     lastY = gridY;
@@ -42,7 +42,7 @@ void CanvasWidget::mouseMoveEvent(QMouseEvent *event){
 
         if(gridX != lastX || gridY != lastY){
 
-//        std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
+        std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
         lastX = gridX;
         lastY = gridY;
     }
@@ -57,15 +57,15 @@ void CanvasWidget::paintEvent(QPaintEvent *paintEvent){
 
     for(int row = 0; row < spriteHeight; row++)
         for(int col = 0; col < spriteWidth; col++){
-            int x = singleWidth * col + singleWidth / 2;
-            int y = singleWidth * row + singleHeight / 2;
+            int x = singleWidth * col + 0 /*singleWidth / 2*/;
+            int y = singleHeight * row + 0 /*singleHeight / 2*/;
 
             QRect rect(x, y, singleWidth, singleHeight);
             QColor color(0, 0, 0);
             painter.drawRect(rect);
 
-            if(row == 0){
-                std::cout << x << " " << y << std::endl;
+            if(row == 0 && col == 0){
+                std::cout << width() << " " << height() << std::endl;
             }
         }
 }
