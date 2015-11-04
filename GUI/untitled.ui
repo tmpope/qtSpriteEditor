@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Obey Your Thirst</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="oytg graphics.qrc">
+    <normaloff>:/graphics/Sprite.png</normaloff>:/graphics/Sprite.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextBesideIcon</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionLoad"/>
+   <addaction name="separator"/>
+   <addaction name="actionSave"/>
+   <addaction name="separator"/>
+   <addaction name="actionImport"/>
+   <addaction name="separator"/>
+   <addaction name="actionExport"/>
+  </widget>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset resource="oytg graphics.qrc">
+     <normaloff>:/graphics/Lime-icon.png</normaloff>:/graphics/Lime-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="toolTip">
+    <string>Save Sprite</string>
+   </property>
+  </action>
+  <action name="actionImport">
+   <property name="icon">
+    <iconset resource="oytg graphics.qrc">
+     <normaloff>:/graphics/layer-import-icon.png</normaloff>:/graphics/layer-import-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Import</string>
+   </property>
+   <property name="toolTip">
+    <string>Import Sprite Sheet</string>
+   </property>
+  </action>
+  <action name="actionExport">
+   <property name="icon">
+    <iconset resource="oytg graphics.qrc">
+     <normaloff>:/graphics/table-export-icon.png</normaloff>:/graphics/table-export-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export</string>
+   </property>
+   <property name="toolTip">
+    <string>Export Sprite to GIF</string>
+   </property>
+  </action>
+  <action name="actionLoad">
+   <property name="icon">
+    <iconset resource="oytg graphics.qrc">
+     <normaloff>:/graphics/Lemon-icon.png</normaloff>:/graphics/Lemon-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Load</string>
+   </property>
+   <property name="toolTip">
+    <string>Load Sprite Sheet</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="oytg graphics.qrc"/>
+ </resources>
+ <connections/>
+</ui>

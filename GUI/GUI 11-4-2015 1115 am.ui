@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1116</width>
+    <height>887</height>
+   </rect>
+  </property>
+  <property name="mouseTracking">
+   <bool>true</bool>
+  </property>
+  <property name="windowTitle">
+   <string>Obey Your Thirst</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="oytg graphics.qrc">
+    <normaloff>:/graphics/Sprite.png</normaloff>:/graphics/Sprite.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>30</y>
+      <width>600</width>
+      <height>600</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widget_2" native="true">
+    <property name="geometry">
+     <rect>
+      <x>900</x>
+      <y>30</y>
+      <width>120</width>
+      <height>120</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="toolButton">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>390</y>
+      <width>33</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="oytg graphics.qrc">
+      <normaloff>:/graphics/Color Wheel.png</normaloff>:/graphics/Color Wheel.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QSlider" name="horizontalSlider">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>170</y>
+      <width>160</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
+    <property name="maximum">
+     <number>24</number>
+    </property>
+    <property name="sliderPosition">
+     <number>4</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+    <property name="tickPosition">
+     <enum>QSlider::TicksAbove</enum>
+    </property>
+    <property name="tickInterval">
+     <number>0</number>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widget_3" native="true">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>670</y>
+      <width>600</width>
+      <height>120</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>290</y>
+      <width>33</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="oytg graphics.qrc">
+      <normaloff>:/graphics/pencil.png</normaloff>:/graphics/pencil.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>340</y>
+      <width>33</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="oytg graphics.qrc">
+      <normaloff>:/graphics/eyedropper-icon.png</normaloff>:/graphics/eyedropper-icon.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>710</y>
+      <width>33</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="oytg graphics.qrc">
+      <normaloff>:/graphics/clone.png</normaloff>:/graphics/clone.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>1030</x>
+      <y>80</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="oytg graphics.qrc">
+      <normaloff>:/graphics/sm-cut-onion.png</normaloff>:/graphics/sm-cut-onion.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>39</width>
+      <height>39</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widget_4" native="true">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>240</y>
+      <width>321</width>
+      <height>551</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>1050</x>
+      <y>170</y>
+      <width>61</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>current_fps</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextBesideIcon</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionLoad"/>
+   <addaction name="separator"/>
+   <addaction name="actionSave"/>
+   <addaction name="separator"/>
+   <addaction name="actionImport"/>
+   <addaction name="separator"/>
+   <addaction name="actionExport"/>
+   <addaction name="separator"/>
+   <addaction name="actionNewFrame"/>
+   <addaction name="separator"/>
+   <addaction name="actionNewSprite"/>
+  </widget>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset resource="oytg graphics.qrc">
+     <normaloff>:/graphics/Lime-icon.png</normaloff>:/graphics/Lime-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="toolTip">
+    <string>Save Sprite</string>
+   </property>
+  </action>
+  <action name="actionImport">
+   <property name="icon">
+    <iconset resource="oytg graphics.qrc">
+     <normaloff>:/graphics/layer-import-icon.png</normaloff>:/graphics/layer-import-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Import</string>
+   </property>
+   <property name="toolTip">
+    <string>Import Sprite Sheet</string>
+   </property>
+  </action>
+  <action name="actionExport">
+   <property name="icon">
+    <iconset resource="oytg graphics.qrc">
+     <normaloff>:/graphics/table-export-icon.png</normaloff>:/graphics/table-export-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export</string>
+   </property>
+   <property name="toolTip">
+    <string>Export Sprite to GIF</string>
+   </property>
+  </action>
+  <action name="actionLoad">
+   <property name="icon">
+    <iconset resource="oytg graphics.qrc">
+     <normaloff>:/graphics/Lemon-icon.png</normaloff>:/graphics/Lemon-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Load</string>
+   </property>
+   <property name="toolTip">
+    <string>Load Sprite Sheet</string>
+   </property>
+  </action>
+  <action name="actionColorSelect">
+   <property name="icon">
+    <iconset resource="oytg graphics.qrc">
+     <normaloff>:/graphics/Color Wheel.png</normaloff>:/graphics/Color Wheel.png</iconset>
+   </property>
+   <property name="text">
+    <string>ColorSelect</string>
+   </property>
+   <property name="toolTip">
+    <string>Color Selector</string>
+   </property>
+  </action>
+  <action name="actionNewFrame">
+   <property name="icon">
+    <iconset resource="oytg graphics.qrc">
+     <normaloff>:/graphics/new-file-icon.png</normaloff>:/graphics/new-file-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>New Frame</string>
+   </property>
+   <property name="toolTip">
+    <string>Add New Frame</string>
+   </property>
+  </action>
+  <action name="actionNewSprite">
+   <property name="icon">
+    <iconset resource="oytg graphics.qrc">
+     <normaloff>:/graphics/Sprite.png</normaloff>:/graphics/Sprite.png</iconset>
+   </property>
+   <property name="text">
+    <string>New Sprite</string>
+   </property>
+   <property name="toolTip">
+    <string>New Sprite</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="oytg graphics.qrc"/>
+ </resources>
+ <connections/>
+</ui>
