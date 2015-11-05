@@ -31,6 +31,32 @@ TEST(BasicCases, Instantiate)
 	EXPECT_EQ(1, sprite.getFrameCount());
 }
 
+TEST(BasicCases, Pointer) 
+{
+	Sprite* sprite;
+	sprite = new Sprite(10,10);
+	EXPECT_EQ(10, sprite->getHeight());
+	EXPECT_EQ(10, sprite->getWidth());
+	EXPECT_EQ(1, sprite->getFrameCount());
+	delete sprite;
+}
+
+TEST(BasicCases, PointerReallocate) 
+{
+	Sprite* sprite;
+	sprite = new Sprite(10,10);
+	EXPECT_EQ(10, sprite->getHeight());
+	EXPECT_EQ(10, sprite->getWidth());
+	EXPECT_EQ(1, sprite->getFrameCount());
+	delete sprite;
+	sprite = new Sprite(4, 23436);
+	sprite->addFrame();
+	EXPECT_EQ(4, sprite->getHeight());
+	EXPECT_EQ(23436, sprite->getWidth());
+	EXPECT_EQ(2, sprite->getFrameCount());
+	delete sprite;
+}
+
 TEST(Frames, RemoveEndFrames) 
 {
 	Sprite s(10, 10);
