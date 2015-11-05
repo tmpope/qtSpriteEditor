@@ -26,12 +26,12 @@ void CanvasWidget::setSpriteDimensions(int width, int height)
 /* Indicates to the model what's the haps */
 void CanvasWidget::mousePressEvent(QMouseEvent *event)
 {
-    if(event->button() != Qt::LeftButton || event->button() != Qt::RightButton)
+    if(event->button() != Qt::LeftButton && event->button() != Qt::RightButton)
         return;
 
     clickedButton = event->button();
 
-    if(clickedButton == Qt::RightButton){
+    if(event->button() == Qt::RightButton){
         possible_tool_t temp = currentTool;
         currentTool = ERASER;
         lastTool = temp;
@@ -55,9 +55,6 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event)
 /* Indicates to the model what's the haps */
 void CanvasWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    if(event->button() != Qt::LeftButton || event->button() != Qt::RightButton)
-        return;
-
     int x = event->x();
     int y = event->y();
 
@@ -74,7 +71,7 @@ void CanvasWidget::mouseMoveEvent(QMouseEvent *event)
 
 void CanvasWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-    if(event->button() != Qt::LeftButton || event->button() != Qt::RightButton)
+    if(event->button() != Qt::LeftButton && event->button() != Qt::RightButton)
         return;
 
     if(event->button() == Qt::RightButton){
@@ -112,6 +109,7 @@ void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
 
 void CanvasWidget::setCurrentTool(possible_tool_t tool)
 {
+    lastTool = currentTool;
     currentTool = tool;
 }
 
