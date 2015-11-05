@@ -3,6 +3,7 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QRgb>
+#include "sprite.h"
 
 CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
 {
@@ -14,6 +15,10 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
 
 CanvasWidget::~CanvasWidget(){
 
+    // TODO: I attempted to call the destructor on the currentSprite, but this throws a compiler
+    // error when it's uncommented. We need to figure out what the problem is.
+//    if(currentSprite != nullptr)
+//        delete currentSprite;
 }
 
 
@@ -46,6 +51,10 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event)
     int gridY = y * spriteHeight / height();
 
     std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
+    int *r, *g, *b, *a;
+    currentColor.getRgb(r, g, b, a);
+    currentSprite->setPixel(gridX, gridY, currentFrame, *r, *g, *b, *a);
+
 
     lastX = gridX;
     lastY = gridY;
@@ -83,6 +92,8 @@ void CanvasWidget::mouseReleaseEvent(QMouseEvent *event)
 void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
 {
     // TODO: Request information from the model to handle this
+//    if(currentSprite == nullptr)
+//        return;
 
     // HOW TO DO: Simply get the lastX and lastY from the model, and only update that one.
     // You don't want to redraw everything over and over. The only exception is when a
@@ -116,8 +127,6 @@ void CanvasWidget::setCurrentTool(possible_tool_t tool)
 void CanvasWidget::setCurrentColor(int r, int g, int b, int a){
     currentColor.setRgb(r, g, b, a);
 }
-
-
 
 
 

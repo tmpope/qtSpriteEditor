@@ -2,6 +2,7 @@
 #define CANVASWIDGET_H
 
 #include <QWidget>
+#include "sprite.h"
 
 class CanvasWidget : public QWidget
 {
@@ -31,6 +32,12 @@ private:
 
     /* The current color that we are drawing with. */
     QColor currentColor;
+
+    /* What the current sprite is - the model. */
+    Sprite *currentSprite;
+
+    /* The current frame of the sprite that we are drawing to. */
+    int currentFrame;
 
 public:
     /**
@@ -70,7 +77,20 @@ public:
      */
     void setCurrentColor(int r, int g, int b, int a);
 
+//    /**
+//     * @brief getCurrentSprite
+//     * @return Sprite
+//     */
+//    Sprite* getCurrentSprite();
 
+//    /**
+//     * @brief setCurrentSprite
+//     *
+//     * Set a new sprite to this one.
+//     *
+//     * @param otherSprite
+//     */
+//    void setCurrentSprite(Sprite *otherSprite);
 
 protected:
 
