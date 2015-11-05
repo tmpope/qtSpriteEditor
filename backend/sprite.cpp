@@ -59,12 +59,74 @@ void Sprite::fillPixel(int x, int y, int frame, struct color color) {
 	}
 }
 
-// void Sprite::fillRecursive(int x, int y, int frame, struct color color, struct color oldColor) {
+void setGifPixel(unsigned char* rgb, int r, int g, int b)
+{
+	rgb[0] = r;
+	rgb[1] = g;
+	rgb[2] = b;
+}
+/**
+ * This function does this.
+ * @param image  [this will be changed. Look out!]
+ * @param sprite [description]
+ * @param frame  [description]
+ */
+void Sprite::drawImage(unsigned char* image, const int frame)
+{
+	struct Sprite::color pixel;
+	for (int x = 0; x< width; x++)
+	{
+		for (int y = 0; y< height; y++)
+		{
+			{
+				pixel = getPixel(x, y, frame);
+				unsigned char* rgb = image + 3 * (x + y * width);
+				setGifPixel(rgb, pixel.r, pixel.g, pixel.b);
+			}
+		}
+	}
+}
 
-// }
 
-void Sprite::exportToGif(std::string fileName) {
+void Sprite::exportToGif(std::string fileName) 
+{
 	//Should be very straightforward
+	int delay = 5;
+	gif::GIF* g = gif::newGIF(delay);
+	unsigned char rgbImage[width * height * 3];
+	for(int i=0; i < frameCount; i++)
+	{
+		// drawImage(rgbImage, W, H, i, FrameCount);
+		drawImage(rgbImage, i);
+		gif::addFrame(g, width, height, rgbImage, delay);
+	}
+	gif::write(g, NULL);
+	gif::dispose(g);
+	g = NULL;
+}
+
+std::string Sprite::toString()
+{
+	struct Sprite::color pixel;
+	std::stringstream ss;
+	ss << height << ' ' << width << std::endl << frameCount;
+	for (int frame = 0; frame < frameCount; frame++)
+	{
+		for (int y = 0; y < height; y++)
+		{
+			ss << std::endl;
+			for (int x = 0; x < width; x++)
+			{
+				pixel = getPixel(x, y, frame);
+				ss << pixel.toString();
+				if (x + 1 < width)
+				{
+					ss << " ";
+				}
+			}
+		}
+	}
+	return ss.str();
 }
 
 int Sprite::addFrame() {
@@ -72,7 +134,8 @@ int Sprite::addFrame() {
 	int size = ++frameCount * height * width;
 	this->pixels = new struct color[size];
 	memcpy(pixels, temp, 4 * (frameCount - 1) * height * width);
-	for(int i = (frameCount - 1) * height * width; i < size; i++) {
+	for (int i = (frameCount - 1) * height * width; i < size; i++) 
+	{
 		pixels[i].r = 255; //TODO change all to 255
 		pixels[i].g = 255;
 		pixels[i].b = 255;

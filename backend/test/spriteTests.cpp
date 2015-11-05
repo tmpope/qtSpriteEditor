@@ -151,6 +151,28 @@ TEST(Fill, FillBlankFrame)
 	}
 }
 
+TEST(Export, GifExport) 
+{
+	FAIL(); //needs to be implemented to test somehow.
+}
+
+TEST(Export, ColorToString)
+{
+	struct Sprite::color c(1, 23, 249, 0);
+	EXPECT_EQ("1 23 249 0", c.toString());
+}
+
+TEST(Export, ToString)
+{
+	Sprite s(2, 2);
+	s.setPixel(0, 0, 0, 01, 02, 03, 04);
+	s.setPixel(1, 0, 0, 21, 22, 23, 24);
+	s.setPixel(0, 1, 0, 11, 12, 13, 14);
+	s.setPixel(1, 1, 0, 31, 32, 33, 34);
+	std::string expected("2 2\n1\n1 2 3 4 21 22 23 24\n11 12 13 14 31 32 33 34");
+	EXPECT_EQ(expected, s.toString());
+}
+
 // TEST(BasicCases, AddSeveralUsers) {
 // 	Students students = setup();
 // 	EXPECT_EQ(1, students.idForName("Taylor"));
