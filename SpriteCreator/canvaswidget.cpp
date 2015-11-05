@@ -2,10 +2,14 @@
 #include <iostream>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QRgb>
 
 CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
 {
+    currentTool = PENCIL;
+    lastTool = ERASER;
 
+    currentColor = QColor::fromRgb(255, 255, 255);
 }
 
 CanvasWidget::~CanvasWidget(){
@@ -13,13 +17,28 @@ CanvasWidget::~CanvasWidget(){
 }
 
 
-void CanvasWidget::setSpriteDimensions(int width, int height){
+void CanvasWidget::setSpriteDimensions(int width, int height)
+{
     spriteWidth = width;
     spriteHeight = height;
 }
 
 /* Indicates to the model what's the haps */
-void CanvasWidget::mousePressEvent(QMouseEvent *event){
+void CanvasWidget::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button() != Qt::LeftButton || event->button() != Qt::RightButton)
+        return;
+
+    clickedButton = event->button();
+
+    if(clickedButton == Qt::RightButton){
+        possible_tool_t temp = currentTool;
+        currentTool = ERASER;
+        lastTool = temp;
+
+        std::cout << "Right click; handling as eraser!" << std::endl;
+    }
+
     int x = event->x();
     int y = event->y();
 
@@ -30,17 +49,22 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event){
 
     lastX = gridX;
     lastY = gridY;
+
 }
 
 /* Indicates to the model what's the haps */
-void CanvasWidget::mouseMoveEvent(QMouseEvent *event){
-        int x = event->x();
-        int y = event->y();
+void CanvasWidget::mouseMoveEvent(QMouseEvent *event)
+{
+    if(event->button() != Qt::LeftButton || event->button() != Qt::RightButton)
+        return;
 
-        int gridX = x * spriteWidth / width();
-        int gridY = y * spriteHeight / height();
+    int x = event->x();
+    int y = event->y();
 
-        if(gridX != lastX || gridY != lastY){
+    int gridX = x * spriteWidth / width();
+    int gridY = y * spriteHeight / height();
+
+    if(gridX != lastX || gridY != lastY){
 
         std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
         lastX = gridX;
@@ -48,9 +72,25 @@ void CanvasWidget::mouseMoveEvent(QMouseEvent *event){
     }
 }
 
-void CanvasWidget::paintEvent(QPaintEvent *paintEvent){
+void CanvasWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+    if(event->button() != Qt::LeftButton || event->button() != Qt::RightButton)
+        return;
 
+    if(event->button() == Qt::RightButton){
+        currentTool = lastTool;
+        std::cout << "End of right click; no longer erasing!" << std::endl;
+    }
+}
+
+void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
+{
     // TODO: Request information from the model to handle this
+
+    // HOW TO DO: Simply get the lastX and lastY from the model, and only update that one.
+    // You don't want to redraw everything over and over. The only exception is when a
+    // sprite is pulled up. Then you'll want to redraw everything. Maybe have a variable
+    // that handles when that happens.
     QPainter painter(this);
     double singleWidth = width() / (double)spriteWidth;
     double singleHeight = height() / (double)spriteHeight;
@@ -68,6 +108,15 @@ void CanvasWidget::paintEvent(QPaintEvent *paintEvent){
                 std::cout << width() << " " << height() << std::endl;
             }
         }
+}
+
+void CanvasWidget::setCurrentTool(possible_tool_t tool)
+{
+    currentTool = tool;
+}
+
+void CanvasWidget::setCurrentColor(int r, int g, int b, int a){
+    currentColor.setRgb(r, g, b, a);
 }
 
 
