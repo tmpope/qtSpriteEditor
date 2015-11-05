@@ -1,19 +1,38 @@
 #include "sprite.h"
 #include "gtest/gtest.h"
+#include <iostream>
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
 	testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
 }
 
-TEST(BasicCases, Instantiate) {
+
+void printPixel(Sprite& s, int x, int y) 
+{
+	std::cout << "-----------" << std::endl;
+	for (int i = 0; i < s.getFrameCount(); i++) 
+	{
+		std::cout 
+		<< s.getPixel(x, y, i).r 
+		<< s.getPixel(x, y, i).g 
+		<< s.getPixel(x, y, i).b 
+		<< s.getPixel(x, y, i).a 
+		<< std::endl;
+	}
+}
+
+TEST(BasicCases, Instantiate) 
+{
 	Sprite sprite(10,10);
 	EXPECT_EQ(10, sprite.getHeight());
 	EXPECT_EQ(10, sprite.getWidth());
 	EXPECT_EQ(1, sprite.getFrameCount());
 }
 
-TEST(Frames, RemoveEndFrames) {
+TEST(Frames, RemoveEndFrames) 
+{
 	Sprite s(10, 10);
 	EXPECT_EQ(1, s.getFrameCount());
 	s.addFrame();
@@ -27,7 +46,8 @@ TEST(Frames, RemoveEndFrames) {
 	EXPECT_EQ(0, s.getFrameCount());
 }
 
-TEST(Frames, RemoveMiddleFrames) {
+TEST(Frames, RemoveMiddleFrames) 
+{
 	Sprite s(7, 32);
 	EXPECT_EQ(1, s.getFrameCount());
 	s.addFrame();
@@ -37,7 +57,8 @@ TEST(Frames, RemoveMiddleFrames) {
 	EXPECT_EQ(2, s.getFrameCount());
 }
 
-TEST(Frames, RemoveBeginingFrames) {
+TEST(Frames, RemoveBeginingFrames) 
+{
 	Sprite s(3, 100);
 	EXPECT_EQ(1, s.getFrameCount());
 	s.addFrame();
@@ -51,7 +72,8 @@ TEST(Frames, RemoveBeginingFrames) {
 	EXPECT_EQ(0, s.getFrameCount());
 }
 
-TEST(Frames, RemoveCorrectFrames) {
+TEST(Frames, RemoveCorrectFrames) 
+{
 	Sprite s(1, 1);
 	s.addFrame();
 	s.addFrame();
@@ -79,7 +101,8 @@ TEST(Frames, RemoveCorrectFrames) {
 	EXPECT_EQ(defaultColor, s.getPixel(0,0,1));
 }
 
-TEST(SetPixel, BasicSet) {
+TEST(SetPixel, BasicSet) 
+{
 	Sprite s(5, 5);
 	s.addFrame();
 	s.addFrame();
@@ -102,6 +125,28 @@ TEST(SetPixel, BasicSet) {
 				struct Sprite::color check(j, k, i, 0);
 				EXPECT_EQ(check, s.getPixel(j, k, i));
 			}
+		}
+	}
+}
+
+TEST(Fill, FillBlankFrame) 
+{
+	Sprite s(3, 3);
+	struct Sprite::color defaultColor(255,255,255,0);
+	struct Sprite::color newColor(70, 70, 70, 70);
+	for (int i = 0; i < s.getWidth(); i++) 
+	{
+		for (int j = 0; j < s.getHeight(); j++)
+		{
+			EXPECT_EQ(defaultColor, s.getPixel(i, j, 0));
+		}
+	}
+	s.fillPixel(0, 0, 0, newColor);
+	for (int i = 0; i < s.getWidth(); i++) 
+	{
+		for (int j = 0; j < s.getHeight(); j++)
+		{
+			EXPECT_EQ(newColor, s.getPixel(i, j, 0));
 		}
 	}
 }

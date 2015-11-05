@@ -39,18 +39,23 @@ void Sprite::fillPixel(int x, int y, int frame, struct color color) {
 	struct color oldColor = getPixel(x, y, frame);
 	if (color == oldColor)
 		return;
+	// std::cout << color << " is the new color to overwrite " << oldColor << std::endl;	
 	setPixel(x, y, frame, color);
-	if (x - 1 > 0 && getPixel(x - 1, y, frame) == oldColor) {
+	if (x - 1 > 0 && getPixel(x - 1, y, frame) == oldColor) 
+	{
 		fillPixel(x - 1, y, frame, color);
 	}
-	if (x + 1 < width && getPixel(x + 1, y, frame) == oldColor) {
-		fillPixel(x - 1, y, frame, color);
+	if (x + 1 < width && getPixel(x + 1, y, frame) == oldColor) 
+	{
+		fillPixel(x + 1, y, frame, color);
 	}
-	if (y - 1 > 0 && getPixel(x, y - 1, frame) == oldColor) {
-		fillPixel(x - 1, y, frame, color);
+	if (y - 1 > 0 && getPixel(x, y - 1, frame) == oldColor) 
+	{
+		fillPixel(x, y - 1, frame, color);
 	}
-	if (y + 1 < height && getPixel(x, y + 1, frame) == oldColor) {
-		fillPixel(x - 1, y, frame, color);
+	if (y + 1 < height && getPixel(x, y + 1, frame) == oldColor) 
+	{
+		fillPixel(x, y + 1, frame, color);
 	}
 }
 
