@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="graphics">
+    <file>Pen-icon.png</file>
     <file>sm-cut-onion.png</file>
     <file>clone.png</file>
     <file>clone sheet.jpg</file>

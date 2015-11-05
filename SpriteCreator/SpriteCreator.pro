@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-11-02T20:15:47
+# Project created by QtCreator 2015-11-03T18:56:54
 #
 #-------------------------------------------------
 
@@ -14,9 +14,13 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    canvaswidget.cpp
+    canvaswidget.cpp \
+    sprite.cpp \
+    WriteGIF.cpp
 
 HEADERS  += mainwindow.h \
-    canvaswidget.h
+    canvaswidget.h \
+    sprite.h \
+    WriteGIF.h
 
 FORMS    += mainwindow.ui

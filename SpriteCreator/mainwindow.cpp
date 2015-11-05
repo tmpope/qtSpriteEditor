@@ -1,7 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+<<<<<<< HEAD
 #include <iostream>
 #include <iomanip>
+=======
+#include "canvaswidget.h"
+>>>>>>> b1cfe1979cfbc1ea274053b75c2d799d66b2b73a
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,15 +13,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    canvas = new CanvasWidget(12, 12);
-//    canvas->setSpriteDimensions(12, 12);
+    canvas = new CanvasWidget(this);
+    canvas->setSpriteDimensions(12, 12);
+
     setCentralWidget(canvas);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete canvas;
 }
 
 std::string MainWindow::Save(Sprite sprite){
