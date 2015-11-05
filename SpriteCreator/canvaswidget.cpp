@@ -51,9 +51,11 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event)
     int gridY = y * spriteHeight / height();
 
     std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
-    int *r, *g, *b, *a;
-    currentColor.getRgb(r, g, b, a);
-    currentSprite->setPixel(gridX, gridY, currentFrame, *r, *g, *b, *a);
+
+    // TODO: This throws a compiler error as well.
+//    int *r, *g, *b, *a;
+//    currentColor.getRgb(r, g, b, a);
+//    currentSprite->setPixel(gridX, gridY, currentFrame, *r, *g, *b, *a);
 
 
     lastX = gridX;
