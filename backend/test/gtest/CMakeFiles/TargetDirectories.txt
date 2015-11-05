@@ -1,0 +1,2 @@
+/home/tpope/school/cs3505/hw04/gtest/CMakeFiles/gtest.dir
+/home/tpope/school/cs3505/hw04/gtest/CMakeFiles/gtest_main.dir
