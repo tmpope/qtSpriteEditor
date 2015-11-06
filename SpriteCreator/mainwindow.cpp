@@ -1,11 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-<<<<<<< HEAD
-#include <iostream>
-#include <iomanip>
-=======
 #include "canvaswidget.h"
->>>>>>> b1cfe1979cfbc1ea274053b75c2d799d66b2b73a
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QFile>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     canvas->setSpriteDimensions(12, 12);
 
     setCentralWidget(canvas);
+    
+    //connect();
 }
 
 MainWindow::~MainWindow()
@@ -24,22 +24,43 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-std::string MainWindow::Save(Sprite sprite){
-
-    std::string ret = sprite.toString();
-    return ret;
+std::string MainWindow::Save(){
+    //get the file contents from the sprite.
+    QString QfileName = QFileDialog::getSaveFileName(
+                this, tr("Save Project"), "C://", 
+                "Sprite Sheet Project(*.ssp;;Text File(*.txt");
+    
+    if(QfileName.isNull())
+    {
+        QMessageBox::critical(this, tr("File Save Failed"), tr("File Saving Failed!"));
+    }
+    file = QfileName.toStdString();
+    
+    //file = sprite.toString();
+    return file;
 }
 
-Sprite MainWindow::Load(std::string file){
-    const int BUFSIZE = 1024;
-    char buffer[BUFSIZE] = {0};
-    OPENFILENAME openBox = {0};
-    openBox.lStructSize = sizeof( ofns );
-    openBox.lpstrFile = buffer;
-    openBox.nMaxFile = BUFSIZE;
-    openBox.lpstrTitle = file.c_str();
-    GetOpenFileName(&openBox);
-    std::string = buffer;
-    Sprite s = new Sprite(buffer);
-    return s;
+Sprite MainWindow::Load(){
+    QString QfileName = QFileDialog::getOpenFileName(
+                this, tr("Open Project"), "C://", 
+                "Sprite Sheet Project(*.ssp);;Text Files(*.txt)");
+    
+    std::string file = QfileName.toStdString();
+    std::string ext = "";
+    if(file.find_last_of(".") !=  std::string::npos)
+    {
+        ext = file.substr(file.find_last_of(".") + 1);
+    }
+    else 
+    {
+        QMessageBox::critical(this, tr("File Load Failed"), tr("File Loading Failed!"));
+    }
+    if(ext != ".ssp" || ext != ".txt")
+    {
+        QMessageBox::critical(this, tr("File Load Failed"), tr("File Loading Failed!"));
+    }
+    
+    // kind of a test of sorts...
+    QMessageBox::information(this, tr("Filename Opened"), fileName);
+    //call the sprite method here with file.
 }
