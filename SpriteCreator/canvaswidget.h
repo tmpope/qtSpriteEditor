@@ -12,7 +12,7 @@ public:
      *
      * Represents what tool is currently being used on the CanvasWidget.
      */
-    enum possible_tool_t { EYE_DROPPER, PENCIL, ERASER };
+    enum possible_tool_t { EYE_DROPPER, PENCIL, ERASER, BUCKET };
 
 private:
 

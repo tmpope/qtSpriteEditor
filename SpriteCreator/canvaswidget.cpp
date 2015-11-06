@@ -9,14 +9,13 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
 {
     currentTool = PENCIL;
     lastTool = ERASER;
-    sprite = new Sprite(5, 5);
+    sprite = new Sprite(4, 4);
 
-    currentColor = QColor::fromRgb(255, 0, 0);
+    currentColor = QColor::fromRgb(255, 25, 25);
     currentFrame = 0;
 }
 
 CanvasWidget::~CanvasWidget(){
-
     if(sprite != NULL)
         delete sprite;
 }
@@ -64,6 +63,9 @@ void CanvasWidget::mouseMoveEvent(QMouseEvent *event)
     if(gridX != lastX || gridY != lastY){
 
         std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
+        colorSelectedPixel(gridX, gridY);
+        repaint();
+
         lastX = gridX;
         lastY = gridY;
     }
@@ -82,14 +84,9 @@ void CanvasWidget::mouseReleaseEvent(QMouseEvent *event)
 
 void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
 {
-    // TODO: Request information from the model to handle this
-//    if(currentSprite == nullptr)
-//        return;
+    if(sprite == NULL)
+        return;
 
-    // HOW TO DO: Simply get the lastX and lastY from the model, and only update that one.
-    // You don't want to redraw everything over and over. The only exception is when a
-    // sprite is pulled up. Then you'll want to redraw everything. Maybe have a variable
-    // that handles when that happens.
     QPainter painter(this);
     double singleWidth = width() / (double)sprite->getWidth();
     double singleHeight = height() / (double)sprite->getHeight();
@@ -141,8 +138,25 @@ void CanvasWidget::colorSelectedPixel(int xPos, int yPos){
             sprite->setPixel(xPos, yPos, currentFrame, pixel);
             std::cout << "Pencil drawing " << pixel.toString() << " to (" << xPos << ", " <<  yPos << ")" << std::endl;
         break;
+
         case ERASER:
+            pixel = Sprite::color(255, 255, 255, 255);
+            sprite->setPixel(xPos, yPos, currentFrame, pixel);
+            std::cout << "Erasing pixel at (" << xPos << ", " << yPos << ")" << std::endl;
         break;
+
+        case BUCKET:
+            sprite->fillPixel(xPos, yPos, currentFrame, pixel);
+            std::cout << "Filling pixels at (" << xPos << ", " << yPos << ")" << std::endl;
+        break;
+
+        case EYE_DROPPER:
+            pixel = sprite->getPixel(xPos, yPos, currentFrame);
+            currentColor.setRgb(pixel.r, pixel.g, pixel.b, pixel.a);
+            // TODO: Change tool back to pencil here?
+//            setCurrentTool(PENCIL);
+        break;
+
         default:
         break;
 

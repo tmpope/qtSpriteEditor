@@ -83,7 +83,7 @@ TEST(Frames, RemoveMiddleFrames)
 	EXPECT_EQ(2, s.getFrameCount());
 }
 
-TEST(Frames, RemoveBeginingFrames) 
+TEST(Frames, RemoveBeginningFrames) 
 {
 	Sprite s(3, 100);
 	EXPECT_EQ(1, s.getFrameCount());
@@ -173,6 +173,68 @@ TEST(Fill, FillBlankFrame)
 		for (int j = 0; j < s.getHeight(); j++)
 		{
 			EXPECT_EQ(newColor, s.getPixel(i, j, 0));
+		}
+	}
+}
+
+TEST(Fill, FillAnotherBlankFrame)
+{
+	Sprite s(16, 16);
+	struct Sprite::color defaultColor(255,255,255,0);
+	struct Sprite::color newColor(255, 25, 25, 0);
+
+	for (int i = 0; i < s.getWidth(); i++) 
+	{
+		for (int j = 0; j < s.getHeight(); j++)
+		{
+			EXPECT_EQ(defaultColor, s.getPixel(i, j, 0));
+		}
+	}
+
+	s.fillPixel(0, 0, 0, newColor);
+
+	for (int i = 0; i < s.getWidth(); i++) 
+	{
+		for (int j = 0; j < s.getHeight(); j++)
+		{
+			EXPECT_EQ(newColor, s.getPixel(i, j, 0));
+		}
+	}
+}
+
+TEST(Fill, FillSpecificArea){
+	Sprite s(13, 10);
+	struct Sprite::color defaultColor(255,255,255,0);
+	struct Sprite::color newColor(255, 25, 25, 0);
+
+	for(int y = 0; y < s.getHeight(); y++){
+		for(int x = 0; x < s.getWidth(); x++){
+			s.setPixel(x, y, 0, newColor);
+		}
+	}
+
+	s.setPixel(0, 0, 0, defaultColor);
+	s.setPixel(0, 1, 0, defaultColor);
+	s.setPixel(0, 2, 0, defaultColor);
+	s.setPixel(0, 3, 0, defaultColor);
+	s.setPixel(1, 3, 0, defaultColor);
+	s.setPixel(2, 3, 0, defaultColor);
+	s.setPixel(3, 3, 0, defaultColor);
+	s.setPixel(4, 3, 0, defaultColor);
+	s.setPixel(5, 3, 0, defaultColor);
+	s.setPixel(6, 3, 0, defaultColor);
+	s.setPixel(7, 3, 0, defaultColor);
+	s.setPixel(8, 3, 0, defaultColor);
+	s.setPixel(9, 3, 0, defaultColor);
+	s.setPixel(10, 3, 0, defaultColor);
+	s.setPixel(11, 3, 0, defaultColor);
+	s.setPixel(12, 3, 0, defaultColor);
+
+	s.fillPixel(0, 5, newColor);
+
+	for(int y = 0; y < s.getHeight(); y++){
+		for(int x = 0; x < s.getWidth(); x++){
+			EXPECT_EQ(newColor, s.getPixel(x, y, 0));
 		}
 	}
 }
