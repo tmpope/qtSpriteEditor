@@ -20,7 +20,7 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     canvaswidget.h \
-    sprite.h \
-    WriteGIF.h
+    WriteGIF.h \
+    sprite.h
 
 FORMS    += mainwindow.ui

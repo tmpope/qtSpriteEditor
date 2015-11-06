@@ -17,8 +17,6 @@ public:
 private:
 
     /* The width and height of the sprite */
-    int spriteWidth;
-    int spriteHeight;
 
     /* The last points that were used */
     int lastX, lastY;
@@ -34,7 +32,7 @@ private:
     QColor currentColor;
 
     /* What the current sprite is - the model. */
-    Sprite *currentSprite;
+    Sprite *sprite;
 
     /* The current frame of the sprite that we are drawing to. */
     int currentFrame;
@@ -47,16 +45,6 @@ public:
      */
     CanvasWidget(QWidget *);
     ~CanvasWidget();
-
-    /**
-     * @brief setSpriteDimensions
-     *
-     * Sets the sprite dimensions. Must be a width and height greater than 1!
-     *
-     * @param width of the sprite
-     * @param height of the sprite
-     */
-    void setSpriteDimensions(int, int);
 
     /**
      * @brief setCurrentTool

@@ -9,23 +9,15 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
 {
     currentTool = PENCIL;
     lastTool = ERASER;
+    sprite = new Sprite(5, 5);
 
-    currentColor = QColor::fromRgb(255, 255, 255);
+    currentColor = QColor::fromRgb(255, 0, 0);
 }
 
 CanvasWidget::~CanvasWidget(){
 
-    // TODO: I attempted to call the destructor on the currentSprite, but this throws a compiler
-    // error when it's uncommented. We need to figure out what the problem is.
-//    if(currentSprite != nullptr)
-//        delete currentSprite;
-}
-
-
-void CanvasWidget::setSpriteDimensions(int width, int height)
-{
-    spriteWidth = width;
-    spriteHeight = height;
+    if(sprite != NULL)
+        delete sprite;
 }
 
 /* Indicates to the model what's the haps */
@@ -47,10 +39,22 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event)
     int x = event->x();
     int y = event->y();
 
-    int gridX = x * spriteWidth / width();
-    int gridY = y * spriteHeight / height();
+    int gridX = x * sprite->getWidth() / width();
+    int gridY = y * sprite->getHeight() / height();
 
     std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
+//    int *r, *g, *b, *a;
+//    currentColor.getRgb(r, g, b, a);
+    struct Sprite::color pixel(255, 0, 0, 0);
+    switch(currentTool) {
+        case PENCIL:
+            sprite->setPixel(gridX, gridY, currentFrame, pixel);
+            std::cout << "Pencil drawing " << pixel.toString() << " to (" << gridX << ", " <<  gridY << ")" << std::endl;
+        break;
+        default:
+        break;
+
+    }
 
     // TODO: This throws a compiler error as well.
 //    int *r, *g, *b, *a;
@@ -60,7 +64,7 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event)
 
     lastX = gridX;
     lastY = gridY;
-
+    repaint();
 }
 
 /* Indicates to the model what's the haps */
@@ -69,8 +73,8 @@ void CanvasWidget::mouseMoveEvent(QMouseEvent *event)
     int x = event->x();
     int y = event->y();
 
-    int gridX = x * spriteWidth / width();
-    int gridY = y * spriteHeight / height();
+    int gridX = x * sprite->getWidth() / width();
+    int gridY = y * sprite->getHeight() / height();
 
     if(gridX != lastX || gridY != lastY){
 
@@ -102,17 +106,19 @@ void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
     // sprite is pulled up. Then you'll want to redraw everything. Maybe have a variable
     // that handles when that happens.
     QPainter painter(this);
-    double singleWidth = width() / (double)spriteWidth;
-    double singleHeight = height() / (double)spriteHeight;
+    double singleWidth = width() / (double)sprite->getWidth();
+    double singleHeight = height() / (double)sprite->getHeight();
 
-    for(int row = 0; row < spriteHeight; row++)
-        for(int col = 0; col < spriteWidth; col++){
+    for(int row = 0; row < sprite->getHeight(); row++)
+        for(int col = 0; col < sprite->getWidth(); col++){
             int x = singleWidth * col + 0 /*singleWidth / 2*/;
             int y = singleHeight * row + 0 /*singleHeight / 2*/;
 
             QRect rect(x, y, singleWidth, singleHeight);
-            QColor color(0, 0, 0);
-            painter.drawRect(rect);
+            struct Sprite::color pixelColor = sprite->getPixel(col, row, currentFrame);
+            QColor color(pixelColor.r, pixelColor.g, pixelColor.b);//pixelColor.r, pixelColor.g, pixelColor.b);
+            painter.setPen(color);
+            painter.fillRect(rect, color);
 
             if(row == 0 && col == 0){
                 std::cout << width() << " " << height() << std::endl;

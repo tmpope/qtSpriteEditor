@@ -4,6 +4,7 @@
 
 #include <string>
 #include <inttypes.h>
+#include <sstream>
 
 
 class Sprite
@@ -20,6 +21,12 @@ public: //because color needs to be defined before we use it, but needs to be pu
 		inline bool operator==(const color& other) const
 		{
 	       return (other.r == r && other.g == g && other.b == b && other.a == a);
+	    }
+	    inline std::string toString()
+	    {
+			std::stringstream ss;
+			ss << (int) r << ' ' << (int) g << ' ' << (int) b << ' ' << (int) a;
+			return ss.str();
 	    }
 	};
 private:
@@ -76,6 +83,7 @@ public:
 	 */
 	void fillPixel(int x, int y, int frame, struct color color);
 	// void fillRecursive(int x, int y, int frame, struct color color);
+	void drawImage(unsigned char* image, const int frame);
 	void exportToGif(std::string fileName);
 	/**
 	 * Adds a new frame to the sprite
