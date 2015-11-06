@@ -555,7 +555,7 @@ void write(GIF* gif, const char* filename)
 	
 	if(! filename){
 		static char defaultFilename[256] = "test.gif";
-		snprintf(defaultFilename, 256, "%d.gif", int(time(0)));
+        snprintf(defaultFilename, 256, "%d.gif", int(time(0))); // NOTE: I guess for windows you need an underscore. WTF!?
 		filename = defaultFilename;
 	}
 	FILE* f = fopen(filename, "wb");

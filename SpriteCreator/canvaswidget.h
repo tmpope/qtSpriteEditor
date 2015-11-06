@@ -12,13 +12,11 @@ public:
      *
      * Represents what tool is currently being used on the CanvasWidget.
      */
-    enum possible_tool_t { EYE_DROPPER, PENCIL, ERASER };
+    enum possible_tool_t { EYE_DROPPER, PENCIL, ERASER, BUCKET };
 
 private:
 
     /* The width and height of the sprite */
-    int spriteWidth;
-    int spriteHeight;
 
     /* The last points that were used */
     int lastX, lastY;
@@ -34,7 +32,7 @@ private:
     QColor currentColor;
 
     /* What the current sprite is - the model. */
-    Sprite *currentSprite;
+    Sprite *sprite;
 
     /* The current frame of the sprite that we are drawing to. */
     int currentFrame;
@@ -47,16 +45,6 @@ public:
      */
     CanvasWidget(QWidget *);
     ~CanvasWidget();
-
-    /**
-     * @brief setSpriteDimensions
-     *
-     * Sets the sprite dimensions. Must be a width and height greater than 1!
-     *
-     * @param width of the sprite
-     * @param height of the sprite
-     */
-    void setSpriteDimensions(int, int);
 
     /**
      * @brief setCurrentTool
@@ -112,6 +100,19 @@ protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 
     // TODO: Resize listener?
+
+private:
+    /**
+     * @brief colorSelectedPixel
+     *
+     * Helper method that colors the selected pixel according to whatever tool is
+     * currently selected. If the xPos or yPos does not exist in the sprite, this
+     * method does nothing.
+     *
+     * @param xPos
+     * @param yPos
+     */
+    void colorSelectedPixel(int xPos, int yPos);
 };
 
 #endif // CANVASWIDGET_H
