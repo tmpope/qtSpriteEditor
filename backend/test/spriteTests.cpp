@@ -230,7 +230,7 @@ TEST(Fill, FillSpecificArea){
 	s.setPixel(11, 3, 0, defaultColor);
 	s.setPixel(12, 3, 0, defaultColor);
 
-	s.fillPixel(0, 5, 0, newColor);
+	s.fillPixel(12, 3, 0, newColor);
 
 	for(int y = 0; y < s.getHeight(); y++){
 		for(int x = 0; x < s.getWidth(); x++){
