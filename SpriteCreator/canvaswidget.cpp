@@ -12,6 +12,7 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
     sprite = new Sprite(5, 5);
 
     currentColor = QColor::fromRgb(255, 0, 0);
+    currentFrame = 0;
 }
 
 CanvasWidget::~CanvasWidget(){
@@ -43,24 +44,8 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event)
     int gridY = y * sprite->getHeight() / height();
 
     std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
-//    int *r, *g, *b, *a;
-//    currentColor.getRgb(r, g, b, a);
-    struct Sprite::color pixel(255, 0, 0, 0);
-    switch(currentTool) {
-        case PENCIL:
-            sprite->setPixel(gridX, gridY, currentFrame, pixel);
-            std::cout << "Pencil drawing " << pixel.toString() << " to (" << gridX << ", " <<  gridY << ")" << std::endl;
-        break;
-        default:
-        break;
 
-    }
-
-    // TODO: This throws a compiler error as well.
-//    int *r, *g, *b, *a;
-//    currentColor.getRgb(r, g, b, a);
-//    currentSprite->setPixel(gridX, gridY, currentFrame, *r, *g, *b, *a);
-
+    colorSelectedPixel(gridX, gridY);
 
     lastX = gridX;
     lastY = gridY;
@@ -111,12 +96,12 @@ void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
 
     for(int row = 0; row < sprite->getHeight(); row++)
         for(int col = 0; col < sprite->getWidth(); col++){
-            int x = singleWidth * col + 0 /*singleWidth / 2*/;
-            int y = singleHeight * row + 0 /*singleHeight / 2*/;
+            int x = singleWidth * col;
+            int y = singleHeight * row;
 
             QRect rect(x, y, singleWidth, singleHeight);
             struct Sprite::color pixelColor = sprite->getPixel(col, row, currentFrame);
-            QColor color(pixelColor.r, pixelColor.g, pixelColor.b);//pixelColor.r, pixelColor.g, pixelColor.b);
+            QColor color(pixelColor.r, pixelColor.g, pixelColor.b);
             painter.setPen(color);
             painter.fillRect(rect, color);
 
@@ -132,8 +117,36 @@ void CanvasWidget::setCurrentTool(possible_tool_t tool)
     currentTool = tool;
 }
 
-void CanvasWidget::setCurrentColor(int r, int g, int b, int a){
+void CanvasWidget::setCurrentColor(int r, int g, int b, int a)
+{
     currentColor.setRgb(r, g, b, a);
+}
+
+void CanvasWidget::colorSelectedPixel(int xPos, int yPos){
+    int *r = new int(0);
+    int *g = new int(0);
+    int *b = new int(0);
+    int *a = new int(0);
+
+    currentColor.getRgb(r, g, b, a);
+    struct Sprite::color pixel(*r, *g, *b, *a);
+
+    delete r;
+    delete g;
+    delete b;
+    delete a;
+
+    switch(currentTool) {
+        case PENCIL:
+            sprite->setPixel(xPos, yPos, currentFrame, pixel);
+            std::cout << "Pencil drawing " << pixel.toString() << " to (" << xPos << ", " <<  yPos << ")" << std::endl;
+        break;
+        case ERASER:
+        break;
+        default:
+        break;
+
+    }
 }
 
 

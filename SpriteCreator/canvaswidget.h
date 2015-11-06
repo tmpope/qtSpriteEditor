@@ -100,6 +100,19 @@ protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 
     // TODO: Resize listener?
+
+private:
+    /**
+     * @brief colorSelectedPixel
+     *
+     * Helper method that colors the selected pixel according to whatever tool is
+     * currently selected. If the xPos or yPos does not exist in the sprite, this
+     * method does nothing.
+     *
+     * @param xPos
+     * @param yPos
+     */
+    void colorSelectedPixel(int xPos, int yPos);
 };
 
 #endif // CANVASWIDGET_H
