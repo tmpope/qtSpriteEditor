@@ -18,8 +18,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    std::string Save(Sprite sprite);
-    Sprite Load(std::string file);
+    Sprite Load();
+    std::string Save();
 
 private:
     Ui::MainWindow *ui;
