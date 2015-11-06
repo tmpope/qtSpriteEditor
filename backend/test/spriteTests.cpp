@@ -179,7 +179,7 @@ TEST(Fill, FillBlankFrame)
 
 TEST(Fill, FillAnotherBlankFrame)
 {
-	Sprite s(16, 16);
+	Sprite s(32, 32);
 	struct Sprite::color defaultColor(255,255,255,0);
 	struct Sprite::color newColor(255, 25, 25, 0);
 
@@ -230,7 +230,7 @@ TEST(Fill, FillSpecificArea){
 	s.setPixel(11, 3, 0, defaultColor);
 	s.setPixel(12, 3, 0, defaultColor);
 
-	s.fillPixel(0, 5, newColor);
+	s.fillPixel(0, 5, 0, newColor);
 
 	for(int y = 0; y < s.getHeight(); y++){
 		for(int x = 0; x < s.getWidth(); x++){
