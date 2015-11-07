@@ -129,7 +129,8 @@ void Sprite::drawImage(unsigned char* image, const int frame)
 void Sprite::exportToGif(std::string fileName) 
 {
 	//Should be very straightforward
-	int delay = 5;
+	int fps = 24;
+	int delay = 100 / fps;
 	gif::GIF* g = gif::newGIF(delay);
 	unsigned char rgbImage[width * height * 3];
 	for(int i=0; i < frameCount; i++)
@@ -181,6 +182,7 @@ int Sprite::addFrame()
 		pixels[i].a = 0;  //TODO except this one - 0 (transparent)
 	}
 	delete[] temp;
+	return frameCount;
 }
 
 int Sprite::removeFrame(int frame) 
@@ -196,4 +198,5 @@ int Sprite::removeFrame(int frame)
 		}
 	}
 	delete[] temp;
+	return frameCount;
 }

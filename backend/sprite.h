@@ -34,6 +34,7 @@ private:
 	int height;
 	int frameCount;
 	struct color* pixels;
+	void drawImage(unsigned char* image, const int frame);
 
 	Sprite(const Sprite& other);	//copy constructor
 	Sprite& operator=(const Sprite& other);
@@ -84,7 +85,6 @@ public:
 	 */
 	void fillPixel(int x, int y, int frame, struct color color);
 	// void fillRecursive(int x, int y, int frame, struct color color);
-	void drawImage(unsigned char* image, const int frame);
 	void exportToGif(std::string fileName);
 	/**
 	 * Adds a new frame to the sprite
