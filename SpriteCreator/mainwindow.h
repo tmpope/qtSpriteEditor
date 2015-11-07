@@ -14,15 +14,18 @@ class MainWindow : public QMainWindow
 
     CanvasWidget *canvas;
 
-
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    std::string Save(Sprite sprite);
-    Sprite Load(std::string file);
+
+public slots:
+    std::string Save();
+    Sprite* Load();
 
 private:
     Ui::MainWindow *ui;
+    Sprite* sprite;
+    std::string file;
 };
 
 #endif // MAINWINDOW_H

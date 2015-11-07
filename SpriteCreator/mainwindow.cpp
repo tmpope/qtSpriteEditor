@@ -4,19 +4,24 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QFile>
+#include <QTextStream>
+#include <iostream>
+#include <iomanip>
+#include "canvaswidget.h"
+#include "sprite.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    sprite = new Sprite(16,16);
+    std::string file = "";
+    //canvas = new CanvasWidget(this);
 
-    canvas = new CanvasWidget(this);
-    canvas->setSpriteDimensions(12, 12);
-
-    setCentralWidget(canvas);
+    //setCentralWidget(canvas);
     
-    //connect();
+    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(Save()));
 }
 
 MainWindow::~MainWindow()
@@ -26,25 +31,41 @@ MainWindow::~MainWindow()
 
 std::string MainWindow::Save(){
     //get the file contents from the sprite.
-    QString QfileName = QFileDialog::getSaveFileName(
+    QFileDialog dialog(this);
+    dialog.setDefaultSuffix(".ssp");
+    QString QfileName = dialog.getSaveFileName(
                 this, tr("Save Project"), "C://", 
-                "Sprite Sheet Project(*.ssp;;Text File(*.txt");
-    
+                "Sprite Sheet Project(*.ssp);;Text File(*.txt)");
+
+    QFile outputFile(QfileName);
+    outputFile.open(QIODevice::WriteOnly);
+    if(!outputFile.isOpen()){
+        QMessageBox::critical(this, tr("File Load Failed"), tr("Failed to write"));
+    }
+    QTextStream outStream(&outputFile);
+    outStream << "Hello there!\n";
+    outputFile.close();
+
+    file = QfileName.toStdString();
+    QMessageBox::information(this, tr("File"), tr("File Saved"));
+
     if(QfileName.isNull())
     {
-        QMessageBox::critical(this, tr("File Save Failed"), tr("File Saving Failed!"));
+        QMessageBox::critical(this, tr("File Save Failed"), tr("File is Null"));
     }
-    file = QfileName.toStdString();
-    
-    //file = sprite.toString();
+    std::cout << file << std::endl;
+
     return file;
 }
 
-Sprite MainWindow::Load(){
+Sprite* MainWindow::Load(){
     QString QfileName = QFileDialog::getOpenFileName(
                 this, tr("Open Project"), "C://", 
                 "Sprite Sheet Project(*.ssp);;Text Files(*.txt)");
-    
+    QFile outputFile(QfileName);
+
+
+
     std::string file = QfileName.toStdString();
     std::string ext = "";
     if(file.find_last_of(".") !=  std::string::npos)
@@ -59,8 +80,8 @@ Sprite MainWindow::Load(){
     {
         QMessageBox::critical(this, tr("File Load Failed"), tr("File Loading Failed!"));
     }
-    
-    // kind of a test of sorts...
-    QMessageBox::information(this, tr("Filename Opened"), fileName);
+
     //call the sprite method here with file.
+    return sprite;
 }
+

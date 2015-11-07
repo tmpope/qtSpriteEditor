@@ -74,6 +74,8 @@ int Sprite::addFrame() {
 		pixels[i].a = 0;  //TODO except this one - 0 (transparent)
 	}
 	delete[] temp;
+
+    return 1; // a stub
 }
 
 int Sprite::removeFrame(int frame) {
@@ -87,4 +89,6 @@ int Sprite::removeFrame(int frame) {
 		}
 	}
 	delete[] temp;
+
+    return 1; // a stub
 }
