@@ -7,7 +7,6 @@
 #include <QTextStream>
 #include <iostream>
 #include <iomanip>
-#include "canvaswidget.h"
 #include "sprite.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -72,7 +71,8 @@ Sprite* MainWindow::Load(){
     {
         ext = file.substr(file.find_last_of(".") + 1);
     }
-    else 
+
+    else
     {
         QMessageBox::critical(this, tr("File Load Failed"), tr("File Loading Failed!"));
     }
@@ -84,4 +84,3 @@ Sprite* MainWindow::Load(){
     //call the sprite method here with file.
     return sprite;
 }
-
