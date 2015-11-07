@@ -43,6 +43,7 @@ public:
 	 * Pixels each default to white transparent until set otherwise.
 	 */
 	Sprite(int height, int width);
+	Sprite(std::string sspString);
 	~Sprite();
 	int getHeight() const 
 	{

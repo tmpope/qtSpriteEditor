@@ -1,3 +1,4 @@
+#include <exception>
 #include <fstream>
 #include <ios>
 #include <iostream>
@@ -9,7 +10,8 @@
 #include "sprite.h"
 #include <cstring>
 
-Sprite::Sprite(int height, int width) {
+Sprite::Sprite(int height, int width) 
+{
 	this->width = width;
 	this->height = height;
 	this->frameCount = 1;
@@ -23,19 +25,55 @@ Sprite::Sprite(int height, int width) {
 	}
 }
 
-Sprite::~Sprite() {
+Sprite::Sprite(std::string sspString)
+{
+	std::vector<int> sprite;
+	std::stringstream ss(sspString);
+	int i;
+
+	while (ss >> i)
+	{
+	    sprite.push_back(i);
+
+	    if (ss.peek() == ' ' || ss.peek() == '\n')
+	        ss.ignore();
+	}
+	if (sprite.size() < 3 || sprite.size() != 3 + 4 * sprite[0] * sprite[1] * sprite[2])
+	{
+		std::cout << "Improper .ssp file" << std::endl;
+		// fileException.throw();
+	}
+	this->width = sprite[0];
+	this->height = sprite[1];
+	this->frameCount = sprite[2];
+	int size = this->frameCount * this->height * this->width;
+	this->pixels = new struct color[size];
+	for(int i = 0; i < size; i++) 
+	{
+		pixels[i].r = sprite[3 + 4 * i + 0];
+		pixels[i].g = sprite[3 + 4 * i + 1];
+		pixels[i].b = sprite[3 + 4 * i + 2];
+		pixels[i].a = sprite[3 + 4 * i + 3];
+	}
+}
+
+Sprite::~Sprite() 
+{
 	delete[] pixels;
 }
 
-struct Sprite::color Sprite::getPixel(int x, int y, int frame) {
+struct Sprite::color Sprite::getPixel(int x, int y, int frame) 
+{
 	return pixels[frame * width * height + x + y * width];
 }
 
-void Sprite::setPixel(int x, int y, int frame, struct color color) {
+void Sprite::setPixel(int x, int y, int frame, struct color color) 
+{
 	pixels[frame * width * height + x + y * width] = color;
 }
 
-void Sprite::fillPixel(int x, int y, int frame, struct color color) {
+void Sprite::fillPixel(int x, int y, int frame, struct color color) 
+{
 	struct color oldColor = getPixel(x, y, frame);
 	if (color == oldColor)
 		return;
@@ -100,7 +138,7 @@ void Sprite::exportToGif(std::string fileName)
 		drawImage(rgbImage, i);
 		gif::addFrame(g, width, height, rgbImage, delay);
 	}
-	gif::write(g, NULL);
+	gif::write(g, fileName.c_str());
 	gif::dispose(g);
 	g = NULL;
 }
@@ -129,7 +167,8 @@ std::string Sprite::toString()
 	return ss.str();
 }
 
-int Sprite::addFrame() {
+int Sprite::addFrame() 
+{
 	struct color* temp = pixels;
 	int size = ++frameCount * height * width;
 	this->pixels = new struct color[size];
@@ -144,12 +183,14 @@ int Sprite::addFrame() {
 	delete[] temp;
 }
 
-int Sprite::removeFrame(int frame) {
+int Sprite::removeFrame(int frame) 
+{
 	struct color* temp = pixels;
 	int size = --frameCount * height * width;
 	this->pixels = new struct color[size];
 	int currentFrame = 0;
-	for(int i = 0; i < frameCount + 1; i++) {
+	for(int i = 0; i < frameCount + 1; i++) 
+	{
 		if(i != frame) {
 			memcpy(pixels + currentFrame++ * width * height, temp + i * width * height, 4 * width * height);
 		}
