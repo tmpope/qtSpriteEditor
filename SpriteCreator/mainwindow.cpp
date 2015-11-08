@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    sprite = new Sprite(16,16);
+    Sprite sprite(16,16);
     std::string file = "";
     //canvas = new CanvasWidget(this);
 
@@ -42,7 +42,7 @@ std::string MainWindow::Save(){
         QMessageBox::critical(this, tr("File Load Failed"), tr("Failed to write"));
     }
     QTextStream outStream(&outputFile);
-    outStream << "Hello there!\n";
+    outStream << sprite->toString().c_str();
     outputFile.close();
 
     file = QfileName.toStdString();

@@ -41,6 +41,14 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event)
 
     int gridX = x * sprite->getWidth() / width();
     int gridY = y * sprite->getHeight() / height();
+    if (gridX >= sprite->getWidth())
+        gridX = sprite->getWidth() - 1;
+    if (gridY >= sprite->getHeight())
+        gridY = sprite->getHeight() - 1;
+    if (gridX < 0)
+        gridX = 0;
+    if(gridY < 0)
+        gridY = 0;
 
     std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
 
@@ -59,6 +67,14 @@ void CanvasWidget::mouseMoveEvent(QMouseEvent *event)
 
     int gridX = x * sprite->getWidth() / width();
     int gridY = y * sprite->getHeight() / height();
+    if (gridX >= sprite->getWidth())
+        gridX = sprite->getWidth() - 1;
+    if (gridY >= sprite->getHeight())
+        gridY = sprite->getHeight() - 1;
+    if (gridX < 0)
+        gridX = 0;
+    if(gridY < 0)
+        gridY = 0;
 
     if(gridX != lastX || gridY != lastY){
 
