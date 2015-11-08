@@ -3,6 +3,7 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QRgb>
+#include <string>
 #include "sprite.h"
 
 CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
@@ -18,6 +19,13 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
 CanvasWidget::~CanvasWidget(){
     if(sprite != NULL)
         delete sprite;
+}
+
+char* CanvasWidget::getSprite()
+{
+    //std::cout << sprite->toString();
+//    std::cout << "Grid coordinates: (" << ", " << ")" << sprite->toString() << std::endl;
+    return "hello";
 }
 
 /* Indicates to the model what's the haps */
@@ -50,7 +58,7 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event)
     if(gridY < 0)
         gridY = 0;
 
-    std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
+    std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << sprite->toString() << std::endl;
 
     colorSelectedPixel(gridX, gridY);
 

@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>773</width>
+    <width>688</width>
     <height>578</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="CanvasWidget" name="centralWidget">
+  <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
      <widget class="QPushButton" name="pushButton">
@@ -25,6 +25,9 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="0">
+     <widget class="CanvasWidget" name="canvas" native="true"/>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -32,10 +35,18 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>773</width>
-     <height>22</height>
+     <width>688</width>
+     <height>25</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuObey_Your_Thirst_Sprite_Creator">
+    <property name="title">
+     <string>Obey Your Thirst Sprite Creator</string>
+    </property>
+    <addaction name="actionSave_2"/>
+    <addaction name="actionLoad_2"/>
+   </widget>
+   <addaction name="menuObey_Your_Thirst_Sprite_Creator"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -52,6 +63,16 @@
    </property>
   </action>
   <action name="actionLoad">
+   <property name="text">
+    <string>Load</string>
+   </property>
+  </action>
+  <action name="actionSave_2">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionLoad_2">
    <property name="text">
     <string>Load</string>
    </property>
