@@ -198,3 +198,20 @@ int Sprite::removeFrame(int frame)
 	delete[] temp;
 	return frameCount;
 }
+
+int Sprite::cloneFrame(int frame) 
+{
+	struct color* temp = pixels;
+	int size = ++frameCount * height * width;
+	this->pixels = new struct color[size];
+	int currentFrame = 0;
+	for(int i = 0; i < frameCount + 1; i++) 
+	{
+		memcpy(pixels + currentFrame++ * width * height, temp + i * width * height, 4 * width * height);
+		if(i == frame) {
+		memcpy(pixels + currentFrame++ * width * height, temp + i * width * height, 4 * width * height);
+		}
+	}
+	delete[] temp;
+	return frameCount;
+}
