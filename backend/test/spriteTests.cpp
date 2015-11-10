@@ -2,8 +2,11 @@
 #include "gtest/gtest.h"
 #include <iostream>
 
-int main(int argc, char** argv) 
+char** argv;
+
+int main(int argc, char** _argv) 
 {
+	argv = _argv;
 	testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
 }
@@ -47,6 +50,29 @@ TEST(BasicCases, InstantiateStringRainbow)
 	struct Sprite::color color4(255, 000, 000, 254);
 	struct Sprite::color color5(255, 150, 000, 254);
 	struct Sprite::color color6(255, 255, 000, 254);
+	EXPECT_EQ(color1, sprite.getPixel(0,3,0));
+	EXPECT_EQ(color1, sprite.getPixel(1,3,1));
+	EXPECT_EQ(color1, sprite.getPixel(2,3,2));
+	EXPECT_EQ(color1, sprite.getPixel(3,3,3));
+	EXPECT_EQ(color2, sprite.getPixel(0,3,1));
+	EXPECT_EQ(color3, sprite.getPixel(0,3,2));
+	EXPECT_EQ(color4, sprite.getPixel(0,3,3));
+	EXPECT_EQ(color5, sprite.getPixel(0,3,4));
+	EXPECT_EQ(color6, sprite.getPixel(0,3,5));
+}
+
+TEST(BasicCases, InstantiateGifImport)
+{
+	Sprite sprite("rainbowTest.gif", true);
+	EXPECT_EQ(4, sprite.getHeight());
+	EXPECT_EQ(4, sprite.getWidth());
+	EXPECT_EQ(6, sprite.getFrameCount());
+	struct Sprite::color color1(000, 255, 000, 0);
+	struct Sprite::color color2(000, 000, 255, 0);
+	struct Sprite::color color3(255, 000, 255, 0);
+	struct Sprite::color color4(255, 000, 000, 0);
+	struct Sprite::color color5(255, 150, 000, 0);
+	struct Sprite::color color6(255, 255, 000, 0);
 	EXPECT_EQ(color1, sprite.getPixel(0,3,0));
 	EXPECT_EQ(color1, sprite.getPixel(1,3,1));
 	EXPECT_EQ(color1, sprite.getPixel(2,3,2));

@@ -1,0 +1,21 @@
+# Test environment
+top_srcdir='/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick'
+top_builddir='/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick'
+
+set -a
+COMPARE="/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/utilities/compare"
+COMPOSITE="/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/utilities/composite"
+CONJURE="/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/utilities/conjure"
+CONVERT="/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/utilities/convert"
+DISPLAY="/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/utilities/display"
+IDENTIFY="/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/utilities/identify"
+MONTAGE="/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/utilities/montage" 
+VALIDATE="/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/tests/validate"
+DRAWTEST="/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/tests/drawtest"
+WANDTEST="/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/tests/wandtest"
+LD_LIBRARY_PATH="/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/magick/.libs:${LD_LIBRARY_PATH}"
+MAGICK_CODER_MODULE_PATH="/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/coders"
+MAGICK_CONFIGURE_PATH="/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/config:/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/config"
+MAGICK_FILTER_MODULE_PATH="/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/filters"
+PATH="/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/utilities:/home/tpope/obeyYourThirst/qtSpriteEditor/ImageMagick/tests:${PATH}"
+set +a

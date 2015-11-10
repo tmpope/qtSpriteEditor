@@ -6,6 +6,7 @@
 #include <inttypes.h>
 #include <sstream>
 #include <vector>
+#include <stack>          // std::stack
 
 
 class Sprite
@@ -43,6 +44,8 @@ private:
 		struct color color;
 		std::vector<struct pixelLoc> pixelLocations;
 	};
+	std::stack<action> undoStack;
+	std::stack<action> redoStack;
 	int width;
 	int height;
 	int frameCount;
@@ -58,6 +61,7 @@ public:
 	 */
 	Sprite(int height, int width);
 	Sprite(std::string sspString);
+	Sprite(std::string gifFileName, bool isGif);
 	~Sprite();
 	int getHeight() const 
 	{

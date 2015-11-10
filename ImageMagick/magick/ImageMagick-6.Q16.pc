@@ -1,0 +1,13 @@
+prefix=/prefix
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/ImageMagick-6
+includearchdir=/prefix/include/ImageMagick-6
+libname=MagickCore-6.Q16
+ 
+Name: ImageMagick
+Description: ImageMagick - Convert, Edit, and Compose Images (ABI Q16)
+Version: 6.9.2
+Libs: -L${libdir} -l${libname}
+Libs.private: -L${libdir} -l${libname}         -lpng12           -lXext -lXt   -lSM -lICE -lX11        -lxml2    -lz    -lm -lgomp     -lm
+Cflags:  -I${includearchdir} -I${includedir} -fopenmp -DMAGICKCORE_HDRI_ENABLE=0 -DMAGICKCORE_QUANTUM_DEPTH=16
