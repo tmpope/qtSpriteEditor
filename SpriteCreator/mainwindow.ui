@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1116</width>
-    <height>887</height>
+    <width>1200</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="mouseTracking">
@@ -44,7 +44,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton">
+   <widget class="QToolButton" name="colorSelectorButton">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -61,7 +61,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>:/graphics/Color Wheel.png</normaloff>:/graphics/Color Wheel.png</iconset>
+      <normaloff>obey your thirst graphics/Color Wheel.png</normaloff>obey your thirst graphics/Color Wheel.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -111,7 +111,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="penButton">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -125,19 +125,19 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>:/graphics/Pen-icon.png</normaloff>:/graphics/Pen-icon.png</iconset>
+      <normaloff>obey your thirst graphics/Pen-icon.png</normaloff>obey your thirst graphics/Pen-icon.png</iconset>
     </property>
     <property name="iconSize">
      <size>
-      <width>32</width>
-      <height>32</height>
+      <width>29</width>
+      <height>29</height>
      </size>
     </property>
     <property name="checkable">
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="eyeDropperButton">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -151,19 +151,19 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>:/graphics/eyedropper-icon.png</normaloff>:/graphics/eyedropper-icon.png</iconset>
+      <normaloff>obey your thirst graphics/eyedropper-icon.png</normaloff>obey your thirst graphics/eyedropper-icon.png</iconset>
     </property>
     <property name="iconSize">
      <size>
-      <width>32</width>
-      <height>32</height>
+      <width>29</width>
+      <height>29</height>
      </size>
     </property>
     <property name="checkable">
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="cloneFrameButton">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -177,7 +177,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>:/graphics/clone.png</normaloff>:/graphics/clone.png</iconset>
+      <normaloff>obey your thirst graphics/clone.png</normaloff>obey your thirst graphics/clone.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -186,7 +186,7 @@
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="onionSkinButton">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -200,12 +200,12 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>:/graphics/sm-cut-onion.png</normaloff>:/graphics/sm-cut-onion.png</iconset>
+      <normaloff>obey your thirst graphics/sm-cut-onion.png</normaloff>obey your thirst graphics/sm-cut-onion.png</iconset>
     </property>
     <property name="iconSize">
      <size>
-      <width>30</width>
-      <height>30</height>
+      <width>29</width>
+      <height>29</height>
      </size>
     </property>
     <property name="checkable">
@@ -237,7 +237,7 @@
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <widget class="QToolBar" name="toolBar">
+  <widget class="QToolBar" name="pushButton">
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
@@ -271,7 +271,7 @@
   <action name="actionSave">
    <property name="icon">
     <iconset>
-     <normaloff>:/graphics/Lime-icon.png</normaloff>:/graphics/Lime-icon.png</iconset>
+     <normaloff>obey your thirst graphics/Lime-icon.png</normaloff>obey your thirst graphics/Lime-icon.png</iconset>
    </property>
    <property name="text">
     <string>Save</string>
@@ -283,7 +283,7 @@
   <action name="actionImport">
    <property name="icon">
     <iconset>
-     <normaloff>:/graphics/layer-import-icon.png</normaloff>:/graphics/layer-import-icon.png</iconset>
+     <normaloff>obey your thirst graphics/layer-import-icon.png</normaloff>obey your thirst graphics/layer-import-icon.png</iconset>
    </property>
    <property name="text">
     <string>Import</string>
@@ -295,7 +295,7 @@
   <action name="actionExport">
    <property name="icon">
     <iconset>
-     <normaloff>:/graphics/table-export-icon.png</normaloff>:/graphics/table-export-icon.png</iconset>
+     <normaloff>obey your thirst graphics/table-export-icon.png</normaloff>obey your thirst graphics/table-export-icon.png</iconset>
    </property>
    <property name="text">
     <string>Export</string>
@@ -307,7 +307,7 @@
   <action name="actionLoad">
    <property name="icon">
     <iconset>
-     <normaloff>:/graphics/Lemon-icon.png</normaloff>:/graphics/Lemon-icon.png</iconset>
+     <normaloff>obey your thirst graphics/Lemon-icon.png</normaloff>obey your thirst graphics/Lemon-icon.png</iconset>
    </property>
    <property name="text">
     <string>Load</string>
@@ -331,7 +331,7 @@
   <action name="actionNewFrame">
    <property name="icon">
     <iconset>
-     <normaloff>:/graphics/new-file-icon.png</normaloff>:/graphics/new-file-icon.png</iconset>
+     <normaloff>obey your thirst graphics/new-file-icon.png</normaloff>obey your thirst graphics/new-file-icon.png</iconset>
    </property>
    <property name="text">
     <string>New Frame</string>
@@ -343,7 +343,7 @@
   <action name="actionNewSprite">
    <property name="icon">
     <iconset>
-     <normaloff>:/graphics/Sprite.png</normaloff>:/graphics/Sprite.png</iconset>
+     <normaloff>obey your thirst graphics/Sprite.png</normaloff>obey your thirst graphics/Sprite.png</iconset>
    </property>
    <property name="text">
     <string>New Sprite</string>
