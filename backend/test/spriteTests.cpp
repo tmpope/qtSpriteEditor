@@ -2,8 +2,11 @@
 #include "gtest/gtest.h"
 #include <iostream>
 
-int main(int argc, char** argv) 
+char** argv;
+
+int main(int argc, char** _argv) 
 {
+	argv = _argv;
 	testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
 }
@@ -29,6 +32,56 @@ TEST(BasicCases, Instantiate)
 	EXPECT_EQ(10, sprite.getHeight());
 	EXPECT_EQ(10, sprite.getWidth());
 	EXPECT_EQ(1, sprite.getFrameCount());
+}
+
+TEST(BasicCases, InstantiateStringSimple)
+{
+	Sprite sprite("1 1\n1\n1 2 3 4");
+	struct Sprite::color testColor(1,2,3,4);
+	EXPECT_EQ(testColor, sprite.getPixel(0,0,0));
+}
+
+TEST(BasicCases, InstantiateStringRainbow)
+{
+	Sprite sprite("4 4\n6\n255 000 000 254 255 000 000 254 255 000 000 254 255 000 000 254\n255 150 000 254 255 150 000 254 255 150 000 254 255 000 000 254\n255 255 000 254 255 255 000 254 255 150 000 254 255 000 000 254\n000 255 000 254 255 255 000 254 255 150 000 254 255 000 000 254\n255 150 000 254 255 150 000 254 255 150 000 254 255 150 000 254\n255 255 000 254 255 255 000 254 255 255 000 254 255 150 000 254\n000 255 000 254 000 255 000 254 255 255 000 254 255 150 000 254\n000 000 255 254 000 255 000 254 255 255 000 254 255 150 000 254\n255 255 000 254 255 255 000 254 255 255 000 254 255 255 000 254\n000 255 000 254 000 255 000 254 000 255 000 254 255 255 000 254\n000 000 255 254 000 000 255 254 000 255 000 254 255 255 000 254\n255 000 255 254 000 000 255 254 000 255 000 254 255 255 000 254\n000 255 000 254 000 255 000 254 000 255 000 254 000 255 000 254\n000 000 255 254 000 000 255 254 000 000 255 254 000 255 000 254\n255 000 255 254 255 000 255 254 000 000 255 254 000 255 000 254\n255 000 000 254 255 000 255 254 000 000 255 254 000 255 000 254\n000 000 255 254 000 000 255 254 000 000 255 254 000 000 255 254\n255 000 255 254 255 000 255 254 255 000 255 254 000 000 255 254\n255 000 000 254 255 000 000 254 255 000 255 254 000 000 255 254\n255 150 000 254 255 000 000 254 255 000 255 254 000 000 255 254\n255 000 255 254 255 000 255 254 255 000 255 254 255 000 255 254\n255 000 000 254 255 000 000 254 255 000 000 254 255 000 255 254\n255 150 000 254 255 150 000 254 255 000 000 254 255 000 255 254\n255 255 000 254 255 150 000 254 255 000 000 254 255 000 255 254");
+	struct Sprite::color color1(000, 255, 000, 254);
+	struct Sprite::color color2(000, 000, 255, 254);
+	struct Sprite::color color3(255, 000, 255, 254);
+	struct Sprite::color color4(255, 000, 000, 254);
+	struct Sprite::color color5(255, 150, 000, 254);
+	struct Sprite::color color6(255, 255, 000, 254);
+	EXPECT_EQ(color1, sprite.getPixel(0,3,0));
+	EXPECT_EQ(color1, sprite.getPixel(1,3,1));
+	EXPECT_EQ(color1, sprite.getPixel(2,3,2));
+	EXPECT_EQ(color1, sprite.getPixel(3,3,3));
+	EXPECT_EQ(color2, sprite.getPixel(0,3,1));
+	EXPECT_EQ(color3, sprite.getPixel(0,3,2));
+	EXPECT_EQ(color4, sprite.getPixel(0,3,3));
+	EXPECT_EQ(color5, sprite.getPixel(0,3,4));
+	EXPECT_EQ(color6, sprite.getPixel(0,3,5));
+}
+
+TEST(BasicCases, InstantiateGifImport)
+{
+	Sprite sprite("rainbowTest.gif", true);
+	EXPECT_EQ(4, sprite.getHeight());
+	EXPECT_EQ(4, sprite.getWidth());
+	EXPECT_EQ(6, sprite.getFrameCount());
+	struct Sprite::color color1(000, 255, 000, 0);
+	struct Sprite::color color2(000, 000, 255, 0);
+	struct Sprite::color color3(255, 000, 255, 0);
+	struct Sprite::color color4(255, 000, 000, 0);
+	struct Sprite::color color5(255, 150, 000, 0);
+	struct Sprite::color color6(255, 255, 000, 0);
+	EXPECT_EQ(color1, sprite.getPixel(0,3,0));
+	EXPECT_EQ(color1, sprite.getPixel(1,3,1));
+	EXPECT_EQ(color1, sprite.getPixel(2,3,2));
+	EXPECT_EQ(color1, sprite.getPixel(3,3,3));
+	EXPECT_EQ(color2, sprite.getPixel(0,3,1));
+	EXPECT_EQ(color3, sprite.getPixel(0,3,2));
+	EXPECT_EQ(color4, sprite.getPixel(0,3,3));
+	EXPECT_EQ(color5, sprite.getPixel(0,3,4));
+	EXPECT_EQ(color6, sprite.getPixel(0,3,5));
 }
 
 TEST(BasicCases, Pointer) 
@@ -125,6 +178,44 @@ TEST(Frames, RemoveCorrectFrames)
 	EXPECT_EQ(2, s.getFrameCount());
 	EXPECT_EQ(frameOneColor, s.getPixel(0,0,0));
 	EXPECT_EQ(defaultColor, s.getPixel(0,0,1));
+}
+
+TEST(Frames, SimpleCloneFrame)
+{
+	Sprite s(1, 1);
+	s.addFrame();
+	s.addFrame();
+	s.setPixel(0, 0, 1, 5, 5, 5, 5);
+	s.setPixel(0, 0, 2, 55, 55, 55, 55);
+	struct Sprite::color defaultColor(255,255,255,0);
+	struct Sprite::color frameOneColor(5, 5, 5, 5);
+	struct Sprite::color frameTwoColor(55, 55, 55, 55);
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,0));
+	EXPECT_EQ(frameOneColor, s.getPixel(0,0,1));
+	EXPECT_EQ(frameTwoColor, s.getPixel(0,0,2));
+	EXPECT_EQ(3, s.getFrameCount());
+	s.cloneFrame(0);
+	EXPECT_EQ(4, s.getFrameCount());
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,0));
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,1));
+	EXPECT_EQ(frameOneColor, s.getPixel(0,0,2));
+	EXPECT_EQ(frameTwoColor, s.getPixel(0,0,3));
+	s.addFrame();
+	EXPECT_EQ(5, s.getFrameCount());
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,0));
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,1));
+	EXPECT_EQ(frameOneColor, s.getPixel(0,0,2));
+	EXPECT_EQ(frameTwoColor, s.getPixel(0,0,3));
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,4));
+	s.cloneFrame(2);
+	EXPECT_EQ(6, s.getFrameCount());
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,0));
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,1));
+	EXPECT_EQ(frameOneColor, s.getPixel(0,0,2));
+	EXPECT_EQ(frameOneColor, s.getPixel(0,0,3));
+	EXPECT_EQ(frameTwoColor, s.getPixel(0,0,4));
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,5));
+
 }
 
 TEST(SetPixel, BasicSet) 
@@ -241,7 +332,9 @@ TEST(Fill, FillSpecificArea){
 
 TEST(Export, GifExport) 
 {
-	FAIL(); //needs to be implemented to test somehow.
+	Sprite sprite("4 4\n6\n255 000 000 254 255 000 000 254 255 000 000 254 255 000 000 254\n255 150 000 254 255 150 000 254 255 150 000 254 255 000 000 254\n255 255 000 254 255 255 000 254 255 150 000 254 255 000 000 254\n000 255 000 254 255 255 000 254 255 150 000 254 255 000 000 254\n255 150 000 254 255 150 000 254 255 150 000 254 255 150 000 254\n255 255 000 254 255 255 000 254 255 255 000 254 255 150 000 254\n000 255 000 254 000 255 000 254 255 255 000 254 255 150 000 254\n000 000 255 254 000 255 000 254 255 255 000 254 255 150 000 254\n255 255 000 254 255 255 000 254 255 255 000 254 255 255 000 254\n000 255 000 254 000 255 000 254 000 255 000 254 255 255 000 254\n000 000 255 254 000 000 255 254 000 255 000 254 255 255 000 254\n255 000 255 254 000 000 255 254 000 255 000 254 255 255 000 254\n000 255 000 254 000 255 000 254 000 255 000 254 000 255 000 254\n000 000 255 254 000 000 255 254 000 000 255 254 000 255 000 254\n255 000 255 254 255 000 255 254 000 000 255 254 000 255 000 254\n255 000 000 254 255 000 255 254 000 000 255 254 000 255 000 254\n000 000 255 254 000 000 255 254 000 000 255 254 000 000 255 254\n255 000 255 254 255 000 255 254 255 000 255 254 000 000 255 254\n255 000 000 254 255 000 000 254 255 000 255 254 000 000 255 254\n255 150 000 254 255 000 000 254 255 000 255 254 000 000 255 254\n255 000 255 254 255 000 255 254 255 000 255 254 255 000 255 254\n255 000 000 254 255 000 000 254 255 000 000 254 255 000 255 254\n255 150 000 254 255 150 000 254 255 000 000 254 255 000 255 254\n255 255 000 254 255 150 000 254 255 000 000 254 255 000 255 254");
+	sprite.exportToGif("rainbowTest.gif");
+	// FAIL(); //needs to be implemented to test somehow.
 }
 
 TEST(Export, ColorToString)

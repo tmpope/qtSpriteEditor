@@ -22,7 +22,7 @@ public: //because color needs to be defined before we use it, but needs to be pu
 		{
 	       return (other.r == r && other.g == g && other.b == b && other.a == a);
 	    }
-	    inline std::string toString()
+        inline std::string toString()
 	    {
 			std::stringstream ss;
 			ss << (int) r << ' ' << (int) g << ' ' << (int) b << ' ' << (int) a;
@@ -34,6 +34,7 @@ private:
 	int height;
 	int frameCount;
 	struct color* pixels;
+	void drawImage(unsigned char* image, const int frame);
 
 	Sprite(const Sprite& other);	//copy constructor
 	Sprite& operator=(const Sprite& other);
@@ -43,6 +44,7 @@ public:
 	 * Pixels each default to white transparent until set otherwise.
 	 */
 	Sprite(int height, int width);
+	Sprite(std::string sspString);
 	~Sprite();
 	int getHeight() const 
 	{
@@ -83,7 +85,6 @@ public:
 	 */
 	void fillPixel(int x, int y, int frame, struct color color);
 	// void fillRecursive(int x, int y, int frame, struct color color);
-	void drawImage(unsigned char* image, const int frame);
 	void exportToGif(std::string fileName);
 	/**
 	 * Adds a new frame to the sprite
@@ -101,7 +102,7 @@ public:
 	 * Returns the string that needs to be written to a .ssp file
 	 * @return [description]
 	 */
-	std::string toString();
+    std::string SpritetoString();
 };
 
 #endif

@@ -3,21 +3,32 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QRgb>
+#include <string>
 #include "sprite.h"
 
 CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
 {
     currentTool = PENCIL;
     lastTool = ERASER;
-    sprite = new Sprite(4, 4);
+    Csprite = new Sprite(4, 4);
 
     currentColor = QColor::fromRgb(255, 25, 25);
     currentFrame = 0;
 }
 
 CanvasWidget::~CanvasWidget(){
-    if(sprite != NULL)
-        delete sprite;
+    if(Csprite != NULL)
+        delete Csprite;
+}
+
+std::string CanvasWidget::getSprite()
+{
+    std::cout << "trying sprite->toString() from canvasWidget" << std::endl;
+    std::cout << Csprite->SpritetoString();    //this is throwing the error...
+    //std::string s = sprite->toString().c_str();
+    std::cout << "hello from after sprite->toString()" << std::endl;
+    //std::cout << "Grid coordinates: (" << ", " << ")" << sprite->toString() << std::endl;
+    return "hello";
 }
 
 /* Indicates to the model what's the haps */
@@ -39,10 +50,18 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event)
     int x = event->x();
     int y = event->y();
 
-    int gridX = x * sprite->getWidth() / width();
-    int gridY = y * sprite->getHeight() / height();
+    int gridX = x * Csprite->getWidth() / width();
+    int gridY = y * Csprite->getHeight() / height();
+    if (gridX >= Csprite->getWidth())
+        gridX = Csprite->getWidth() - 1;
+    if (gridY >= Csprite->getHeight())
+        gridY = Csprite->getHeight() - 1;
+    if (gridX < 0)
+        gridX = 0;
+    if(gridY < 0)
+        gridY = 0;
 
-    std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
+    //std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << sprite->toString() << std::endl;
 
     colorSelectedPixel(gridX, gridY);
 
@@ -57,12 +76,20 @@ void CanvasWidget::mouseMoveEvent(QMouseEvent *event)
     int x = event->x();
     int y = event->y();
 
-    int gridX = x * sprite->getWidth() / width();
-    int gridY = y * sprite->getHeight() / height();
+    int gridX = x * Csprite->getWidth() / width();
+    int gridY = y * Csprite->getHeight() / height();
+    if (gridX >= Csprite->getWidth())
+        gridX = Csprite->getWidth() - 1;
+    if (gridY >= Csprite->getHeight())
+        gridY = Csprite->getHeight() - 1;
+    if (gridX < 0)
+        gridX = 0;
+    if(gridY < 0)
+        gridY = 0;
 
     if(gridX != lastX || gridY != lastY){
 
-        std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
+        //std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
         colorSelectedPixel(gridX, gridY);
         repaint();
 
@@ -84,26 +111,26 @@ void CanvasWidget::mouseReleaseEvent(QMouseEvent *event)
 
 void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
 {
-    if(sprite == NULL)
+    if(Csprite == NULL)
         return;
 
     QPainter painter(this);
-    double singleWidth = width() / (double)sprite->getWidth();
-    double singleHeight = height() / (double)sprite->getHeight();
+    double singleWidth = width() / (double)Csprite->getWidth();
+    double singleHeight = height() / (double)Csprite->getHeight();
 
-    for(int row = 0; row < sprite->getHeight(); row++)
-        for(int col = 0; col < sprite->getWidth(); col++){
+    for(int row = 0; row < Csprite->getHeight(); row++)
+        for(int col = 0; col < Csprite->getWidth(); col++){
             int x = singleWidth * col;
             int y = singleHeight * row;
 
             QRect rect(x, y, singleWidth, singleHeight);
-            struct Sprite::color pixelColor = sprite->getPixel(col, row, currentFrame);
+            struct Sprite::color pixelColor = Csprite->getPixel(col, row, currentFrame);
             QColor color(pixelColor.r, pixelColor.g, pixelColor.b);
             painter.setPen(color);
             painter.fillRect(rect, color);
 
             if(row == 0 && col == 0){
-                std::cout << width() << " " << height() << std::endl;
+               //std::cout << width() << " " << height() << std::endl;
             }
         }
 }
@@ -135,23 +162,23 @@ void CanvasWidget::colorSelectedPixel(int xPos, int yPos){
 
     switch(currentTool) {
         case PENCIL:
-            sprite->setPixel(xPos, yPos, currentFrame, pixel);
+            Csprite->setPixel(xPos, yPos, currentFrame, pixel);
             std::cout << "Pencil drawing " << pixel.toString() << " to (" << xPos << ", " <<  yPos << ")" << std::endl;
         break;
 
         case ERASER:
             pixel = Sprite::color(255, 255, 255, 255);
-            sprite->setPixel(xPos, yPos, currentFrame, pixel);
+            Csprite->setPixel(xPos, yPos, currentFrame, pixel);
             std::cout << "Erasing pixel at (" << xPos << ", " << yPos << ")" << std::endl;
         break;
 
         case BUCKET:
-            sprite->fillPixel(xPos, yPos, currentFrame, pixel);
+            Csprite->fillPixel(xPos, yPos, currentFrame, pixel);
             std::cout << "Filling pixels at (" << xPos << ", " << yPos << ")" << std::endl;
         break;
 
         case EYE_DROPPER:
-            pixel = sprite->getPixel(xPos, yPos, currentFrame);
+            pixel = Csprite->getPixel(xPos, yPos, currentFrame);
             currentColor.setRgb(pixel.r, pixel.g, pixel.b, pixel.a);
             // TODO: Change tool back to pencil here?
 //            setCurrentTool(PENCIL);
