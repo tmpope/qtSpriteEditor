@@ -9,6 +9,9 @@
 #include <WriteGIF.h>
 #include "sprite.h"
 #include <cstring>
+#include <stack>          // std::stack
+#include <list>
+#include <Magick++.h>
 
 Sprite::Sprite(int height, int width) 
 {
@@ -23,6 +26,7 @@ Sprite::Sprite(int height, int width)
 		pixels[i].b = 255;
 		pixels[i].a = 0;  //TODO except this one - 0 (transparent)
 	}
+
 }
 
 Sprite::Sprite(std::string sspString)
@@ -56,6 +60,11 @@ Sprite::Sprite(std::string sspString)
 		pixels[i].a = sprite[3 + 4 * i + 3];
 	}
 }
+
+Sprite::Sprite(std::string gifFileName, bool isGif) {
+
+}
+
 
 Sprite::~Sprite() 
 {
@@ -217,7 +226,23 @@ int Sprite::cloneFrame(int frame)
 }
 
 void Sprite::undo() {
+	// stack::push/pop
 
+	// {
+	//   std::stack<int> mystack;
+
+	//   for (int i=0; i<5; ++i) mystack.push(i);
+
+	//   std::cout << "Popping out elements...";
+	//   while (!mystack.empty())
+	//   {
+	//      std::cout << ' ' << mystack.top();
+	//      mystack.pop();
+	//   }
+	//   std::cout << '\n';
+
+	//   return 0;
+	// }
 }
 
 void Sprite::redo() {
