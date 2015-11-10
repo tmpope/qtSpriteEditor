@@ -70,22 +70,16 @@ Sprite::Sprite(std::string gifFileName, bool isGif) {
     /* read all the frames of the animated GIF */
     Magick::readImages( &imageList, gifFileName);
 
-    /* Iterate trough images and write to bitmap */
-    Magick::writeImages(imageList.begin(),imageList.end(),"animated%02d.bmp",true);
-    std::list<Magick::Image>::const_iterator listIterator = imageList.begin();
 	this->width = imageList.front().columns();
 	this->height = imageList.front().rows();
 	this->frameCount = imageList.size();
 	int size = this->frameCount * this->height * this->width;
 	this->pixels = new struct color[size];
+	
+    std::list<Magick::Image>::const_iterator listIterator = imageList.begin();
+	for (listIterator; listIterator != imageList.end(); ++listIterator)
 	{
-		int frame = 0;
-		for (listIterator; listIterator != imageList.end(); ++listIterator)
-		{
-			frames.push_back(*listIterator);
-			frame++;
-			std::cout << "Copying frame " << frame << std::endl;
-		}
+		frames.push_back(*listIterator);
 	}
 	for (int frame = 0; frame < frameCount; frame++)
 	{
@@ -102,12 +96,6 @@ Sprite::Sprite(std::string gifFileName, bool isGif) {
 			}
 		}
 	}
-	// for(int i = 0; i < size; i++) {
-	// 	pixels[i].r = 255; //TODO change all to 255
-	// 	pixels[i].g = 255;
-	// 	pixels[i].b = 255;
-	// 	pixels[i].a = 0;  //TODO except this one - 0 (transparent)
-	// }
 }
 
 
