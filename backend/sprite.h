@@ -5,6 +5,7 @@
 #include <string>
 #include <inttypes.h>
 #include <sstream>
+#include <vector>
 
 
 class Sprite
@@ -30,6 +31,18 @@ public: //because color needs to be defined before we use it, but needs to be pu
 	    }
 	};
 private:
+	struct pixelLoc
+	{
+		pixelLoc(int _x, int _y, int _frame) : x(_x), y(_y), frame(_frame) {}
+		int x;
+		int y;
+		int frame;
+	};
+	struct action
+	{
+		struct color color;
+		std::vector<struct pixelLoc> pixelLocations;
+	};
 	int width;
 	int height;
 	int frameCount;
@@ -110,6 +123,8 @@ public:
 	 * @return [description]
 	 */
 	std::string toString();
+	void undo();
+	void redo();
 };
 
 #endif
