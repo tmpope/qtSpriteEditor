@@ -85,7 +85,7 @@ public:
 	 */
 	void fillPixel(int x, int y, int frame, struct color color);
 	// void fillRecursive(int x, int y, int frame, struct color color);
-	void exportToGif(std::string fileName);
+	void exportToGif(std::string fileName, int fps = 4);
 	/**
 	 * Adds a new frame to the sprite
 	 * @return The number of frames after the new frame has been added
@@ -98,6 +98,13 @@ public:
 	 * @return The number of frames after the new frame has been added
 	 */
 	int removeFrame(int frame);
+	/**
+	 * Removes the specified frame from the sprite
+	 * @param  frame the number (0 indexed) of the frame to clone
+	 *               assumes it is in bound, DOES NOT ERROR CHECK
+	 * @return The number of frames after the new frame has been added
+	 */
+	int cloneFrame(int frame);
 	/**
 	 * Returns the string that needs to be written to a .ssp file
 	 * @return [description]

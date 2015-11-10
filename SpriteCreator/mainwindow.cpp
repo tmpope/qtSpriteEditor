@@ -14,11 +14,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    Sprite sprite(16,16);
     std::string file = "";
-    //canvas = new CanvasWidget(this);
+//    canvas = new CanvasWidget(this);
 
-    //setCentralWidget(canvas);
+//    setCentralWidget(canvas);
     
     connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(Load()));
 }
@@ -43,7 +42,10 @@ std::string MainWindow::Save(){
     }
 
     QTextStream outStream(&outputFile);
-    outStream << sprite->toString().c_str();
+    std::string s = canvas->getSprite();
+    std::cout << "Made it this far" << std::endl;
+    std::cout << s << std::endl;
+    outStream << s.c_str();
     outputFile.close();
 
     file = QfileName.toStdString();
@@ -84,5 +86,5 @@ Sprite* MainWindow::Load(){
     }
 
     //call the sprite method here with file.
-    return sprite;
+//    return sprite;
 }

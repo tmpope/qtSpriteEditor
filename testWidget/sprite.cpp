@@ -126,10 +126,8 @@ void Sprite::drawImage(unsigned char* image, const int frame)
 }
 
 
-void Sprite::exportToGif(std::string fileName) 
+void Sprite::exportToGif(std::string fileName, int fps) 
 {
-	//Should be very straightforward
-	int fps = 24;
 	int delay = 100 / fps;
 	gif::GIF* g = gif::newGIF(delay);
 	unsigned char rgbImage[width * height * 3];

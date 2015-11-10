@@ -154,6 +154,44 @@ TEST(Frames, RemoveCorrectFrames)
 	EXPECT_EQ(defaultColor, s.getPixel(0,0,1));
 }
 
+TEST(Frames, SimpleCloneFrame)
+{
+	Sprite s(1, 1);
+	s.addFrame();
+	s.addFrame();
+	s.setPixel(0, 0, 1, 5, 5, 5, 5);
+	s.setPixel(0, 0, 2, 55, 55, 55, 55);
+	struct Sprite::color defaultColor(255,255,255,0);
+	struct Sprite::color frameOneColor(5, 5, 5, 5);
+	struct Sprite::color frameTwoColor(55, 55, 55, 55);
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,0));
+	EXPECT_EQ(frameOneColor, s.getPixel(0,0,1));
+	EXPECT_EQ(frameTwoColor, s.getPixel(0,0,2));
+	EXPECT_EQ(3, s.getFrameCount());
+	s.cloneFrame(0);
+	EXPECT_EQ(4, s.getFrameCount());
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,0));
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,1));
+	EXPECT_EQ(frameOneColor, s.getPixel(0,0,2));
+	EXPECT_EQ(frameTwoColor, s.getPixel(0,0,3));
+	s.addFrame();
+	EXPECT_EQ(5, s.getFrameCount());
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,0));
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,1));
+	EXPECT_EQ(frameOneColor, s.getPixel(0,0,2));
+	EXPECT_EQ(frameTwoColor, s.getPixel(0,0,3));
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,4));
+	s.cloneFrame(2);
+	EXPECT_EQ(6, s.getFrameCount());
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,0));
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,1));
+	EXPECT_EQ(frameOneColor, s.getPixel(0,0,2));
+	EXPECT_EQ(frameOneColor, s.getPixel(0,0,3));
+	EXPECT_EQ(frameTwoColor, s.getPixel(0,0,4));
+	EXPECT_EQ(defaultColor, s.getPixel(0,0,5));
+
+}
+
 TEST(SetPixel, BasicSet) 
 {
 	Sprite s(5, 5);

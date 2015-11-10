@@ -85,7 +85,7 @@ public:
 	 */
 	void fillPixel(int x, int y, int frame, struct color color);
 	// void fillRecursive(int x, int y, int frame, struct color color);
-	void exportToGif(std::string fileName);
+	void exportToGif(std::string fileName, int fps = 4);
 	/**
 	 * Adds a new frame to the sprite
 	 * @return The number of frames after the new frame has been added
