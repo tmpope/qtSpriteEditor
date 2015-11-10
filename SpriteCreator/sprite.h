@@ -22,7 +22,7 @@ public: //because color needs to be defined before we use it, but needs to be pu
 		{
 	       return (other.r == r && other.g == g && other.b == b && other.a == a);
 	    }
-	    inline std::string toString()
+        inline std::string toString()
 	    {
 			std::stringstream ss;
 			ss << (int) r << ' ' << (int) g << ' ' << (int) b << ' ' << (int) a;
@@ -102,7 +102,7 @@ public:
 	 * Returns the string that needs to be written to a .ssp file
 	 * @return [description]
 	 */
-	std::string toString();
+    std::string SpritetoString();
 };
 
 #endif

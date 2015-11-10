@@ -144,10 +144,12 @@ void Sprite::exportToGif(std::string fileName)
 	g = NULL;
 }
 
-std::string Sprite::toString()
+std::string Sprite::SpritetoString()
 {
-	struct Sprite::color pixel;
+    std::cout << "entered into sprite->toString()" << std::endl;
+    struct Sprite::color pixel;
 	std::stringstream ss;
+    std::cout << "after initializing ss" << std::endl;
 	ss << height << ' ' << width << std::endl << frameCount;
 	for (int frame = 0; frame < frameCount; frame++)
 	{
@@ -156,6 +158,7 @@ std::string Sprite::toString()
 			ss << std::endl;
 			for (int x = 0; x < width; x++)
 			{
+                std::cout << "3rd for loop";
 				pixel = getPixel(x, y, frame);
 				ss << pixel.toString();
 				if (x + 1 < width)
@@ -165,7 +168,8 @@ std::string Sprite::toString()
 			}
 		}
 	}
-	return ss.str();
+    std::string ret = ss.str();
+    return ret;
 }
 
 int Sprite::addFrame() 

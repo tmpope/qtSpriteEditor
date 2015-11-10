@@ -32,13 +32,13 @@ private:
     QColor currentColor;
 
     /* What the current sprite is - the model. */
-    Sprite *sprite;
+    Sprite* Csprite;
 
     /* The current frame of the sprite that we are drawing to. */
     int currentFrame;
 
 public:
-    char* getSprite();
+    std::string getSprite();
     /**
      * @brief CanvasWidget
      *
