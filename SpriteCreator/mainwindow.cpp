@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //setCentralWidget(canvas);
     
-    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(Save()));
+    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(Load()));
 }
 
 MainWindow::~MainWindow()
@@ -41,6 +41,7 @@ std::string MainWindow::Save(){
     if(!outputFile.isOpen()){
         QMessageBox::critical(this, tr("File Load Failed"), tr("Failed to write"));
     }
+
     QTextStream outStream(&outputFile);
     outStream << sprite->toString().c_str();
     outputFile.close();
@@ -61,7 +62,8 @@ Sprite* MainWindow::Load(){
     QString QfileName = QFileDialog::getOpenFileName(
                 this, tr("Open Project"), "C://", 
                 "Sprite Sheet Project(*.ssp);;Text Files(*.txt)");
-    QFile outputFile(QfileName);
+
+    QFile outputFile(QfileName);  //this might be necessary.
 
 
 
