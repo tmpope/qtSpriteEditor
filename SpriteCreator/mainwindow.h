@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "canvaswidget.h"
+#include <QtGui>
 
 namespace Ui {
 class MainWindow;
