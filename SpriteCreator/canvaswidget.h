@@ -38,6 +38,7 @@ private:
     int currentFrame;
 
 public:
+    char* getSprite();
     /**
      * @brief CanvasWidget
      *

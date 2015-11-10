@@ -5,6 +5,7 @@
 #include <string>
 #include <inttypes.h>
 #include <sstream>
+#include <vector>
 
 
 class Sprite
@@ -30,6 +31,18 @@ public: //because color needs to be defined before we use it, but needs to be pu
 	    }
 	};
 private:
+	struct pixelLoc
+	{
+		pixelLoc(int _x, int _y, int _frame) : x(_x), y(_y), frame(_frame) {}
+		int x;
+		int y;
+		int frame;
+	};
+	struct action
+	{
+		struct color color;
+		std::vector<struct pixelLoc> pixelLocations;
+	};
 	int width;
 	int height;
 	int frameCount;
@@ -85,7 +98,7 @@ public:
 	 */
 	void fillPixel(int x, int y, int frame, struct color color);
 	// void fillRecursive(int x, int y, int frame, struct color color);
-	void exportToGif(std::string fileName);
+	void exportToGif(std::string fileName, int fps = 4);
 	/**
 	 * Adds a new frame to the sprite
 	 * @return The number of frames after the new frame has been added
@@ -99,10 +112,19 @@ public:
 	 */
 	int removeFrame(int frame);
 	/**
+	 * Removes the specified frame from the sprite
+	 * @param  frame the number (0 indexed) of the frame to clone
+	 *               assumes it is in bound, DOES NOT ERROR CHECK
+	 * @return The number of frames after the new frame has been added
+	 */
+	int cloneFrame(int frame);
+	/**
 	 * Returns the string that needs to be written to a .ssp file
 	 * @return [description]
 	 */
 	std::string toString();
+	void undo();
+	void redo();
 };
 
 #endif
