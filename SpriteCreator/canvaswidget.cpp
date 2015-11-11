@@ -12,7 +12,7 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
     std::cout << "CanvasWidget constructor was called." << std::endl;
     currentTool = PENCIL;
     lastTool = ERASER;
-    sprite = new Sprite(32, 32);
+    sprite = new Sprite(4, 4);
 
     std::cout << "Is sprite null? " << (sprite == nullptr) << std::endl;
 
@@ -37,7 +37,12 @@ Sprite* CanvasWidget::getSprite()
 
 void CanvasWidget::loadSpriteFromString(std::string sspString)
 {
-    sprite = new Sprite(sspString);
+    std::cout << "Sprite String: " << std::endl << sspString << std::endl;
+    std::string s = "4 4\n6\n255 000 000 254 255 000 000 254 255 000 000 254 255 000 000 254\n255 150 000 254 255 150 000 254 255 150 000 254 255 000 000 254\n255 255 000 254 255 255 000 254 255 150 000 254 255 000 000 254\n000 255 000 254 255 255 000 254 255 150 000 254 255 000 000 254\n255 150 000 254 255 150 000 254 255 150 000 254 255 150 000 254\n255 255 000 254 255 255 000 254 255 255 000 254 255 150 000 254\n000 255 000 254 000 255 000 254 255 255 000 254 255 150 000 254\n000 000 255 254 000 255 000 254 255 255 000 254 255 150 000 254\n255 255 000 254 255 255 000 254 255 255 000 254 255 255 000 254\n000 255 000 254 000 255 000 254 000 255 000 254 255 255 000 254\n000 000 255 254 000 000 255 254 000 255 000 254 255 255 000 254\n255 000 255 254 000 000 255 254 000 255 000 254 255 255 000 254\n000 255 000 254 000 255 000 254 000 255 000 254 000 255 000 254\n000 000 255 254 000 000 255 254 000 000 255 254 000 255 000 254\n255 000 255 254 255 000 255 254 000 000 255 254 000 255 000 254\n255 000 000 254 255 000 255 254 000 000 255 254 000 255 000 254\n000 000 255 254 000 000 255 254 000 000 255 254 000 000 255 254\n255 000 255 254 255 000 255 254 255 000 255 254 000 000 255 254\n255 000 000 254 255 000 000 254 255 000 255 254 000 000 255 254\n255 150 000 254 255 000 000 254 255 000 255 254 000 000 255 254\n255 000 255 254 255 000 255 254 255 000 255 254 255 000 255 254\n255 000 000 254 255 000 000 254 255 000 000 254 255 000 255 254\n255 150 000 254 255 150 000 254 255 000 000 254 255 000 255 254\n255 255 000 254 255 150 000 254 255 000 000 254 255 000 255 254";
+//    assert(s == sspString);
+    std::string ss = sspString.substr(0, sspString.length());
+    std::cout << s.length() << ss.length();
+    sprite = new Sprite(ss);
     repaint();
 }
 
@@ -135,6 +140,7 @@ void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
 
             QRect rect(x, y, singleWidth, singleHeight);
             struct Sprite::color pixelColor = sprite->getPixel(col, row, currentFrame);
+//            std::cout << "Got color from sprite" << pixelColor.r << pixelColor.g << pixelColor.b << std::endl;
             QColor color(pixelColor.r, pixelColor.g, pixelColor.b);
             painter.setPen(color);
             painter.fillRect(rect, color);

@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     std::string file = "";
 
     canvas = new CanvasWidget(this); // ~ACL: This is the line that solved our save problem. Why? I have no fetching clue.
-    
+
     connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT(saveSprite()));
     connect(ui->actionLoad, SIGNAL(triggered(bool)), this, SLOT(loadSprite()));
     connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT(canvas->setCurrentTool(PENCIL);));
@@ -82,15 +82,25 @@ void MainWindow::loadSprite(){
 
     // Here's where things get funky - I hope I'm doing this right.
 
-    std::stringstream ss;
+    FILE* f;
+    f = fopen(file.c_str(),"r");
+    fseek(f, 0, SEEK_END);
+    long filesize = ftell(f);
+    rewind(f);
+    char* buffer = reinterpret_cast<char*>(malloc(sizeof(char)*filesize));
+    fread(buffer, 1, filesize, f);
+    std::string str(buffer);
+    free(buffer);
+    fclose(f);
 
-    if(inputFile.open(QIODevice::ReadOnly))
-    {
-        QTextStream in(&inputFile);
-        ss << in.readAll().toStdString();
-    }
+//    if(inputFile.open(QIODevice::ReadOnly))
+//    {
 
-    std::cout << "Here's the file: " << ss.str() << std::endl;
+//        QTextStream in(&inputFile);
+//        ss << in.readAll().toStdString();
+//    }
 
-    ui->canvas->loadSpriteFromString(ss.str());
+    std::cout << "Here's the file: " << str << std::endl;
+
+    ui->canvas->loadSpriteFromString(str);
 }
