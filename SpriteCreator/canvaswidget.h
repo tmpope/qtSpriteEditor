@@ -37,8 +37,10 @@ private:
     /* The current frame of the sprite that we are drawing to. */
     int currentFrame;
 
+    std::string file;
+
 public:
-    std::string getSprite();
+    Sprite* getSprite();
     /**
      * @brief CanvasWidget
      *
@@ -80,6 +82,8 @@ public:
 //     * @param otherSprite
 //     */
 //    void setCurrentSprite(Sprite *otherSprite);
+    void Save();
+    //void Load();
 
 protected:
 

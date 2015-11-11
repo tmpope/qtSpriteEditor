@@ -5,30 +5,78 @@
 #include <QRgb>
 #include <string>
 #include "sprite.h"
+#include <cassert>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QFile>
+#include <QTextStream>
+//#include <iomanip>
 
 CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
 {
     currentTool = PENCIL;
     lastTool = ERASER;
     Csprite = new Sprite(4, 4);
-
+    std::cout << Csprite << std::endl;
+    std::cout << sizeof(Csprite) << std::endl;
+    //std::cout << Csprite->SpritetoString() << std::endl;
+    assert(Csprite != NULL);
     currentColor = QColor::fromRgb(255, 25, 25);
     currentFrame = 0;
 }
 
 CanvasWidget::~CanvasWidget(){
+    std::cout << "Is the destructor getting called?" << std::endl;
     if(Csprite != NULL)
         delete Csprite;
 }
 
-std::string CanvasWidget::getSprite()
+Sprite* CanvasWidget::getSprite()
 {
     std::cout << "trying sprite->toString() from canvasWidget" << std::endl;
-    std::cout << Csprite->SpritetoString();    //this is throwing the error...
-    //std::string s = sprite->toString().c_str();
-    std::cout << "hello from after sprite->toString()" << std::endl;
-    //std::cout << "Grid coordinates: (" << ", " << ")" << sprite->toString() << std::endl;
-    return "hello";
+//    std::cout << Csprite->SpritetoString();    //this is throwing the error...
+//    //std::string s = sprite->toString().c_str();
+//    std::cout << "hello from after sprite->toString()" << std::endl;
+//    //std::cout << "Grid coordinates: (" << ", " << ")" << sprite->toString() << std::endl;
+//    return "hello";
+//    assert(Csprite);
+    std::cout << "Ran getSprite(); attempting to return. Csprite is " << Csprite->SpritetoString() << std::endl;
+    return Csprite;
+}
+
+void CanvasWidget::Save()
+{
+        QFileDialog dialog(this);
+        dialog.setDefaultSuffix(".ssp");
+        QString QfileName = dialog.getSaveFileName(
+                    this, tr("Save Project"), "C://",
+                    "Sprite Sheet Project(*.ssp);;Text File(*.txt)");
+
+        QFile outputFile(QfileName);
+        outputFile.open(QIODevice::WriteOnly);
+        if(!outputFile.isOpen()){
+            QMessageBox::critical(this, tr("File Load Failed"), tr("Failed to write"));
+        }
+
+        // this chunk saves the Sprite into a .ssp or .txt file.
+        QTextStream outStream(&outputFile);
+        std::cout << "before Csprite address" << std::endl;
+        //Sprite sprite = canvas->getSprite();        //this is where the problem is...
+        std::cout << "Sprite address: "<< Csprite << std::endl;
+        std::string s = Csprite->SpritetoString().c_str();
+        //std::cout << "Made it this far" << std::endl;
+        //std::cout << s << std::endl;
+        outStream << s.c_str();
+        outputFile.close();
+
+        file = QfileName.toStdString();
+        if(QfileName.isNull())
+        {
+            QMessageBox::critical(this, tr("File Save Failed"), tr("File is Null"));
+        }
+
+        QMessageBox::information(this, tr("File"), tr("File Saved"));
+        std::cout << file << std::endl;
 }
 
 /* Indicates to the model what's the haps */
@@ -147,19 +195,21 @@ void CanvasWidget::setCurrentColor(int r, int g, int b, int a)
 }
 
 void CanvasWidget::colorSelectedPixel(int xPos, int yPos){
+    /*
     int *r = new int(0);
     int *g = new int(0);
     int *b = new int(0);
     int *a = new int(0);
-
-    currentColor.getRgb(r, g, b, a);
-    struct Sprite::color pixel(*r, *g, *b, *a);
-
+    */
+    int r,g,b,a;
+    currentColor.getRgb(&r, &g, &b, &a);
+    struct Sprite::color pixel(r, g, b, a);
+    /*
     delete r;
     delete g;
     delete b;
     delete a;
-
+    */
     switch(currentTool) {
         case PENCIL:
             Csprite->setPixel(xPos, yPos, currentFrame, pixel);
