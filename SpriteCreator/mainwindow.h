@@ -20,8 +20,8 @@ public:
     ~MainWindow();
 
 public slots:
-    std::string Save();
-    Sprite* Load();
+    void saveSprite();
+    void loadSprite();
 
 private:
     Ui::MainWindow *ui;
