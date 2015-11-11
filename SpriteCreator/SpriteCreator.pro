@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QMAKE_CXXFLAGS += -std=c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -24,3 +25,9 @@ HEADERS  += mainwindow.h \
     sprite.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    graphics/graphix.qrc
+
+DISTFILES += \
+

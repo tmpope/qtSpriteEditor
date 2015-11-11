@@ -15,11 +15,13 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     std::string file = "";
-//    canvas = new CanvasWidget(this);
 
-//    setCentralWidget(canvas);
-    
-    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(Save()));
+    canvas = new CanvasWidget(this); // ~ACL: This is the line that solved our save problem. Why? I have no fetching clue.
+
+    connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT(saveSprite()));
+    connect(ui->actionLoad, SIGNAL(triggered(bool)), this, SLOT(loadSprite()));
+    connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT(canvas->setCurrentTool(PENCIL);));
+    connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT(canvas->setCurrentTool(EYE_DROPPER);));
 }
 
 MainWindow::~MainWindow()
@@ -27,23 +29,21 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-std::string MainWindow::Save(){
-    //get the file contents from the sprite.
+void MainWindow::saveSprite()
+{
     QFileDialog dialog(this);
     dialog.setDefaultSuffix(".ssp");
-    QString QfileName = dialog.getSaveFileName(
-                this, tr("Save Project"), "C://", 
-                "Sprite Sheet Project(*.ssp);;Text File(*.txt)");
-
+    QString QfileName = dialog.getSaveFileName( this, tr("Save Project"), "C://", "Sprite Sheet Project(*.ssp);;Text File(*.txt)");
     QFile outputFile(QfileName);
     outputFile.open(QIODevice::WriteOnly);
     if(!outputFile.isOpen()){
-        QMessageBox::critical(this, tr("File Load Failed"), tr("Failed to write"));
+        QMessageBox::critical(this, tr("File Save Failed"), tr("Failed to write to file."));
     }
     QTextStream outStream(&outputFile);
-    std::string s = canvas->getSprite();
-    std::cout << "Made it this far" << std::endl;
-    std::cout << s << std::endl;
+
+    // ~ACL: Here's where the issue shows up.
+    Sprite* sprite = canvas->getSprite(); // <---- This line right here.
+    std::string s = sprite->toString();
     outStream << s.c_str();
     outputFile.close();
 
@@ -55,17 +55,12 @@ std::string MainWindow::Save(){
         QMessageBox::critical(this, tr("File Save Failed"), tr("File is Null"));
     }
     std::cout << file << std::endl;
-
-    return file;
 }
 
-Sprite* MainWindow::Load(){
-    QString QfileName = QFileDialog::getOpenFileName(
-                this, tr("Open Project"), "C://", 
-                "Sprite Sheet Project(*.ssp);;Text Files(*.txt)");
-    QFile outputFile(QfileName);
-
-
+void MainWindow::loadSprite(){
+    QString QfileName = QFileDialog::getOpenFileName(this, tr("Open Project"), "C://", "Sprite Sheet Project(*.ssp);;Text Files(*.txt)");
+    std::cout << "File name: " << QfileName.toStdString() << std::endl;
+    QFile inputFile(QfileName);
 
     std::string file = QfileName.toStdString();
     std::string ext = "";
@@ -76,13 +71,36 @@ Sprite* MainWindow::Load(){
 
     else
     {
-        QMessageBox::critical(this, tr("File Load Failed"), tr("File Loading Failed!"));
+        QMessageBox::critical(this, tr("File Load Failed"), tr("An extension could not be found for the file!"));
+        return;
     }
-    if(ext != ".ssp" || ext != ".txt")
-    {
-        QMessageBox::critical(this, tr("File Load Failed"), tr("File Loading Failed!"));
-    }
+//    if(ext != ".ssp" || ext != ".txt")
+//    {
+//        QMessageBox::critical(this, tr("File Load Failed"), tr("You must select a file with .ssp or .txt extension!"));
+//        return;
+//    }
 
-    //call the sprite method here with file.
-//    return sprite;
+    // Here's where things get funky - I hope I'm doing this right.
+
+    FILE* f;
+    f = fopen(file.c_str(),"r");
+    fseek(f, 0, SEEK_END);
+    long filesize = ftell(f);
+    rewind(f);
+    char* buffer = reinterpret_cast<char*>(malloc(sizeof(char)*filesize));
+    fread(buffer, 1, filesize, f);
+    std::string str(buffer);
+    free(buffer);
+    fclose(f);
+
+//    if(inputFile.open(QIODevice::ReadOnly))
+//    {
+
+//        QTextStream in(&inputFile);
+//        ss << in.readAll().toStdString();
+//    }
+
+    std::cout << "Here's the file: " << str << std::endl;
+
+    ui->canvas->loadSpriteFromString(str);
 }

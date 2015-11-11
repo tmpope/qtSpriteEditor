@@ -38,10 +38,10 @@ Sprite::Sprite(std::string sspString)
 	    if (ss.peek() == ' ' || ss.peek() == '\n')
 	        ss.ignore();
 	}
-	if (sprite.size() < 3 || sprite.size() != 3 + 4 * sprite[0] * sprite[1] * sprite[2])
+    if (sprite.size() < 3 || sprite.size() != 3 + 4 * sprite[0] * sprite[1] * sprite[2])
 	{
-		std::cout << "Improper .ssp file" << std::endl;
-		// fileException.throw();
+        std::cout << "Improper .ssp file" << std::endl;
+        std::cout << sspString << std::endl;
 	}
 	this->width = sprite[0];
 	this->height = sprite[1];

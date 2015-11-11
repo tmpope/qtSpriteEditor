@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "canvaswidget.h"
+#include <QtGui>
 
 namespace Ui {
 class MainWindow;
@@ -19,8 +20,8 @@ public:
     ~MainWindow();
 
 public slots:
-    std::string Save();
-    Sprite* Load();
+    void saveSprite();
+    void loadSprite();
 
 private:
     Ui::MainWindow *ui;

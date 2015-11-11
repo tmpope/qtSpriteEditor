@@ -32,6 +32,7 @@ Sprite::Sprite(int height, int width)
 
 Sprite::Sprite(std::string sspString)
 {
+
 	std::vector<int> sprite;
 	std::stringstream ss(sspString);
 	int i;
@@ -46,7 +47,7 @@ Sprite::Sprite(std::string sspString)
 	if (sprite.size() < 3 || sprite.size() != 3 + 4 * sprite[0] * sprite[1] * sprite[2])
 	{
 		std::cout << "Improper .ssp file" << std::endl;
-		// fileException.throw();
+		assert(0);
 	}
 	this->width = sprite[0];
 	this->height = sprite[1];

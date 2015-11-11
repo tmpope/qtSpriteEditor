@@ -5,27 +5,40 @@
 #include <QRgb>
 #include <string>
 #include "sprite.h"
+#include <cassert>
 
 CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
 {
+    std::cout << "CanvasWidget constructor was called." << std::endl;
     currentTool = PENCIL;
     lastTool = ERASER;
     sprite = new Sprite(4, 4);
+
+    std::cout << "Is sprite null? " << (sprite == nullptr) << std::endl;
 
     currentColor = QColor::fromRgb(255, 25, 25);
     currentFrame = 0;
 }
 
 CanvasWidget::~CanvasWidget(){
+    std::cout << "CanvasWidget destructor was called." << std::endl;
     if(sprite != NULL)
         delete sprite;
 }
 
-std::string CanvasWidget::getSprite()
+Sprite* CanvasWidget::getSprite()
 {
-    //std::cout << sprite->toString();
-//    std::cout << "Grid coordinates: (" << ", " << ")" << sprite->toString() << std::endl;
-    return sprite->toString();
+    sprite;
+    sprite->toString();
+    assert(sprite);
+
+    return sprite;
+}
+
+void CanvasWidget::loadSpriteFromString(std::string sspString)
+{
+    sprite = new Sprite(sspString);
+    repaint();
 }
 
 /* Indicates to the model what's the haps */
@@ -58,7 +71,7 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event)
     if(gridY < 0)
         gridY = 0;
 
-    std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << sprite->toString() << std::endl;
+//    std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << sprite->toString() << std::endl;
 
     colorSelectedPixel(gridX, gridY);
 
@@ -122,6 +135,7 @@ void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
 
             QRect rect(x, y, singleWidth, singleHeight);
             struct Sprite::color pixelColor = sprite->getPixel(col, row, currentFrame);
+//            std::cout << "Got color from sprite" << pixelColor.r << pixelColor.g << pixelColor.b << std::endl;
             QColor color(pixelColor.r, pixelColor.g, pixelColor.b);
             painter.setPen(color);
             painter.fillRect(rect, color);
@@ -174,7 +188,7 @@ void CanvasWidget::colorSelectedPixel(int xPos, int yPos){
             std::cout << "Filling pixels at (" << xPos << ", " << yPos << ")" << std::endl;
         break;
 
-        case EYE_DROPPER:
+        case EYE_DROPPER:// TODO: If the current tool is an eye dropper, handle that here
             pixel = sprite->getPixel(xPos, yPos, currentFrame);
             currentColor.setRgb(pixel.r, pixel.g, pixel.b, pixel.a);
             // TODO: Change tool back to pencil here?
@@ -186,6 +200,3 @@ void CanvasWidget::colorSelectedPixel(int xPos, int yPos){
 
     }
 }
-
-
-
