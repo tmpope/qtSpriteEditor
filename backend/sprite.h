@@ -127,6 +127,7 @@ public:
 	 * @return [description]
 	 */
 	std::string toString();
+	int save(std::string fileName);
 	void undo();
 	void redo();
 };

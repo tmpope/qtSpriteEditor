@@ -2,6 +2,7 @@
 #include <fstream>
 #include <ios>
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <stdlib.h>
 #include <string>
@@ -256,6 +257,14 @@ int Sprite::cloneFrame(int frame)
 	}
 	delete[] temp;
 	return frameCount;
+}
+
+int Sprite::save(std::string fileName)
+{
+    std::ofstream myfile;
+	myfile.open (fileName.c_str());
+	myfile << this->toString();
+	myfile.close();
 }
 
 void Sprite::undo() {

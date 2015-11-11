@@ -6,7 +6,7 @@ gif: ../SpriteCreator/WriteGIF.cpp
 	g++ -c ../SpriteCreator/WriteGIF.cpp -I ../SpriteCreator/
 test: gtest
 	./spriteTests
+import: gifImport.cpp sprite.h sprite.cpp
+	g++ ../SpriteCreator/WriteGIF.cpp sprite.o gifImport.cpp -I ../SpriteCreator/ `Magick++-config --cxxflags --cppflags` `Magick++-config --ldflags --libs` -O2 -o gifImport
 clean:
-	rm spriteTests sprite.o sprite.h.gch WriteGIF.o rainbowTest.gif
-magick:
-	g++ `Magick++-config --cxxflags --cppflags` -O2 -o demo sprite.cpp   `Magick++-config --ldflags --libs` -I ../SpriteCreator/ -c
+	rm spriteTests sprite.o sprite.h.gch WriteGIF.o rainbowTest.gif gifImport
