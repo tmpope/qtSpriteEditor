@@ -1,13 +1,15 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "canvaswidget.h"
+#include "sprite.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QFile>
 #include <QTextStream>
 #include <iostream>
 #include <iomanip>
-#include "sprite.h"
+#include <QTimer>
+#include <QColorDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,8 +18,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     std::string file = "";
 
+    colorDialog = new QColorDialog();
+
+    playbackTimer = new QTimer();
+    playbackTimer->setInterval(1000 / ui->fpsSlider->value());
+    playbackTimer->start();
+
+    playbackFrame = 0;
+
     connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT(saveSprite()));
     connect(ui->actionLoad, SIGNAL(triggered(bool)), this, SLOT(loadSprite()));
+//    connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT());
+//    connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT());
+    connect(ui->fpsSlider, SIGNAL(sliderMoved(int)), this, SLOT(setFramesPerSecond()));
+    connect(playbackTimer, SIGNAL(timeout()), this, SLOT(updatePlaybackWidget()));
+    connect(ui->colorSelectorButton, SIGNAL(clicked(bool)), this, SLOT(showColorDialog()));
+    connect(colorDialog, SIGNAL(colorSelected(QColor)), this, SLOT(colorDialogColorSelected()));
     connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT(ui->canvas->setCurrentTool(PENCIL);));
     connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT(ui->canvas->setCurrentTool(EYE_DROPPER);));
 }
@@ -25,6 +41,8 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete playbackTimer;
+    delete colorDialog;
 }
 
 void MainWindow::saveSprite()
@@ -76,3 +94,80 @@ void MainWindow::loadSprite(){
 
     ui->canvas->loadSpriteFromString(str);
 }
+
+
+void MainWindow::updatePlaybackWidget()
+{
+    if(++playbackFrame >= ui->canvas->getSprite()->getFrameCount())
+        playbackFrame = 0;
+
+    Sprite* sprite = ui->canvas->getSprite();
+
+    QPixmap pixmap(sprite->getWidth(), sprite->getHeight());
+    pixmap.fill(QColor("transparent"));
+
+    QPainter painter(&pixmap);
+
+    for(int xPos = 0; xPos < sprite->getWidth(); xPos++)
+    {
+        for(int yPos = 0; yPos < sprite->getHeight(); yPos++)
+        {
+            QRect rect(xPos, yPos, 1, 1);
+            struct Sprite::color pixelColor = sprite->getPixel(xPos, yPos, playbackFrame);
+            QColor color(pixelColor.r, pixelColor.g, pixelColor.b);
+            painter.setPen(color);
+            painter.fillRect(rect, color);
+        }
+    }
+
+    ui->playbackLabel->setPixmap(pixmap);
+}
+
+void MainWindow::setFramesPerSecond()
+{
+    if(ui->fpsSlider->value() == 0)
+        playbackTimer->setInterval(0);
+    else
+        playbackTimer->setInterval(1000 / ui->fpsSlider->value());
+    std::cout << "Set the fps: " << ui->fpsSlider->value() << std::endl;
+}
+
+void MainWindow::showColorDialog(){
+    // Get a selected color from the user
+    std::cout << "Showing color dialog." << std::endl;
+    colorDialog->show();
+}
+
+void MainWindow::colorDialogColorSelected()
+{
+    colorDialog->hide();
+
+    // Get the selected color
+    QColor selectedColor = colorDialog->selectedColor();
+    int *r = new int(0);
+    int *g = new int(0);
+    int *b = new int(0);
+    int *a = new int(0);
+
+    selectedColor.getRgb(r, g, b, a);
+
+    ui->canvas->setCurrentColor(*r, *g, *b, *a);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

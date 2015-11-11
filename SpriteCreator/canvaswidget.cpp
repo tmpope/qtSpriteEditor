@@ -12,10 +12,7 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
     std::cout << "CanvasWidget constructor was called." << std::endl;
     currentTool = PENCIL;
     lastTool = ERASER;
-    sprite = new Sprite(4, 4);
-    assert(sprite->getWidth() == 4);
-
-    std::cout << "Is sprite null? " << (sprite == nullptr) << sprite << std::endl;
+    sprite = new Sprite(32, 32);
 
     currentColor = QColor::fromRgb(255, 25, 25);
     currentFrame = 0;

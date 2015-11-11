@@ -34,16 +34,6 @@
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="widget_2" native="true">
-    <property name="geometry">
-     <rect>
-      <x>900</x>
-      <y>30</y>
-      <width>120</width>
-      <height>120</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QToolButton" name="colorSelectorButton">
     <property name="geometry">
      <rect>
@@ -73,7 +63,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QSlider" name="horizontalSlider">
+   <widget class="QSlider" name="fpsSlider">
     <property name="geometry">
      <rect>
       <x>880</x>
@@ -86,10 +76,10 @@
      <bool>false</bool>
     </property>
     <property name="maximum">
-     <number>24</number>
+     <number>60</number>
     </property>
     <property name="sliderPosition">
-     <number>4</number>
+     <number>24</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -101,7 +91,7 @@
      <number>0</number>
     </property>
    </widget>
-   <widget class="QWidget" name="widget_3" native="true">
+   <widget class="QWidget" name="frameSelectionWidget" native="true">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -212,7 +202,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QWidget" name="widget_4" native="true">
+   <widget class="QWidget" name="colorSelectionWidget" native="true">
     <property name="geometry">
      <rect>
       <x>780</x>
@@ -222,7 +212,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="fpsLabel">
     <property name="geometry">
      <rect>
       <x>1050</x>
@@ -259,6 +249,19 @@
     </property>
     <property name="checkable">
      <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="playbackLabel">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>50</y>
+      <width>121</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
