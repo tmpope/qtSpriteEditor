@@ -9,6 +9,7 @@
 
 CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
 {
+    std::cout << "CanvasWidget constructor was called." << std::endl;
     currentTool = PENCIL;
     lastTool = ERASER;
     sprite = new Sprite(32, 32);
@@ -186,7 +187,7 @@ void CanvasWidget::colorSelectedPixel(int xPos, int yPos){
             std::cout << "Filling pixels at (" << xPos << ", " << yPos << ")" << std::endl;
         break;
 
-        case EYE_DROPPER:
+        case EYE_DROPPER:// TODO: If the current tool is an eye dropper, handle that here
             pixel = sprite->getPixel(xPos, yPos, currentFrame);
             currentColor.setRgb(pixel.r, pixel.g, pixel.b, pixel.a);
             // TODO: Change tool back to pencil here?
