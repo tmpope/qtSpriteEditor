@@ -5,6 +5,7 @@
 #include <QRgb>
 #include <string>
 #include "sprite.h"
+#include <cassert>
 
 CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
 {
@@ -12,25 +13,30 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
     lastTool = ERASER;
     sprite = new Sprite(32, 32);
 
+    std::cout << "Is sprite null? " << (sprite == nullptr) << std::endl;
+
     currentColor = QColor::fromRgb(255, 25, 25);
     currentFrame = 0;
 }
 
 CanvasWidget::~CanvasWidget(){
+    std::cout << "CanvasWidget destructor was called." << std::endl;
     if(sprite != NULL)
         delete sprite;
 }
 
 Sprite* CanvasWidget::getSprite()
 {
-    std::cout << "We have the same issue again, huh?" << std::endl;
+    sprite;
+    sprite->toString();
+    assert(sprite);
+
     return sprite;
 }
 
 void CanvasWidget::loadSpriteFromString(std::string sspString)
 {
     sprite = new Sprite(sspString);
-//    delete sprite;
     repaint();
 }
 
@@ -64,7 +70,7 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event)
     if(gridY < 0)
         gridY = 0;
 
-    std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << sprite->toString() << std::endl;
+//    std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << sprite->toString() << std::endl;
 
     colorSelectedPixel(gridX, gridY);
 
