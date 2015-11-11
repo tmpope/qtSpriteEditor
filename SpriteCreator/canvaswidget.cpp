@@ -13,6 +13,7 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
     currentTool = PENCIL;
     lastTool = ERASER;
     sprite = new Sprite(32, 32);
+    sprite->addFrame();
 
     currentColor = QColor::fromRgb(255, 25, 25);
     currentFrame = 0;
