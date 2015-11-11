@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT());
     connect(ui->fpsSlider, SIGNAL(sliderMoved(int)), this, SLOT(setFramesPerSecond()));
     connect(playbackTimer, SIGNAL(timeout()), this, SLOT(updatePlaybackWidget()));
-    connect(ui->actionColorSelect, SIGNAL(triggered(bool)), this, SLOT(showColorDialog()));
+    connect(ui->colorSelectorButton, SIGNAL(clicked(bool)), this, SLOT(showColorDialog()));
     connect(colorDialog, SIGNAL(colorSelected(QColor)), this, SLOT(colorDialogColorSelected()));
     connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT(ui->canvas->setCurrentTool(PENCIL);));
     connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT(ui->canvas->setCurrentTool(EYE_DROPPER);));
