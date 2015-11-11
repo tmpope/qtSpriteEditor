@@ -17,8 +17,8 @@
    <string>Obey Your Thirst</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/graphics/Sprite.png</normaloff>:/graphics/Sprite.png</iconset>
+   <iconset resource="graphics/graphix.qrc">
+    <normaloff>:/new/prefix1/Sprite.png</normaloff>:/new/prefix1/Sprite.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(99, 94, 103);</string>
@@ -60,8 +60,8 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
-      <normaloff>obey your thirst graphics/Color Wheel.png</normaloff>obey your thirst graphics/Color Wheel.png</iconset>
+     <iconset resource="graphics/graphix.qrc">
+      <normaloff>:/new/prefix1/Color Wheel.png</normaloff>:/new/prefix1/Color Wheel.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -124,8 +124,8 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
-      <normaloff>obey your thirst graphics/Pen-icon.png</normaloff>obey your thirst graphics/Pen-icon.png</iconset>
+     <iconset resource="graphics/graphix.qrc">
+      <normaloff>:/new/prefix1/Pen-icon.png</normaloff>:/new/prefix1/Pen-icon.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -150,8 +150,8 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
-      <normaloff>obey your thirst graphics/eyedropper-icon.png</normaloff>obey your thirst graphics/eyedropper-icon.png</iconset>
+     <iconset resource="graphics/graphix.qrc">
+      <normaloff>:/new/prefix1/eyedropper-icon.png</normaloff>:/new/prefix1/eyedropper-icon.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -176,8 +176,8 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
-      <normaloff>obey your thirst graphics/clone.png</normaloff>obey your thirst graphics/clone.png</iconset>
+     <iconset resource="graphics/graphix.qrc">
+      <normaloff>:/new/prefix1/clone.png</normaloff>:/new/prefix1/clone.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -199,8 +199,8 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
-      <normaloff>obey your thirst graphics/sm-cut-onion.png</normaloff>obey your thirst graphics/sm-cut-onion.png</iconset>
+     <iconset resource="graphics/graphix.qrc">
+      <normaloff>:/new/prefix1/sm-cut-onion.png</normaloff>:/new/prefix1/sm-cut-onion.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -270,8 +270,8 @@
   </widget>
   <action name="actionSave">
    <property name="icon">
-    <iconset>
-     <normaloff>obey your thirst graphics/Lime-icon.png</normaloff>obey your thirst graphics/Lime-icon.png</iconset>
+    <iconset resource="graphics/graphix.qrc">
+     <normaloff>:/new/prefix1/Lime-icon.png</normaloff>:/new/prefix1/Lime-icon.png</iconset>
    </property>
    <property name="text">
     <string>Save</string>
@@ -282,8 +282,8 @@
   </action>
   <action name="actionImport">
    <property name="icon">
-    <iconset>
-     <normaloff>obey your thirst graphics/layer-import-icon.png</normaloff>obey your thirst graphics/layer-import-icon.png</iconset>
+    <iconset resource="graphics/graphix.qrc">
+     <normaloff>:/new/prefix1/layer-import-icon.png</normaloff>:/new/prefix1/layer-import-icon.png</iconset>
    </property>
    <property name="text">
     <string>Import</string>
@@ -294,8 +294,8 @@
   </action>
   <action name="actionExport">
    <property name="icon">
-    <iconset>
-     <normaloff>obey your thirst graphics/table-export-icon.png</normaloff>obey your thirst graphics/table-export-icon.png</iconset>
+    <iconset resource="graphics/graphix.qrc">
+     <normaloff>:/new/prefix1/table-export-icon.png</normaloff>:/new/prefix1/table-export-icon.png</iconset>
    </property>
    <property name="text">
     <string>Export</string>
@@ -306,8 +306,8 @@
   </action>
   <action name="actionLoad">
    <property name="icon">
-    <iconset>
-     <normaloff>obey your thirst graphics/Lemon-icon.png</normaloff>obey your thirst graphics/Lemon-icon.png</iconset>
+    <iconset resource="graphics/graphix.qrc">
+     <normaloff>:/new/prefix1/Lemon-icon.png</normaloff>:/new/prefix1/Lemon-icon.png</iconset>
    </property>
    <property name="text">
     <string>Load</string>
@@ -318,8 +318,8 @@
   </action>
   <action name="actionColorSelect">
    <property name="icon">
-    <iconset>
-     <normaloff>:/graphics/Color Wheel.png</normaloff>:/graphics/Color Wheel.png</iconset>
+    <iconset resource="graphics/graphix.qrc">
+     <normaloff>:/new/prefix1/Color Wheel.png</normaloff>:/new/prefix1/Color Wheel.png</iconset>
    </property>
    <property name="text">
     <string>ColorSelect</string>
@@ -330,8 +330,8 @@
   </action>
   <action name="actionNewFrame">
    <property name="icon">
-    <iconset>
-     <normaloff>obey your thirst graphics/new-file-icon.png</normaloff>obey your thirst graphics/new-file-icon.png</iconset>
+    <iconset resource="graphics/graphix.qrc">
+     <normaloff>:/new/prefix1/new-file-icon.png</normaloff>:/new/prefix1/new-file-icon.png</iconset>
    </property>
    <property name="text">
     <string>New Frame</string>
@@ -342,8 +342,8 @@
   </action>
   <action name="actionNewSprite">
    <property name="icon">
-    <iconset>
-     <normaloff>obey your thirst graphics/Sprite.png</normaloff>obey your thirst graphics/Sprite.png</iconset>
+    <iconset resource="graphics/graphix.qrc">
+     <normaloff>:/new/prefix1/Sprite.png</normaloff>:/new/prefix1/Sprite.png</iconset>
    </property>
    <property name="text">
     <string>New Sprite</string>
@@ -361,6 +361,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="graphics/graphix.qrc"/>
+ </resources>
  <connections/>
 </ui>

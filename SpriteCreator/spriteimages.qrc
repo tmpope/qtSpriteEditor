@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/new/images">
+        <file>graphics/Actions-arrow-up-icon.png</file>
+        <file>graphics/clone sheet.jpg</file>
+        <file>graphics/clone.png</file>
+        <file>graphics/Color Wheel.png</file>
+        <file>graphics/eyedropper-icon.png</file>
+        <file>graphics/layer-import-icon.png</file>
+        <file>graphics/Lemon-icon.png</file>
+        <file>graphics/Lime-icon.png</file>
+        <file>graphics/new-file-icon.png</file>
+        <file>graphics/onion.jpg</file>
+        <file>graphics/oytg graphics.qrc</file>
+        <file>graphics/pencil.png</file>
+        <file>graphics/Pen-icon.png</file>
+        <file>graphics/Save-icon.png</file>
+        <file>graphics/sm-cut-onion.png</file>
+        <file>graphics/Sprite.png</file>
+        <file>graphics/table-export-icon.png</file>
+    </qresource>
+</RCC>

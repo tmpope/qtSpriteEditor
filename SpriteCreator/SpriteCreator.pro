@@ -25,3 +25,9 @@ HEADERS  += mainwindow.h \
     sprite.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    graphics/graphix.qrc
+
+DISTFILES += \
+

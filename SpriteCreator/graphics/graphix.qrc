@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>Actions-arrow-up-icon.png</file>
+        <file>clone sheet.jpg</file>
+        <file>clone.png</file>
+        <file>Color Wheel.png</file>
+        <file>eyedropper-icon.png</file>
+        <file>graphix.qrc</file>
+        <file>layer-import-icon.png</file>
+        <file>Lemon-icon.png</file>
+        <file>Lime-icon.png</file>
+        <file>new-file-icon.png</file>
+        <file>onion.jpg</file>
+        <file>pencil.png</file>
+        <file>Pen-icon.png</file>
+        <file>Save-icon.png</file>
+        <file>sm-cut-onion.png</file>
+        <file>Sprite.png</file>
+        <file>table-export-icon.png</file>
+    </qresource>
+</RCC>
