@@ -48,7 +48,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>390</y>
+      <y>440</y>
       <width>33</width>
       <height>33</height>
      </rect>
@@ -190,7 +190,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>440</y>
+      <y>490</y>
       <width>33</width>
       <height>33</height>
      </rect>
@@ -233,6 +233,32 @@
     </property>
     <property name="text">
      <string>current_fps</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="paintBucketButton">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>390</y>
+      <width>33</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="graphics/graphix.qrc">
+      <normaloff>:/new/prefix1/paint-bucket_32.png</normaloff>:/new/prefix1/paint-bucket_32.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>29</width>
+      <height>29</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
