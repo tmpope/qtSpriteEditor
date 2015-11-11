@@ -10,7 +10,7 @@
 #include <WriteGIF.h>
 #include "sprite.h"
 #include <cstring>
-#include <stack>          // std::stack
+#include <stack>
 #include <list>
 #include <Magick++.h>
 
@@ -22,10 +22,10 @@ Sprite::Sprite(int height, int width)
 	int size = this->frameCount * this->height * this->width;
 	this->pixels = new struct color[size];
 	for(int i = 0; i < size; i++) {
-		pixels[i].r = 255; //TODO change all to 255
+        pixels[i].r = 255;
 		pixels[i].g = 255;
 		pixels[i].b = 255;
-		pixels[i].a = 0;  //TODO except this one - 0 (transparent)
+        pixels[i].a = 0;
 	}
 
 }
@@ -46,8 +46,7 @@ Sprite::Sprite(std::string sspString)
 	}
 	if (sprite.size() < 3 || sprite.size() != 3 + 4 * sprite[0] * sprite[1] * sprite[2])
 	{
-		std::cout << "Improper .ssp file" << std::endl;
-		assert(0);
+        std::cout << "Improper .ssp file" << std::endl;
 	}
 	this->width = sprite[0];
 	this->height = sprite[1];
@@ -113,15 +112,14 @@ struct Sprite::color Sprite::getPixel(int x, int y, int frame)
 
 void Sprite::setPixel(int x, int y, int frame, struct color color) 
 {
-	pixels[frame * width * height + x + y * width] = color;
+    pixels[frame * width * height + x + y * width] = color;
 }
 
 void Sprite::fillPixel(int x, int y, int frame, struct color color) 
 {
 	struct color oldColor = getPixel(x, y, frame);
 	if (color == oldColor)
-		return;
-	// std::cout << color << " is the new color to overwrite " << oldColor << std::endl;	
+        return;
 	setPixel(x, y, frame, color);
 	if (x - 1 >= 0 && getPixel(x - 1, y, frame) == oldColor) 
 	{
@@ -176,8 +174,7 @@ void Sprite::exportToGif(std::string fileName, int fps)
 	gif::GIF* g = gif::newGIF(delay);
 	unsigned char rgbImage[width * height * 3];
 	for(int i=0; i < frameCount; i++)
-	{
-		// drawImage(rgbImage, W, H, i, FrameCount);
+    {
 		drawImage(rgbImage, i);
 		gif::addFrame(g, width, height, rgbImage, delay);
 	}
@@ -260,8 +257,9 @@ int Sprite::cloneFrame(int frame)
 	return frameCount;
 }
 
-int Sprite::save(std::string fileName)
+void Sprite::save(std::string fileName)
 {
+    std::cout << "Writing sprite to " << fileName;
     std::ofstream myfile;
 	myfile.open (fileName.c_str());
 	myfile << this->toString();

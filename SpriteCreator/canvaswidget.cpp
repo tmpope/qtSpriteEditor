@@ -13,7 +13,6 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
     currentTool = PENCIL;
     lastTool = ERASER;
     sprite = new Sprite(32, 32);
-    sprite->addFrame();
 
     currentColor = QColor::fromRgb(255, 25, 25);
     currentFrame = 0;
@@ -198,4 +197,9 @@ void CanvasWidget::colorSelectedPixel(int xPos, int yPos){
         break;
 
     }
+}
+
+void CanvasWidget::save(std::string s)
+{
+    sprite->save(s);
 }
