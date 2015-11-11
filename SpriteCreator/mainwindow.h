@@ -22,6 +22,16 @@ public:
 public slots:
     void saveSprite();
     void loadSprite();
+    void exportGif();
+    void importGif();
+    void setColor();
+    void newSprite();
+    void onionSkin();
+    void cloneFrame();
+    void setPen();
+    void setEyeDropper();
+    void newFrame();
+
 
 private:
     Ui::MainWindow *ui;

@@ -18,10 +18,19 @@ MainWindow::MainWindow(QWidget *parent) :
 
     canvas = new CanvasWidget(this); // ~ACL: This is the line that solved our save problem. Why? I have no fetching clue.
     
+    // each call to canvas->something needs to be either in the mainwindow.cpp or
+    // those methods need to be in SLOT form.
     connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT(saveSprite()));
     connect(ui->actionLoad, SIGNAL(triggered(bool)), this, SLOT(loadSprite()));
-    connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT(canvas->setCurrentTool(PENCIL);));
-    connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT(canvas->setCurrentTool(EYE_DROPPER);));
+    connect(ui->penButton, SIGNAL(clicked()), this, SLOT(setPen()));
+    connect(ui->eyeDropperButton, SIGNAL(clicked()), this, SLOT(setEyeDropper()));
+    connect(ui->actionExport, SIGNAL(triggered(bool)), this, SLOT(exportGif()));
+    connect(ui->actionImport, SIGNAL(triggered(bool)), this, SLOT(importGif()));
+    connect(ui->actionNewFrame, SIGNAL(triggered(bool)), this, SLOT(newFrame()));
+    connect(ui->actionColorSelect, SIGNAL(toggled(bool)), this, SLOT(setColor()));
+    connect(ui->actionNewSprite, SIGNAL(triggered(bool)), this, SLOT(newSprite()));
+    connect(ui->cloneFrameButton, SIGNAL(clicked()), this, SLOT(cloneFrame()));
+    connect(ui->onionSkinButton, SIGNAL(clicked()), this, SLOT(onionSkin()));
 }
 
 MainWindow::~MainWindow()
@@ -29,38 +38,133 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::newFrame()
+{
+    canvas->getSprite()->addFrame();
+}
+
+void MainWindow::setEyeDropper()
+{
+    canvas->setCurrentTool(EYE_DROPPER);
+}
+
+void MainWindow::setPen()
+{
+    canvas->setCurrentTool(PENCIL);
+}
+
+void MainWindow::cloneFrame()
+{
+    Sprite currentSprite = canvas->getSprite();
+    currentSprite->addFrame();
+    //backend needs functionality to add a sprite with a frame.
+
+}
+
+void MainWindow::onionSkin()
+{
+
+}
+
+void MainWindow::newSprite()
+{
+    //getting the size of sprite could pose a problem here.
+    canvas->sprite = new Sprite();
+}
+
+void MainWindow::exportGif()
+{
+    QFileDialog dialog(this);
+    dialog.setDefaultSuffix(".ssp");
+    QString QfileName = dialog.getSaveFileName(
+                this, tr("Save Project"), "C://",
+                "Sprite Sheet Project(*.ssp);;Text File(*.txt)");
+    file = QfileName.toStdString().c_str();
+    //canvas->getSprite()->exportToGif(file, ui->horizontalSlider->value());
+}
+
+void MainWindow::setColor()
+{
+    //how the crap do i get a color from the action color select?!?
+    //canvas->setCurrentColor(ui->actionColorSelect->);
+}
+
+void MainWindow::importGif()
+{
+    QString QfileName = QFileDialog::getOpenFileName(
+                this, tr("Open Project"), "C://",
+                "(*.ssp *.txt)");
+    file = QfileName.toStdString();
+
+    std::string ext = "";
+    if(file.find_last_of(".") !=  std::string::npos)
+    {
+        ext = file.substr(file.find_last_of(".") + 1);
+    }
+    if(ext == "gif")
+    {
+        //I'm pretty sure we need to call the sprite constructor for gifs here.
+        //maybe we can overload loadSpriteFromString.
+        //canvas->loadSpriteFromString(/*file name, gif extension*/);
+    }
+    else if(ext != "ssp" && ext != "txt")
+    {
+        QMessageBox::critical(this, tr("Gif Load Failed"), tr("Wrong Extension!"));
+    }
+    try
+    {
+        //I'm pretty sure we need to call the sprite constructor for gifs here.
+        //maybe we can overload loadSpriteFromString.
+       canvas->loadSpriteFromString(file);
+    }
+    catch(...)
+    {
+        QMessageBox::critical(this, tr("Gif Load Failed"), tr("Gif Load Failed!"));
+    }
+    QMessageBox::information(this, tr("Gif Load"), tr("Gif Loaded!"));
+}
+
 void MainWindow::saveSprite()
 {
     QFileDialog dialog(this);
     dialog.setDefaultSuffix(".ssp");
-    QString QfileName = dialog.getSaveFileName( this, tr("Save Project"), "C://", "Sprite Sheet Project(*.ssp);;Text File(*.txt)");
+    QString QfileName = dialog.getSaveFileName(
+                this, tr("Save Project"), "C://",
+                "Sprite Sheet Project(*.ssp);;Text File(*.txt)");
+
     QFile outputFile(QfileName);
     outputFile.open(QIODevice::WriteOnly);
     if(!outputFile.isOpen()){
         QMessageBox::critical(this, tr("File Save Failed"), tr("Failed to write to file."));
     }
+
+    //this chuck saves the Sprite into a .ssp or .txt file.
     QTextStream outStream(&outputFile);
 
-    // ~ACL: Here's where the issue shows up.
-    Sprite* sprite = canvas->getSprite(); // <---- This line right here.
-    std::string s = sprite->toString();
-    outStream << s.c_str();
-    outputFile.close();
+    //Sprite* sprite = canvas->getSprite(); // <---- This line right here. gave us so much trouble...
+        std::string s = canvas->getSprite()->toString();
+        outStream << s.c_str();
+        outputFile.close();
 
-    file = QfileName.toStdString();
-    QMessageBox::information(this, tr("File"), tr("File Saved"));
+        file = QfileName.toStdString();
 
-    if(QfileName.isNull())
-    {
-        QMessageBox::critical(this, tr("File Save Failed"), tr("File is Null"));
-    }
+        if(QfileName.isNull())
+        {
+            QMessageBox::critical(this, tr("File Save Failed"), tr("File is Null"));
+        }
+    QMessageBox::information(this, tr("File"), tr("File Saved!"));
     std::cout << file << std::endl;
 }
 
 void MainWindow::loadSprite(){
-    QString QfileName = QFileDialog::getOpenFileName(this, tr("Open Project"), "C://", "Sprite Sheet Project(*.ssp);;Text Files(*.txt)");
-    std::cout << "File name: " << QfileName.toStdString() << std::endl;
-    QFile inputFile(QfileName);
+    QString QfileName = QFileDialog::getOpenFileName(
+                this, tr("Open Project"), "C://",
+                "(*.ssp *.txt)");
+
+    //std::cout << "File name: " << QfileName.toStdString() << std::endl;
+    // this chunk of code gets our file, and makes sure it has the correct extension.
+    QFile inputFile;
+    inputFile(QfileName);
 
     std::string file = QfileName.toStdString();
     std::string ext = "";
@@ -68,18 +172,17 @@ void MainWindow::loadSprite(){
     {
         ext = file.substr(file.find_last_of(".") + 1);
     }
-
+    if(ext != "ssp" && ext != "txt")
+    {
+        QMessageBox::critical(this, tr("File Load Failed"), tr("Wrong extension!"));
+    }
     else
     {
-        QMessageBox::critical(this, tr("File Load Failed"), tr("An extension could not be found for the file!"));
+        QMessageBox::information(this, tr("File Load"), tr("File Loaded!"));
         return;
     }
-//    if(ext != ".ssp" || ext != ".txt")
-//    {
-//        QMessageBox::critical(this, tr("File Load Failed"), tr("You must select a file with .ssp or .txt extension!"));
-//        return;
-//    }
 
+    // Here we read the file and put it into a std::string for the new sprite.
     // Here's where things get funky - I hope I'm doing this right.
 
     std::stringstream ss;
@@ -89,8 +192,9 @@ void MainWindow::loadSprite(){
         QTextStream in(&inputFile);
         ss << in.readAll().toStdString();
     }
+    inputFile.close();
 
     std::cout << "Here's the file: " << ss.str() << std::endl;
-
-    ui->canvas->loadSpriteFromString(ss.str());
+    canvas->loadSpriteFromString(ss.str());
+    //ui->canvas->loadSpriteFromString(ss.str());
 }
