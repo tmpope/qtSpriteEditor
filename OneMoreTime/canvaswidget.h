@@ -46,6 +46,16 @@ public:
      * @return pointer to the sprite that this canvas widget contains.
      */
     Sprite* getSprite();
+
+    /**
+     * @brief createNewSprite
+     *
+     * Loads up a sprite from an ssp string that has been pulled up from a file.
+     *
+     * @param sspString
+     */
+    void loadSpriteFromString(std::string sspString);
+
     /**
      * @brief CanvasWidget
      *

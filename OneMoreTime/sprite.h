@@ -60,7 +60,16 @@ public:
 	 * Pixels each default to white transparent until set otherwise.
 	 */
 	Sprite(int height, int width);
-	Sprite(std::string sspString);
+
+    /**
+     * @brief Sprite
+     *
+     * Creates a sprite given the sspString.
+     *
+     * @param sspString
+     */
+    Sprite(std::string sspString);
+
 	Sprite(std::string gifFileName, bool isGif);
 	~Sprite();
 	int getHeight() const 
@@ -103,11 +112,13 @@ public:
 	void fillPixel(int x, int y, int frame, struct color color);
 	// void fillRecursive(int x, int y, int frame, struct color color);
 	void exportToGif(std::string fileName, int fps = 4);
+
 	/**
 	 * Adds a new frame to the sprite
 	 * @return The number of frames after the new frame has been added
 	 */
 	int addFrame();
+
 	/**
 	 * Removes the specified frame from the sprite
 	 * @param  frame the number (0 indexed) of the frame to remove
@@ -115,6 +126,7 @@ public:
 	 * @return The number of frames after the new frame has been added
 	 */
 	int removeFrame(int frame);
+
 	/**
 	 * Removes the specified frame from the sprite
 	 * @param  frame the number (0 indexed) of the frame to clone
@@ -122,6 +134,7 @@ public:
 	 * @return The number of frames after the new frame has been added
 	 */
 	int cloneFrame(int frame);
+
 	/**
 	 * Returns the string that needs to be written to a .ssp file
 	 * @return [description]

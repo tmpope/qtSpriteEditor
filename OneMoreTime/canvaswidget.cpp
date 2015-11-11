@@ -26,6 +26,11 @@ Sprite* CanvasWidget::getSprite()
     return sprite;
 }
 
+void CanvasWidget::loadSpriteFromString(std::string sspString)
+{
+    sprite = new Sprite(sspString);
+}
+
 /* Indicates to the model what's the haps */
 void CanvasWidget::mousePressEvent(QMouseEvent *event)
 {
