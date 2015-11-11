@@ -15,10 +15,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     std::string file = "";
+
+    canvas = new CanvasWidget(this);
     
-//    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(Save()));
     connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT(saveSprite()));
     connect(ui->actionLoad, SIGNAL(triggered(bool)), this, SLOT(loadSprite()));
+    connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT(canvas->setCurrentTool(PENCIL);));
 }
 
 MainWindow::~MainWindow()
@@ -38,10 +40,9 @@ void MainWindow::saveSprite()
     }
     QTextStream outStream(&outputFile);
 
-    // ~ACL: Here's where I did stuff to fix the issue:
-    std::cout << "We got this far." << std::endl;
-    Sprite* sprite = canvas->getSprite();
-    std::string s = sprite->toString(); // This totally works for some strange reason.
+    // ~ACL: Here's where the issue shows up.
+    Sprite* sprite = canvas->getSprite(); // <---- This line right here.
+    std::string s = sprite->toString();
     outStream << s.c_str();
     outputFile.close();
 
