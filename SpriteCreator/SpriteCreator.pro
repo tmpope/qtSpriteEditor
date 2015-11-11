@@ -7,7 +7,7 @@
 QT       += core gui
 QMAKE_CXXFLAGS += -std=c++11
 #QMAKE_CXXFLAGS += -fopenmp
-LIBS += -lMagick++ -lMagickCore
+#LIBS += -lMagick++ -lMagickCore
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
