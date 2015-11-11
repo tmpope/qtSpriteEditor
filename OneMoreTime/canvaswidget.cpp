@@ -21,11 +21,9 @@ CanvasWidget::~CanvasWidget(){
         delete sprite;
 }
 
-std::string CanvasWidget::getSprite()
+Sprite* CanvasWidget::getSprite()
 {
-    //std::cout << sprite->toString();
-//    std::cout << "Grid coordinates: (" << ", " << ")" << sprite->toString() << std::endl;
-    return sprite->toString();
+    return sprite;
 }
 
 /* Indicates to the model what's the haps */

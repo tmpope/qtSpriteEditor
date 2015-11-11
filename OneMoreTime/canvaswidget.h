@@ -38,7 +38,14 @@ private:
     int currentFrame;
 
 public:
-    std::string getSprite();
+    /**
+     * @brief getSprite
+     *
+     * Returns the sprite this canvas widget holds onto.
+     *
+     * @return pointer to the sprite that this canvas widget contains.
+     */
+    Sprite* getSprite();
     /**
      * @brief CanvasWidget
      *
@@ -65,21 +72,6 @@ public:
      * @param a - alpha
      */
     void setCurrentColor(int r, int g, int b, int a);
-
-//    /**
-//     * @brief getCurrentSprite
-//     * @return Sprite
-//     */
-//    Sprite* getCurrentSprite();
-
-//    /**
-//     * @brief setCurrentSprite
-//     *
-//     * Set a new sprite to this one.
-//     *
-//     * @param otherSprite
-//     */
-//    void setCurrentSprite(Sprite *otherSprite);
 
 protected:
 
@@ -116,4 +108,4 @@ private:
     void colorSelectedPixel(int xPos, int yPos);
 };
 
-#endif // CANVASWIDGET_H
+#endif
