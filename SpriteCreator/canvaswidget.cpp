@@ -14,8 +14,6 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
     lastTool = ERASER;
     sprite = new Sprite(32, 32);
 
-    std::cout << "Is sprite null? " << (sprite == nullptr) << std::endl;
-
     currentColor = QColor::fromRgb(255, 25, 25);
     currentFrame = 0;
 }

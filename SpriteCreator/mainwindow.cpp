@@ -135,7 +135,6 @@ void MainWindow::updatePlaybackWidget()
             QRect rect(xPos, yPos, 1, 1);
             struct Sprite::color pixelColor = sprite->getPixel(xPos, yPos, playbackFrame);
             QColor color(pixelColor.r, pixelColor.g, pixelColor.b);
-//            std::cout << pixelColor.r << " " << pixelColor.g << " " << pixelColor.b << std::endl;
             painter.setPen(color);
             painter.fillRect(rect, color);
         }
@@ -146,9 +145,8 @@ void MainWindow::updatePlaybackWidget()
 
 void MainWindow::setFramesPerSecond()
 {
-    // TODO: Does this work?
     if(ui->fpsSlider->value() == 0)
-        playbackTimer->setInterval(0); // ~ACL: Hopefully this doesn't break anything.
+        playbackTimer->setInterval(0);
     else
         playbackTimer->setInterval(1000 / ui->fpsSlider->value());
     std::cout << "Set the fps: " << ui->fpsSlider->value() << std::endl;
