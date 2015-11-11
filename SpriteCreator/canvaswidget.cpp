@@ -12,7 +12,7 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
     std::cout << "CanvasWidget constructor was called." << std::endl;
     currentTool = PENCIL;
     lastTool = ERASER;
-    sprite = new Sprite(4, 4);
+    sprite = new Sprite(32, 32);
 
     std::cout << "Is sprite null? " << (sprite == nullptr) << std::endl;
 

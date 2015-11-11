@@ -1,13 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "canvaswidget.h"
+#include "sprite.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QFile>
 #include <QTextStream>
 #include <iostream>
 #include <iomanip>
-#include "sprite.h"
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,15 +19,24 @@ MainWindow::MainWindow(QWidget *parent) :
 
     canvas = new CanvasWidget(this); // ~ACL: This is the line that solved our save problem. Why? I have no fetching clue.
 
+    playbackTimer = new QTimer();
+    playbackTimer->setInterval(1000 / ui->fpsSlider->value());
+    playbackTimer->start();
+
+    playbackFrame = 0;
+
     connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT(saveSprite()));
     connect(ui->actionLoad, SIGNAL(triggered(bool)), this, SLOT(loadSprite()));
     connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT(canvas->setCurrentTool(PENCIL);));
     connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT(canvas->setCurrentTool(EYE_DROPPER);));
+    connect(ui->fpsSlider, SIGNAL(sliderMoved(int)), this, SLOT(setFramesPerSecond()));
+    connect(playbackTimer, SIGNAL(timeout()), this, SLOT(updatePlaybackWidget()));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete playbackTimer;
 }
 
 void MainWindow::saveSprite()
@@ -104,3 +114,63 @@ void MainWindow::loadSprite(){
 
     ui->canvas->loadSpriteFromString(str);
 }
+
+
+void MainWindow::updatePlaybackWidget()
+{
+    if(++playbackFrame >= ui->canvas->getSprite()->getFrameCount())
+        playbackFrame = 0;
+
+    Sprite* sprite = ui->canvas->getSprite();
+
+    QPixmap pixmap(sprite->getWidth(), sprite->getHeight());
+    pixmap.fill(QColor("transparent"));
+
+    QPainter painter(&pixmap);
+
+    for(int xPos = 0; xPos < sprite->getWidth(); xPos++)
+    {
+        for(int yPos = 0; yPos < sprite->getHeight(); yPos++)
+        {
+            QRect rect(xPos, yPos, 1, 1);
+            struct Sprite::color pixelColor = sprite->getPixel(xPos, yPos, playbackFrame);
+            QColor color(pixelColor.r, pixelColor.g, pixelColor.b);
+//            std::cout << pixelColor.r << " " << pixelColor.g << " " << pixelColor.b << std::endl;
+            painter.setPen(color);
+            painter.fillRect(rect, color);
+        }
+    }
+
+    ui->playbackLabel->setPixmap(pixmap);
+}
+
+void MainWindow::setFramesPerSecond()
+{
+    // TODO: Does this work?
+    if(ui->fpsSlider->value() == 0)
+        playbackTimer->setInterval(0); // ~ACL: Hopefully this doesn't break anything.
+    else
+        playbackTimer->setInterval(1000 / ui->fpsSlider->value());
+    std::cout << "Set the fps: " << ui->fpsSlider->value() << std::endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
