@@ -13,8 +13,9 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
     currentTool = PENCIL;
     lastTool = ERASER;
     sprite = new Sprite(4, 4);
+    assert(sprite->getWidth() == 4);
 
-    std::cout << "Is sprite null? " << (sprite == nullptr) << std::endl;
+    std::cout << "Is sprite null? " << (sprite == nullptr) << sprite << std::endl;
 
     currentColor = QColor::fromRgb(255, 25, 25);
     currentFrame = 0;
@@ -199,4 +200,9 @@ void CanvasWidget::colorSelectedPixel(int xPos, int yPos){
         break;
 
     }
+}
+
+void CanvasWidget::save(std::string s)
+{
+    sprite->save(s);
 }

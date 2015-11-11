@@ -82,6 +82,7 @@ public:
      * @param a - alpha
      */
     void setCurrentColor(int r, int g, int b, int a);
+    void save(std::string s);
 
 protected:
 

@@ -46,8 +46,7 @@ Sprite::Sprite(std::string sspString)
 	}
 	if (sprite.size() < 3 || sprite.size() != 3 + 4 * sprite[0] * sprite[1] * sprite[2])
 	{
-		std::cout << "Improper .ssp file" << std::endl;
-		assert(0);
+        std::cout << "Improper .ssp file" << std::endl;
 	}
 	this->width = sprite[0];
 	this->height = sprite[1];
@@ -113,7 +112,7 @@ struct Sprite::color Sprite::getPixel(int x, int y, int frame)
 
 void Sprite::setPixel(int x, int y, int frame, struct color color) 
 {
-	pixels[frame * width * height + x + y * width] = color;
+    pixels[frame * width * height + x + y * width] = color;
 }
 
 void Sprite::fillPixel(int x, int y, int frame, struct color color) 
@@ -260,8 +259,9 @@ int Sprite::cloneFrame(int frame)
 	return frameCount;
 }
 
-int Sprite::save(std::string fileName)
+void Sprite::save(std::string fileName)
 {
+    std::cout << "Writing sprite to " << fileName;
     std::ofstream myfile;
 	myfile.open (fileName.c_str());
 	myfile << this->toString();

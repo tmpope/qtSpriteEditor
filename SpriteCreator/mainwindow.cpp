@@ -34,18 +34,19 @@ void MainWindow::saveSprite()
     QFileDialog dialog(this);
     dialog.setDefaultSuffix(".ssp");
     QString QfileName = dialog.getSaveFileName( this, tr("Save Project"), "C://", "Sprite Sheet Project(*.ssp);;Text File(*.txt)");
-    QFile outputFile(QfileName);
-    outputFile.open(QIODevice::WriteOnly);
-    if(!outputFile.isOpen()){
-        QMessageBox::critical(this, tr("File Save Failed"), tr("Failed to write to file."));
-    }
-    QTextStream outStream(&outputFile);
+//    QFile outputFile(QfileName);
+//    outputFile.open(QIODevice::WriteOnly);
+//    if(!outputFile.isOpen()){
+//        QMessageBox::critical(this, tr("File Save Failed"), tr("Failed to write to file."));
+//    }
+//    QTextStream outStream(&outputFile);
 
     // ~ACL: Here's where the issue shows up.
-    Sprite* sprite = canvas->getSprite(); // <---- This line right here.
-    std::string s = sprite->toString();
-    outStream << s.c_str();
-    outputFile.close();
+//    Sprite* sprite =
+    canvas->save(QfileName.toStdString());//getSprite(); // <---- This line right here.
+//    std::string s = sprite->toString();
+//    outStream << s.c_str();
+//    outputFile.close();
 
     file = QfileName.toStdString();
     QMessageBox::information(this, tr("File"), tr("File Saved"));
