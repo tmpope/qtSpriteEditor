@@ -10,7 +10,7 @@
 #include <WriteGIF.h>
 #include "sprite.h"
 #include <cstring>
-#include <stack>          // std::stack
+#include <stack>
 #include <list>
 #include <Magick++.h>
 
@@ -22,10 +22,10 @@ Sprite::Sprite(int height, int width)
 	int size = this->frameCount * this->height * this->width;
 	this->pixels = new struct color[size];
 	for(int i = 0; i < size; i++) {
-		pixels[i].r = 255; //TODO change all to 255
+        pixels[i].r = 255;
 		pixels[i].g = 255;
 		pixels[i].b = 255;
-		pixels[i].a = 0;  //TODO except this one - 0 (transparent)
+        pixels[i].a = 0;
 	}
 
 }
@@ -119,8 +119,7 @@ void Sprite::fillPixel(int x, int y, int frame, struct color color)
 {
 	struct color oldColor = getPixel(x, y, frame);
 	if (color == oldColor)
-		return;
-	// std::cout << color << " is the new color to overwrite " << oldColor << std::endl;	
+        return;
 	setPixel(x, y, frame, color);
 	if (x - 1 >= 0 && getPixel(x - 1, y, frame) == oldColor) 
 	{
@@ -175,8 +174,7 @@ void Sprite::exportToGif(std::string fileName, int fps)
 	gif::GIF* g = gif::newGIF(delay);
 	unsigned char rgbImage[width * height * 3];
 	for(int i=0; i < frameCount; i++)
-	{
-		// drawImage(rgbImage, W, H, i, FrameCount);
+    {
 		drawImage(rgbImage, i);
 		gif::addFrame(g, width, height, rgbImage, delay);
 	}

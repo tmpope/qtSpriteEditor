@@ -16,8 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     std::string file = "";
 
-//    canvas = new CanvasWidget(this); // ~ACL: This is the line that solved our save problem. Why? I have no fetching clue.
-
     connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT(saveSprite()));
     connect(ui->actionLoad, SIGNAL(triggered(bool)), this, SLOT(loadSprite()));
     connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT(ui->canvas->setCurrentTool(PENCIL);));
@@ -34,19 +32,8 @@ void MainWindow::saveSprite()
     QFileDialog dialog(this);
     dialog.setDefaultSuffix(".ssp");
     QString QfileName = dialog.getSaveFileName( this, tr("Save Project"), "C://", "Sprite Sheet Project(*.ssp);;Text File(*.txt)");
-//    QFile outputFile(QfileName);
-//    outputFile.open(QIODevice::WriteOnly);
-//    if(!outputFile.isOpen()){
-//        QMessageBox::critical(this, tr("File Save Failed"), tr("Failed to write to file."));
-//    }
-//    QTextStream outStream(&outputFile);
 
-    // ~ACL: Here's where the issue shows up.
-//    Sprite* sprite =
-    ui->canvas->save(QfileName.toStdString());//getSprite(); // <---- This line right here.
-//    std::string s = sprite->toString();
-//    outStream << s.c_str();
-//    outputFile.close();
+    ui->canvas->save(QfileName.toStdString());
 
     file = QfileName.toStdString();
     QMessageBox::information(this, tr("File"), tr("File Saved"));
@@ -75,13 +62,6 @@ void MainWindow::loadSprite(){
         QMessageBox::critical(this, tr("File Load Failed"), tr("An extension could not be found for the file!"));
         return;
     }
-//    if(ext != ".ssp" || ext != ".txt")
-//    {
-//        QMessageBox::critical(this, tr("File Load Failed"), tr("You must select a file with .ssp or .txt extension!"));
-//        return;
-//    }
-
-    // Here's where things get funky - I hope I'm doing this right.
 
     FILE* f;
     f = fopen(file.c_str(),"r");
@@ -93,15 +73,6 @@ void MainWindow::loadSprite(){
     std::string str(buffer);
     free(buffer);
     fclose(f);
-
-//    if(inputFile.open(QIODevice::ReadOnly))
-//    {
-
-//        QTextStream in(&inputFile);
-//        ss << in.readAll().toStdString();
-//    }
-
-    std::cout << "Here's the file: " << str << std::endl;
 
     ui->canvas->loadSpriteFromString(str);
 }
