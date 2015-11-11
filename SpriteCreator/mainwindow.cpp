@@ -16,12 +16,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     std::string file = "";
 
-    canvas = new CanvasWidget(this); // ~ACL: This is the line that solved our save problem. Why? I have no fetching clue.
+//    canvas = new CanvasWidget(this); // ~ACL: This is the line that solved our save problem. Why? I have no fetching clue.
 
     connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT(saveSprite()));
     connect(ui->actionLoad, SIGNAL(triggered(bool)), this, SLOT(loadSprite()));
-    connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT(canvas->setCurrentTool(PENCIL);));
-    connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT(canvas->setCurrentTool(EYE_DROPPER);));
+    connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT(ui->canvas->setCurrentTool(PENCIL);));
+    connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT(ui->canvas->setCurrentTool(EYE_DROPPER);));
 }
 
 MainWindow::~MainWindow()
@@ -43,7 +43,7 @@ void MainWindow::saveSprite()
 
     // ~ACL: Here's where the issue shows up.
 //    Sprite* sprite =
-    canvas->save(QfileName.toStdString());//getSprite(); // <---- This line right here.
+    ui->canvas->save(QfileName.toStdString());//getSprite(); // <---- This line right here.
 //    std::string s = sprite->toString();
 //    outStream << s.c_str();
 //    outputFile.close();
