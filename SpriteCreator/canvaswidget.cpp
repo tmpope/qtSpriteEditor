@@ -10,7 +10,7 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
 {
     currentTool = PENCIL;
     lastTool = ERASER;
-    sprite = new Sprite(4, 4);
+    sprite = new Sprite(32, 32);
 
     currentColor = QColor::fromRgb(255, 25, 25);
     currentFrame = 0;
@@ -21,11 +21,17 @@ CanvasWidget::~CanvasWidget(){
         delete sprite;
 }
 
-char* CanvasWidget::getSprite()
+Sprite* CanvasWidget::getSprite()
 {
-    //std::cout << sprite->toString();
-//    std::cout << "Grid coordinates: (" << ", " << ")" << sprite->toString() << std::endl;
-    return "hello";
+    std::cout << "We have the same issue again, huh?" << std::endl;
+    return sprite;
+}
+
+void CanvasWidget::loadSpriteFromString(std::string sspString)
+{
+    sprite = new Sprite(sspString);
+//    delete sprite;
+    repaint();
 }
 
 /* Indicates to the model what's the haps */
@@ -186,6 +192,3 @@ void CanvasWidget::colorSelectedPixel(int xPos, int yPos){
 
     }
 }
-
-
-

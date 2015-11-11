@@ -15,11 +15,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     std::string file = "";
-//    canvas = new CanvasWidget(this);
-
-//    setCentralWidget(canvas);
     
-    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(Save()));
+//    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(Save()));
+    connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT(saveSprite()));
+    connect(ui->actionLoad, SIGNAL(triggered(bool)), this, SLOT(loadSprite()));
 }
 
 MainWindow::~MainWindow()
@@ -27,23 +26,22 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-std::string MainWindow::Save(){
-    //get the file contents from the sprite.
+void MainWindow::saveSprite()
+{
     QFileDialog dialog(this);
     dialog.setDefaultSuffix(".ssp");
-    QString QfileName = dialog.getSaveFileName(
-                this, tr("Save Project"), "C://", 
-                "Sprite Sheet Project(*.ssp);;Text File(*.txt)");
-
+    QString QfileName = dialog.getSaveFileName( this, tr("Save Project"), "C://", "Sprite Sheet Project(*.ssp);;Text File(*.txt)");
     QFile outputFile(QfileName);
     outputFile.open(QIODevice::WriteOnly);
     if(!outputFile.isOpen()){
-        QMessageBox::critical(this, tr("File Load Failed"), tr("Failed to write"));
+        QMessageBox::critical(this, tr("File Save Failed"), tr("Failed to write to file."));
     }
     QTextStream outStream(&outputFile);
-    std::string s = canvas->getSprite();
-    std::cout << "Made it this far" << std::endl;
-    std::cout << s << std::endl;
+
+    // ~ACL: Here's where I did stuff to fix the issue:
+    std::cout << "We got this far." << std::endl;
+    Sprite* sprite = canvas->getSprite();
+    std::string s = sprite->toString(); // This totally works for some strange reason.
     outStream << s.c_str();
     outputFile.close();
 
@@ -55,17 +53,12 @@ std::string MainWindow::Save(){
         QMessageBox::critical(this, tr("File Save Failed"), tr("File is Null"));
     }
     std::cout << file << std::endl;
-
-    return file;
 }
 
-Sprite* MainWindow::Load(){
-    QString QfileName = QFileDialog::getOpenFileName(
-                this, tr("Open Project"), "C://", 
-                "Sprite Sheet Project(*.ssp);;Text Files(*.txt)");
-    QFile outputFile(QfileName);
-
-
+void MainWindow::loadSprite(){
+    QString QfileName = QFileDialog::getOpenFileName(this, tr("Open Project"), "C://", "Sprite Sheet Project(*.ssp);;Text Files(*.txt)");
+    std::cout << "File name: " << QfileName.toStdString() << std::endl;
+    QFile inputFile(QfileName);
 
     std::string file = QfileName.toStdString();
     std::string ext = "";
@@ -73,16 +66,29 @@ Sprite* MainWindow::Load(){
     {
         ext = file.substr(file.find_last_of(".") + 1);
     }
-    else 
+
+    else
     {
-        QMessageBox::critical(this, tr("File Load Failed"), tr("File Loading Failed!"));
+        QMessageBox::critical(this, tr("File Load Failed"), tr("An extension could not be found for the file!"));
+        return;
     }
-    if(ext != ".ssp" || ext != ".txt")
+//    if(ext != ".ssp" || ext != ".txt")
+//    {
+//        QMessageBox::critical(this, tr("File Load Failed"), tr("You must select a file with .ssp or .txt extension!"));
+//        return;
+//    }
+
+    // Here's where things get funky - I hope I'm doing this right.
+
+    std::stringstream ss;
+
+    if(inputFile.open(QIODevice::ReadOnly))
     {
-        QMessageBox::critical(this, tr("File Load Failed"), tr("File Loading Failed!"));
+        QTextStream in(&inputFile);
+        ss << in.readAll().toStdString();
     }
 
-    //call the sprite method here with file.
-//    return sprite;
+    std::cout << "Here's the file: " << ss.str() << std::endl;
+
+    ui->canvas->loadSpriteFromString(ss.str());
 }
-

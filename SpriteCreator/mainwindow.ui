@@ -24,7 +24,7 @@
    <string notr="true">background-color: rgb(99, 94, 103);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="CanvasWidget" name="widget" native="true">
+   <widget class="CanvasWidget" name="canvas" native="true">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -227,7 +227,7 @@
      <rect>
       <x>1050</x>
       <y>170</y>
-      <width>61</width>
+      <width>81</width>
       <height>16</height>
      </rect>
     </property>
@@ -357,7 +357,7 @@
   <customwidget>
    <class>CanvasWidget</class>
    <extends>QWidget</extends>
-   <header>canvaswidget.h</header>
+   <header location="global">canvaswidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
