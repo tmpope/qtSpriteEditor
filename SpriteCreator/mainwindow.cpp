@@ -9,6 +9,7 @@
 #include <iostream>
 #include <iomanip>
 #include <QTimer>
+#include <QColorDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     std::string file = "";
 
     canvas = new CanvasWidget(this); // ~ACL: This is the line that solved our save problem. Why? I have no fetching clue.
+
+    colorDialog = new QColorDialog();
 
     playbackTimer = new QTimer();
     playbackTimer->setInterval(1000 / ui->fpsSlider->value());
@@ -31,12 +34,15 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT(canvas->setCurrentTool(EYE_DROPPER);));
     connect(ui->fpsSlider, SIGNAL(sliderMoved(int)), this, SLOT(setFramesPerSecond()));
     connect(playbackTimer, SIGNAL(timeout()), this, SLOT(updatePlaybackWidget()));
+    connect(ui->actionColorSelect, SIGNAL(triggered(bool)), this, SLOT(showColorDialog()));
+    connect(colorDialog, SIGNAL(colorSelected(QColor)), this, SLOT(colorDialogColorSelected()));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete playbackTimer;
+    delete colorDialog;
 }
 
 void MainWindow::saveSprite()
@@ -152,8 +158,27 @@ void MainWindow::setFramesPerSecond()
     std::cout << "Set the fps: " << ui->fpsSlider->value() << std::endl;
 }
 
+void MainWindow::showColorDialog(){
+    // Get a selected color from the user
+    std::cout << "Showing color dialog." << std::endl;
+    colorDialog->show();
+}
 
+void MainWindow::colorDialogColorSelected()
+{
+    colorDialog->hide();
 
+    // Get the selected color
+    QColor selectedColor = colorDialog->selectedColor();
+    int *r = new int(0);
+    int *g = new int(0);
+    int *b = new int(0);
+    int *a = new int(0);
+
+    selectedColor.getRgb(r, g, b, a);
+
+    ui->canvas->setCurrentColor(*r, *g, *b, *a);
+}
 
 
 

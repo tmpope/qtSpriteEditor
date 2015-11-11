@@ -91,7 +91,7 @@
      <number>0</number>
     </property>
    </widget>
-   <widget class="QWidget" name="widget_3" native="true">
+   <widget class="QWidget" name="frameSelectionWidget" native="true">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -202,7 +202,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QWidget" name="widget_4" native="true">
+   <widget class="QWidget" name="colorSelectionWidget" native="true">
     <property name="geometry">
      <rect>
       <x>780</x>

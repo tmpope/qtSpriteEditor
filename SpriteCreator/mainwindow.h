@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "canvaswidget.h"
 #include <QtGui>
+#include <QColorDialog>
 
 namespace Ui {
 class MainWindow;
@@ -35,6 +36,13 @@ class MainWindow : public QMainWindow
      */
     int playbackFrame;
 
+    /**
+     * @brief colorDialog
+     *
+     * Little menu that shows the color dialog window.
+     */
+    QColorDialog *colorDialog;
+
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -44,6 +52,8 @@ public slots:
     void loadSprite();
     void updatePlaybackWidget();
     void setFramesPerSecond();
+    void showColorDialog();
+    void colorDialogColorSelected();
 
 private:
     Ui::MainWindow *ui;
