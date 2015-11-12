@@ -218,12 +218,19 @@ void MainWindow::exportGif()
     // TODO: Test this please Taylor!!!
     QFileDialog dialog(this);
     dialog.setDefaultSuffix(".gif");
-    QString QfileName = dialog.getSaveFileName( this, tr("Save Project"), "C://", "GIF File(*.gif)");
-
-    ui->canvas->save(QfileName.toStdString());
+    QString QfileName = dialog.getSaveFileName(this, tr("Save Project"), "C://", "GIF File(*.gif)");
 
     file = QfileName.toStdString();
-    QMessageBox::information(this, tr("File"), tr("File Saved"));
+
+    if(QfileName.isNull())
+    {
+        QMessageBox::critical(this, tr("Export GIF Failed"), tr("Filename not specified"));
+        return;
+    }
+    else
+    {
+        QMessageBox::information(this, tr("File"), tr("Exported to GIF!"));
+    }
 
     // TODO: Check and make sure the user didn't cancel or something. If so, just return.
 
@@ -232,7 +239,6 @@ void MainWindow::exportGif()
 
 void MainWindow::importGif()
 {
-    // TODO: Test this please Taylor!!!
     QString QfileName = QFileDialog::getOpenFileName(this, tr("Open Project"), "C://", "GIF File(*.gif);;All Files(*)");
     std::cout << "File name: " << QfileName.toStdString() << std::endl;
 
