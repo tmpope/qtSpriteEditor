@@ -41,12 +41,13 @@ public: //because color needs to be defined before we use it, but needs to be pu
 private:
 	struct action
 	{
-        action(struct color _color, struct color _old, pixelLoc loc) : color(_color), oldColor(_old)
+        action(struct color _color, struct color _old, pixelLoc loc) : color(_color)
 		{
             pixelLocations.push_back(loc);
+            oldColors.push_back(_old);
 		}
 		struct color color;
-		struct color oldColor;
+		std::vector<struct color> oldColors;
 		std::vector<struct pixelLoc> pixelLocations;
 	};
 	std::stack<struct action> undoStack;

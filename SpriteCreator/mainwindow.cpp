@@ -83,19 +83,22 @@ void MainWindow::saveSprite()
     ui->canvas->save(QfileName.toStdString());
 
     file = QfileName.toStdString();
-    QMessageBox::information(this, tr("File"), tr("File Saved"));
 
-    if(QfileName.isNull())
+
+    if (QfileName.isNull())
     {
-        QMessageBox::critical(this, tr("File Save Failed"), tr("File is Null"));
+        QMessageBox::critical(this, tr("File Save Failed"), tr("Filename not specified"));
+        return;
     }
-    std::cout << file << std::endl;
+    else
+    {
+        QMessageBox::information(this, tr("File"), tr("File Saved!"));
+    }
 }
 
 void MainWindow::loadSprite(){
     QString QfileName = QFileDialog::getOpenFileName(this, tr("Open Project"), "C://", "Sprite Sheet Project(*.ssp);;Text Files(*.txt)");
     std::cout << "File name: " << QfileName.toStdString() << std::endl;
-    QFile inputFile(QfileName);
 
     std::string file = QfileName.toStdString();
     std::string ext = "";
@@ -232,7 +235,6 @@ void MainWindow::importGif()
     // TODO: Test this please Taylor!!!
     QString QfileName = QFileDialog::getOpenFileName(this, tr("Open Project"), "C://", "GIF File(*.gif);;All Files(*)");
     std::cout << "File name: " << QfileName.toStdString() << std::endl;
-    QFile inputFile(QfileName);
 
     file = QfileName.toStdString();
 

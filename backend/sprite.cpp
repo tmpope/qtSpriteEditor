@@ -115,6 +115,7 @@ void Sprite::setPixel(int x, int y, int frame, struct color color)
     if (!undoStack.empty() && color == undoStack.top().color)
     {
         undoStack.top().pixelLocations.push_back(pixelLoc(x, y, frame));
+        undoStack.top().oldColors.push_back(pixels[frame * width * height + x + y * width]);
     }
     else
     {
@@ -128,9 +129,11 @@ void Sprite::fillPixel(int x, int y, int frame, struct color color)
     struct color oldColor = getPixel(x, y, frame);
     if (color == oldColor)
         return;
-    if (color == undoStack.top().color)
+	std::cout << "HERE" << std::endl;
+    if (!undoStack.empty() && color == undoStack.top().color)
     {
         undoStack.top().pixelLocations.push_back(pixelLoc(x, y, frame));
+        undoStack.top().oldColors.push_back(oldColor);
     }
     else
     {
@@ -293,7 +296,7 @@ void Sprite::undo() {
     undoStack.pop();
     std::cout << action.color.toString() << std::endl;
     for(int i = 0; i < action.pixelLocations.size(); i++) {
-        pixels[action.pixelLocations[i].frame * width * height + action.pixelLocations[i].x + action.pixelLocations[i].y * width] = action.oldColor;
+        pixels[action.pixelLocations[i].frame * width * height + action.pixelLocations[i].x + action.pixelLocations[i].y * width] = action.oldColors[i];
     }
 }
 
