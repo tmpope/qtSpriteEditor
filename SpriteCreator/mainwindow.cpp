@@ -206,7 +206,7 @@ void MainWindow::exportGif()
 {
     // TODO: Test this please Taylor!!!
     QFileDialog dialog(this);
-    dialog.setDefaultSuffix(".ssp");
+    dialog.setDefaultSuffix(".gif");
     QString QfileName = dialog.getSaveFileName( this, tr("Save Project"), "C://", "GIF File(*.gif)");
 
     ui->canvas->save(QfileName.toStdString());
@@ -222,7 +222,7 @@ void MainWindow::exportGif()
 void MainWindow::importGif()
 {
     // TODO: Test this please Taylor!!!
-    QString QfileName = QFileDialog::getOpenFileName(this, tr("Open Project"), "C://", "Sprite Sheet Project(*.ssp);;Text Files(*.txt)");
+    QString QfileName = QFileDialog::getOpenFileName(this, tr("Open Project"), "C://", "GIF File(*.gif)");
     std::cout << "File name: " << QfileName.toStdString() << std::endl;
     QFile inputFile(QfileName);
 

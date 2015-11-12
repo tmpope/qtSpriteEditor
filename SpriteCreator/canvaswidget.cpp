@@ -144,7 +144,6 @@ void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
             }
             else
                 pixelColor = sprite->getPixel(col, row, currentFrame);
-//            pixelColor = sprite->getPixel(col, row, currentFrame);
             QColor color(pixelColor.r, pixelColor.g, pixelColor.b, pixelColor.a);
             painter.setPen(color);
             painter.fillRect(rect, color);
