@@ -219,3 +219,9 @@ int CanvasWidget::getCurrentFrame()
 {
     return currentFrame;
 }
+
+void CanvasWidget::setCurrentFrame(int frame)
+{
+    currentFrame = frame;
+    repaint();
+}

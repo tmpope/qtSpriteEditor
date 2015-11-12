@@ -27,12 +27,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
     playbackFrame = 0;
 
+    ui->frameSelectorSlider->setRange(0, 0);
+
     connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT(saveSprite()));
     connect(ui->actionLoad, SIGNAL(triggered(bool)), this, SLOT(loadSprite()));
 
     connect(ui->fpsSlider, SIGNAL(sliderMoved(int)), this, SLOT(setFramesPerSecond()));
     connect(playbackTimer, SIGNAL(timeout()), this, SLOT(updatePlaybackWidget()));
     connect(ui->colorSelectorButton, SIGNAL(clicked(bool)), this, SLOT(showColorDialog()));
+
+    connect(ui->frameSelectorSlider, SIGNAL(sliderMoved(int)), this, SLOT(showSelectedFrame()));
 
     connect(colorDialog, SIGNAL(colorSelected(QColor)), this, SLOT(colorDialogColorSelected()));
 
@@ -222,6 +226,7 @@ void MainWindow::importGif()
 void MainWindow::newFrame()
 {
     ui->canvas->getSprite()->addFrame();
+    ui->frameSelectorSlider->setRange(0, ui->canvas->getSprite()->getFrameCount() - 1);
 }
 
 void MainWindow::newSprite()
@@ -235,6 +240,7 @@ void MainWindow::newSprite()
 void MainWindow::cloneFrame()
 {
     ui->canvas->getSprite()->cloneFrame(canvas->getCurrentFrame());
+    ui->frameSelectorSlider->setRange(0, ui->canvas->getSprite()->getFrameCount() - 1);
 }
 
 void MainWindow::toggleOnionSkin()
@@ -242,7 +248,11 @@ void MainWindow::toggleOnionSkin()
 
 }
 
-
+void MainWindow::showSelectedFrame()
+{
+    int currentFrame = ui->frameSelectorSlider->value();
+    ui->canvas->setCurrentFrame(currentFrame);
+}
 
 
 

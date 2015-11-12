@@ -112,6 +112,13 @@ public:
      */
     int getCurrentFrame();
 
+    /**
+     * @brief setCurrentFrame
+     *
+     * Sets the current frame to be edited.
+     */
+    void setCurrentFrame(int);
+
 protected:
 
     /**

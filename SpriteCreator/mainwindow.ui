@@ -91,16 +91,6 @@
      <number>0</number>
     </property>
    </widget>
-   <widget class="QWidget" name="frameSelectionWidget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>690</y>
-      <width>640</width>
-      <height>120</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="penButton">
     <property name="geometry">
      <rect>
@@ -262,6 +252,28 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QSlider" name="frameSelectorSlider">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>725</y>
+      <width>641</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>999</number>
+    </property>
+    <property name="pageStep">
+     <number>1</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
     </property>
    </widget>
   </widget>

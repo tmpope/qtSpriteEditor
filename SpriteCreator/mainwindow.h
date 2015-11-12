@@ -158,6 +158,13 @@ public slots:
      */
     void toggleOnionSkin();
 
+    /**
+     * @brief showSelectedFrame
+     *
+     * Shows the frame that is selected.
+     */
+    void showSelectedFrame();
+
 private:
     Ui::MainWindow *ui;
     std::string file;
