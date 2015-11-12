@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Force frameSelectorSlider to only permit showing existent frames
     ui->frameSelectorSlider->setRange(0, 0);
     ui->selectedFrameLabel->setText(QString::number(ui->frameSelectorSlider->value() + 1));
+    ui->fpsLabel->setText(QString::number(ui->fpsSlider->value()));
 
     connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT(saveSprite()));
     connect(ui->actionLoad, SIGNAL(triggered(bool)), this, SLOT(loadSprite()));
@@ -49,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->cloneFrameButton, SIGNAL(clicked(bool)), this, SLOT(cloneFrame()));
 
     connect(ui->actionNewFrame, SIGNAL(triggered(bool)), this, SLOT(newFrame()));
+    connect(ui->actionImport, SIGNAL(triggered(bool)), this, SLOT(importGif()));
     connect(ui->actionExport, SIGNAL(triggered(bool)), this, SLOT(exportGif()));
     connect(ui->actionNewSprite, SIGNAL(triggered(bool)), this, SLOT(newSprite()));
 
@@ -112,7 +114,10 @@ void MainWindow::loadSprite(){
 
     ui->canvas->loadSpriteFromString(str);
 
-    // TODO: Set slider range and stuff
+    ui->canvas->setCurrentFrame(0);
+    ui->frameSelectorSlider->setValue(0);
+    ui->frameSelectorSlider->setRange(0, ui->canvas->getSprite()->getFrameCount() - 1);
+    ui->selectedFrameLabel->setText(QString::number(ui->frameSelectorSlider->value()));
 }
 
 
@@ -149,6 +154,8 @@ void MainWindow::setFramesPerSecond()
         playbackTimer->setInterval(0);
     else
         playbackTimer->setInterval(1000 / ui->fpsSlider->value());
+
+    ui->fpsLabel->setText(QString::number(ui->fpsSlider->value()));
     std::cout << "Set the fps: " << ui->fpsSlider->value() << std::endl;
 }
 
@@ -228,11 +235,12 @@ void MainWindow::importGif()
         return;
     }
 
-//    ui->canvas->loadSpriteFromGif(file, true);
+    ui->canvas->loadSpriteFromGif(file, true);
 
-    // TODO: Handle the FPS
-
-    // TODO: Slider stuff
+    ui->canvas->setCurrentFrame(0);
+    ui->frameSelectorSlider->setValue(0);
+    ui->frameSelectorSlider->setRange(0, ui->canvas->getSprite()->getFrameCount() - 1);
+    ui->selectedFrameLabel->setText(QString::number(ui->frameSelectorSlider->value()));
 }
 
 void MainWindow::newFrame()
@@ -247,6 +255,10 @@ void MainWindow::newSprite()
     int height = QInputDialog::getInt(this, "Height Please", "Please provide a height:", 1, 1, 64, 1);
 
     ui->canvas->createNewSprite(width, height);
+
+    ui->frameSelectorSlider->setRange(0, 0);
+    ui->frameSelectorSlider->setValue(0);
+    ui->frameSelectorSlider->setRange(0, ui->canvas->getSprite()->getFrameCount() - 1);
 }
 
 void MainWindow::cloneFrame()
@@ -274,8 +286,6 @@ void MainWindow::undo()
 
 void MainWindow::redo()
 {
-    // TODO: This
-
     ui->canvas->getSprite()->redo();
 }
 
