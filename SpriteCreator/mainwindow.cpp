@@ -47,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT(penToolSelected()));
     connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT(eyeDropperSelected()));
     connect(ui->paintBucketButton, SIGNAL(clicked(bool)), this, SLOT(paintBucketSelected()));
+    connect(ui->onionSkinButton, SIGNAL(clicked(bool)), this, SLOT(toggleOnionSkin()));
     connect(ui->cloneFrameButton, SIGNAL(clicked(bool)), this, SLOT(cloneFrame()));
 
     connect(ui->actionNewFrame, SIGNAL(triggered(bool)), this, SLOT(newFrame()));
@@ -132,6 +133,8 @@ void MainWindow::updatePlaybackWidget()
     pixmap.fill(QColor("transparent"));
 
     QPainter painter(&pixmap);
+    painter.setPen(Qt::green);
+    painter.drawRect(0, 0, pixmap.width() - 1, pixmap.height() - 1);
 
     for(int xPos = 0; xPos < sprite->getWidth(); xPos++)
     {
@@ -139,7 +142,7 @@ void MainWindow::updatePlaybackWidget()
         {
             QRect rect(xPos, yPos, 1, 1);
             struct Sprite::color pixelColor = sprite->getPixel(xPos, yPos, playbackFrame);
-            QColor color(pixelColor.r, pixelColor.g, pixelColor.b);
+            QColor color(pixelColor.r, pixelColor.g, pixelColor.b, pixelColor.a);
             painter.setPen(color);
             painter.fillRect(rect, color);
         }
@@ -211,7 +214,9 @@ void MainWindow::exportGif()
     file = QfileName.toStdString();
     QMessageBox::information(this, tr("File"), tr("File Saved"));
 
-//    ui->canvas->getSprite()->exportToGif(file, ui->fpsSlider->value());
+    // TODO: Check and make sure the user didn't cancel or something. If so, just return.
+
+    ui->canvas->getSprite()->exportToGif(file, ui->fpsSlider->value());
 }
 
 void MainWindow::importGif()
@@ -269,7 +274,8 @@ void MainWindow::cloneFrame()
 
 void MainWindow::toggleOnionSkin()
 {
-
+    ui->canvas->toggleOnionSkin();
+    std::cout << "Toggled onion skin." << std::endl;
 }
 
 void MainWindow::showSelectedFrame()

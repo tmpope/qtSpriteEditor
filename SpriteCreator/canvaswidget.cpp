@@ -119,22 +119,33 @@ void CanvasWidget::mouseReleaseEvent(QMouseEvent *event)
 
 void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
 {
+    // TODO: Onion skin stuff
     if(sprite == NULL)
         return;
 
     QPainter painter(this);
+    painter.setPen(Qt::green);
+    painter.drawRect(0, 0, width() - 1, height() - 1);
+
     double singleWidth = width() / (double)sprite->getWidth();
     double singleHeight = height() / (double)sprite->getHeight();
 
-    for(int row = 0; row < sprite->getHeight(); row++)
+    for(int row = 0; row < sprite->getHeight(); row++){
         for(int col = 0; col < sprite->getWidth(); col++){
             int x = singleWidth * col;
             int y = singleHeight * row;
 
             QRect rect(x, y, singleWidth, singleHeight);
-            struct Sprite::color pixelColor = sprite->getPixel(col, row, currentFrame);
-//            std::cout << "Got color from sprite" << pixelColor.r << pixelColor.g << pixelColor.b << std::endl;
-            QColor color(pixelColor.r, pixelColor.g, pixelColor.b);
+            struct Sprite::color pixelColor;
+            if(onionSkinEnabled && currentFrame != 0 && sprite->getPixel(col, row, currentFrame).a == 0){
+                pixelColor = sprite->getPixel(col, row, currentFrame - 1);
+                pixelColor.a = pixelColor.a * 0.65;
+                std::cout << "We're printing an onion skin pixel1" << std::endl;
+            }
+            else
+                pixelColor = sprite->getPixel(col, row, currentFrame);
+//            pixelColor = sprite->getPixel(col, row, currentFrame);
+            QColor color(pixelColor.r, pixelColor.g, pixelColor.b, pixelColor.a);
             painter.setPen(color);
             painter.fillRect(rect, color);
 
@@ -142,6 +153,7 @@ void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
                 std::cout << width() << " " << height() << std::endl;
             }
         }
+    }
 }
 
 void CanvasWidget::setCurrentTool(possible_tool_t tool)
@@ -176,7 +188,7 @@ void CanvasWidget::colorSelectedPixel(int xPos, int yPos){
         break;
 
         case ERASER:
-            pixel = Sprite::color(255, 255, 255, 255);
+            pixel = Sprite::color(255, 255, 255, 0);
             sprite->setPixel(xPos, yPos, currentFrame, pixel);
             std::cout << "Erasing pixel at (" << xPos << ", " << yPos << ")" << std::endl;
         break;
@@ -224,4 +236,11 @@ void CanvasWidget::setCurrentFrame(int frame)
 {
     currentFrame = frame;
     repaint();
+}
+
+void CanvasWidget::toggleOnionSkin()
+{
+    onionSkinEnabled = !onionSkinEnabled;
+    repaint();
+    std::cout << "Onion skin on: " << onionSkinEnabled << std::endl;
 }

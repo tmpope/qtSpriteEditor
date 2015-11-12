@@ -37,6 +37,9 @@ private:
     /* The current frame of the sprite that we are drawing to. */
     int currentFrame;
 
+    /* Indicates whether or not the onion skin is enabled */
+    bool onionSkinEnabled;
+
 public:
     /**
      * @brief getSprite
@@ -118,6 +121,13 @@ public:
      * Sets the current frame to be edited.
      */
     void setCurrentFrame(int);
+
+    /**
+     * @brief toggleOnionSkin
+     *
+     * Toggles onion skin on or off.
+     */
+    void toggleOnionSkin();
 
 protected:
 
