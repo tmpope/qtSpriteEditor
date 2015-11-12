@@ -18,10 +18,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    std::string file = "";
 
     colorDialog = new QColorDialog();
 
+    // Sets up our timer for our sprite playback
     playbackTimer = new QTimer();
     playbackTimer->setInterval(1000 / ui->fpsSlider->value());
     playbackTimer->start();
@@ -33,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->selectedFrameLabel->setText(QString::number(ui->frameSelectorSlider->value() + 1));
     ui->fpsLabel->setText(QString::number(ui->fpsSlider->value()));
 
+    // Connections for all the buttons/widgets on our GUI
     connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT(saveSprite()));
     connect(ui->actionLoad, SIGNAL(triggered(bool)), this, SLOT(loadSprite()));
 
@@ -68,40 +69,51 @@ MainWindow::~MainWindow()
 
 void MainWindow::saveSprite()
 {
+    // Save File Dialog set up
     QFileDialog dialog(this);
     dialog.setDefaultSuffix(".ssp");
     QString QfileName = dialog.getSaveFileName( this, tr("Save Project"), "C://", "Sprite Sheet Project(*.ssp);;Text File(*.txt)");
 
     ui->canvas->save(QfileName.toStdString());
-
     file = QfileName.toStdString();
-    QMessageBox::information(this, tr("File"), tr("File Saved"));
 
+    //check for cancellation or "x"-ing out of the dialog.
     if(QfileName.isNull())
     {
-        QMessageBox::critical(this, tr("File Save Failed"), tr("File is Null"));
+        QMessageBox::critical(this, tr("File Save Failed"), tr("Filename not specified"));
+        return;
     }
-    std::cout << file << std::endl;
+    else
+    {
+        QMessageBox::information(this, tr("File"), tr("File Saved!"));
+    }
+//    std::cout << file << std::endl;
 }
 
 void MainWindow::loadSprite(){
+    //Load File Dialog set up
     QString QfileName = QFileDialog::getOpenFileName(this, tr("Open Project"), "C://", "Sprite Sheet Project(*.ssp);;Text Files(*.txt)");
-    std::cout << "File name: " << QfileName.toStdString() << std::endl;
-    QFile inputFile(QfileName);
+//    std::cout << "File name: " << QfileName.toStdString() << std::endl;
 
+    //file extension check
     std::string file = QfileName.toStdString();
     std::string ext = "";
     if(file.find_last_of(".") !=  std::string::npos)
     {
         ext = file.substr(file.find_last_of(".") + 1);
     }
-
     else
     {
         QMessageBox::critical(this, tr("File Load Failed"), tr("An extension could not be found for the file!"));
         return;
     }
+    if(ext != "ssp" && ext != "txt")
+    {
+        QMessageBox::critical(this, tr("File Load Failed"), tr("Wrong extension!"));
+        return;
+    }
 
+    //This is how we are able to save the file using non-Qt stuff
     FILE* f;
     f = fopen(file.c_str(),"r");
     fseek(f, 0, SEEK_END);
@@ -113,6 +125,9 @@ void MainWindow::loadSprite(){
     free(buffer);
     fclose(f);
 
+    QMessageBox::information(this, tr("File Load"), tr("File Loaded!"));
+
+    //GUI loading of the sprite and setting of various labels/widgets
     ui->canvas->loadSpriteFromString(str);
 
     ui->canvas->setCurrentFrame(0);
@@ -159,12 +174,12 @@ void MainWindow::setFramesPerSecond()
         playbackTimer->setInterval(1000 / ui->fpsSlider->value());
 
     ui->fpsLabel->setText(QString::number(ui->fpsSlider->value()));
-    std::cout << "Set the fps: " << ui->fpsSlider->value() << std::endl;
+//    std::cout << "Set the fps: " << ui->fpsSlider->value() << std::endl;
 }
 
 void MainWindow::showColorDialog(){
     // Get a selected color from the user
-    std::cout << "Showing color dialog." << std::endl;
+//    std::cout << "Showing color dialog." << std::endl;
     colorDialog->show();
 }
 
@@ -205,16 +220,23 @@ void MainWindow::paintBucketSelected()
 void MainWindow::exportGif()
 {
     // TODO: Test this please Taylor!!!
+    //Save File Dialog set up
     QFileDialog dialog(this);
     dialog.setDefaultSuffix(".gif");
-    QString QfileName = dialog.getSaveFileName( this, tr("Save Project"), "C://", "GIF File(*.gif)");
-
-    ui->canvas->save(QfileName.toStdString());
+    QString QfileName = dialog.getSaveFileName(this, tr("Save Project"), "C://", "GIF File(*.gif)");
 
     file = QfileName.toStdString();
-    QMessageBox::information(this, tr("File"), tr("File Saved"));
 
-    // TODO: Check and make sure the user didn't cancel or something. If so, just return.
+    //check for cancellation or "x"-ing out of the dialog.
+    if(QfileName.isNull())
+    {
+        QMessageBox::critical(this, tr("Export GIF Failed"), tr("Filename not specified"));
+        return;
+    }
+    else
+    {
+        QMessageBox::information(this, tr("File"), tr("Exported to GIF!"));
+    }
 
     ui->canvas->getSprite()->exportToGif(file, ui->fpsSlider->value());
 }
@@ -222,9 +244,9 @@ void MainWindow::exportGif()
 void MainWindow::importGif()
 {
     // TODO: Test this please Taylor!!!
+    //Load File Dialog set up
     QString QfileName = QFileDialog::getOpenFileName(this, tr("Open Project"), "C://", "GIF File(*.gif)");
-    std::cout << "File name: " << QfileName.toStdString() << std::endl;
-    QFile inputFile(QfileName);
+//    std::cout << "File name: " << QfileName.toStdString() << std::endl;
 
     file = QfileName.toStdString();
 
@@ -233,13 +255,19 @@ void MainWindow::importGif()
     {
         ext = file.substr(file.find_last_of(".") + 1);
     }
-
     else
     {
-        QMessageBox::critical(this, tr("File Load Failed"), tr("An extension could not be found for the file!"));
+        QMessageBox::critical(this, tr("Import GIF Failed"), tr("An extension could not be found for the file!"));
         return;
     }
+    if(ext != "gif")
+    {
+        QMessageBox::critical(this, tr("Import GIF Failed"), tr("Wrong file extension!"));
+    }
 
+    QMessageBox::information(this, tr("Import GIF"), tr("GIF Imported!"));
+
+    //GUI loading of the sprite and setting of various labels/widgets
     ui->canvas->loadSpriteFromGif(file, true);
 
     ui->canvas->setCurrentFrame(0);
@@ -259,6 +287,7 @@ void MainWindow::newSprite()
     int width = QInputDialog::getInt(this, "Width Please", "Please provide a width:", 1, 1, 64, 1);
     int height = QInputDialog::getInt(this, "Height Please", "Please provide a height:", 1, 1, 64, 1);
 
+    //GUI loading of the sprite and setting of various labels/widgets
     ui->canvas->createNewSprite(width, height);
 
     ui->frameSelectorSlider->setRange(0, 0);
@@ -275,14 +304,14 @@ void MainWindow::cloneFrame()
 void MainWindow::toggleOnionSkin()
 {
     ui->canvas->toggleOnionSkin();
-    std::cout << "Toggled onion skin." << std::endl;
+//    std::cout << "Toggled onion skin." << std::endl;
 }
 
 void MainWindow::showSelectedFrame()
 {
     ui->selectedFrameLabel->setText(QString::number(ui->frameSelectorSlider->value() + 1));
     ui->canvas->setCurrentFrame(ui->frameSelectorSlider->value());
-    std::cout << "Now showing frame " << ui->frameSelectorSlider->value() << std::endl;
+//    std::cout << "Now showing frame " << ui->frameSelectorSlider->value() << std::endl;
 }
 
 void MainWindow::undo()
@@ -294,10 +323,3 @@ void MainWindow::redo()
 {
     ui->canvas->getSprite()->redo();
 }
-
-
-
-
-
-
-

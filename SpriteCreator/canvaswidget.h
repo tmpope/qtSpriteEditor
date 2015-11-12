@@ -16,8 +16,6 @@ public:
 
 private:
 
-    /* The width and height of the sprite */
-
     /* The last points that were used */
     int lastX, lastY;
 
@@ -96,8 +94,14 @@ public:
      */
     void setCurrentColor(int r, int g, int b, int a);
 
+    /**
+     * @brief save
+     *
+     * Saves the sprite using the save function in Sprite.cpp
+     *
+     * @param s The whole sprite as a string
+     */
     void save(std::string s);
-
 
     /**
      * @brief createNewSprite
@@ -141,14 +145,11 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
-
     /**
      * I guess we need to override the paintEvent as well. This is what draws stuff
      * to the widget.
      */
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
-
-    // TODO: Resize listener?
 
 private:
     /**

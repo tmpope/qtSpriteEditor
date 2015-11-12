@@ -4,10 +4,7 @@
 #include <QMainWindow>
 #include "canvaswidget.h"
 #include <QtGui>
-<<<<<<< HEAD
-=======
 #include <QColorDialog>
->>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
 
 namespace Ui {
 class MainWindow;
@@ -23,7 +20,6 @@ class MainWindow : public QMainWindow
      * What actually draws the thing.
      */
     CanvasWidget *canvas;
-
 
     /**
      * @brief playbackTimer
@@ -70,7 +66,6 @@ public slots:
      *
      * Updates the playback widget.
      */
-
     void updatePlaybackWidget();
 
     /**
@@ -94,14 +89,12 @@ public slots:
      */
     void colorDialogColorSelected();
 
-
     /**
      * @brief penToolSelected
      *
      * Selects the pen tool when the button is pressed.
      */
     void penToolSelected();
-
 
     /**
      * @brief eyeDropperSelected
@@ -124,14 +117,12 @@ public slots:
      */
     void exportGif();
 
-
     /**
      * @brief importGif
      *
      * Imports a .gif file as a sprite.
      */
     void importGif();
-
 
     /**
      * @brief newFrame
@@ -146,7 +137,6 @@ public slots:
      * Creates a new sprite.
      */
     void newSprite();
-
 
     /**
      * @brief cloneFrame
@@ -185,6 +175,12 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+
+    /**
+     * @brief file
+     *
+     * the string for our file path.
+     */
     std::string file;
 };
 

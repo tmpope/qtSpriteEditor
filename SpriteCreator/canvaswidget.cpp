@@ -9,7 +9,7 @@
 
 CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
 {
-    std::cout << "CanvasWidget constructor was called." << std::endl;
+//    std::cout << "CanvasWidget constructor was called." << std::endl;
     currentTool = PENCIL;
     lastTool = ERASER;
     sprite = new Sprite(32, 32);
@@ -19,7 +19,7 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
 }
 
 CanvasWidget::~CanvasWidget(){
-    std::cout << "CanvasWidget destructor was called." << std::endl;
+//    std::cout << "CanvasWidget destructor was called." << std::endl;
     if(sprite != NULL)
         delete sprite;
 }
@@ -52,7 +52,7 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event)
         currentTool = ERASER;
         lastTool = temp;
 
-        std::cout << "Right click; handling as eraser!" << std::endl;
+//        std::cout << "Right click; handling as eraser!" << std::endl;
     }
 
     int x = event->x();
@@ -97,7 +97,7 @@ void CanvasWidget::mouseMoveEvent(QMouseEvent *event)
 
     if(gridX != lastX || gridY != lastY){
 
-        std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
+//        std::cout << "Grid coordinates: (" << gridX << ", " << gridY << ")" << std::endl;
         colorSelectedPixel(gridX, gridY);
         repaint();
 
@@ -113,7 +113,7 @@ void CanvasWidget::mouseReleaseEvent(QMouseEvent *event)
 
     if(event->button() == Qt::RightButton){
         currentTool = lastTool;
-        std::cout << "End of right click; no longer erasing!" << std::endl;
+//        std::cout << "End of right click; no longer erasing!" << std::endl;
     }
 }
 
@@ -140,7 +140,7 @@ void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
             if(onionSkinEnabled && currentFrame != 0 && sprite->getPixel(col, row, currentFrame).a == 0){
                 pixelColor = sprite->getPixel(col, row, currentFrame - 1);
                 pixelColor.a = pixelColor.a * 0.65;
-                std::cout << "We're printing an onion skin pixel1" << std::endl;
+//                std::cout << "We're printing an onion skin pixel1" << std::endl;
             }
             else
                 pixelColor = sprite->getPixel(col, row, currentFrame);
@@ -148,6 +148,7 @@ void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
             painter.setPen(color);
             painter.fillRect(rect, color);
 
+            // TODO: I'm not sure if this is totally necessary...
             if(row == 0 && col == 0){
                 std::cout << width() << " " << height() << std::endl;
             }
@@ -183,31 +184,30 @@ void CanvasWidget::colorSelectedPixel(int xPos, int yPos){
     switch(currentTool) {
         case PENCIL:
             sprite->setPixel(xPos, yPos, currentFrame, pixel);
-            std::cout << "Pencil drawing " << pixel.toString() << " to (" << xPos << ", " <<  yPos << ")" << std::endl;
+//            std::cout << "Pencil drawing " << pixel.toString() << " to (" << xPos << ", " <<  yPos << ")" << std::endl;
         break;
 
         case ERASER:
             pixel = Sprite::color(255, 255, 255, 0);
             sprite->setPixel(xPos, yPos, currentFrame, pixel);
-            std::cout << "Erasing pixel at (" << xPos << ", " << yPos << ")" << std::endl;
+//            std::cout << "Erasing pixel at (" << xPos << ", " << yPos << ")" << std::endl;
         break;
 
         case BUCKET:
             sprite->fillPixel(xPos, yPos, currentFrame, pixel);
-            std::cout << "Filling pixels at (" << xPos << ", " << yPos << ")" << std::endl;
+//            std::cout << "Filling pixels at (" << xPos << ", " << yPos << ")" << std::endl;
         break;
 
         case EYE_DROPPER:
-            std::cout << "Using eye dropper; grabbed a color." << std::endl;
+//            std::cout << "Using eye dropper; grabbed a color." << std::endl;
             pixel = sprite->getPixel(xPos, yPos, currentFrame);
             currentColor.setRgb(pixel.r, pixel.g, pixel.b, pixel.a);
-            std::cout << "Current color: " << pixel.r  << " " << pixel.g << " " << pixel.b << " " << std::endl;
+//            std::cout << "Current color: " << pixel.r  << " " << pixel.g << " " << pixel.b << " " << std::endl;
             setCurrentTool(PENCIL);
         break;
 
         default:
         break;
-
     }
 }
 
@@ -241,5 +241,5 @@ void CanvasWidget::toggleOnionSkin()
 {
     onionSkinEnabled = !onionSkinEnabled;
     repaint();
-    std::cout << "Onion skin on: " << onionSkinEnabled << std::endl;
+//    std::cout << "Onion skin on: " << onionSkinEnabled << std::endl;
 }

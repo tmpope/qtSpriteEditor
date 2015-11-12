@@ -1,13 +1,11 @@
 #ifndef TRIE_H
 #define TRIE_H
 
-
 #include <string>
 #include <inttypes.h>
 #include <sstream>
 #include <vector>
 #include <stack>          // std::stack
-
 
 class Sprite
 {
