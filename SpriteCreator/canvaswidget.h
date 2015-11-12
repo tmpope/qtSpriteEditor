@@ -57,6 +57,16 @@ public:
     void loadSpriteFromString(std::string sspString);
 
     /**
+     * @brief loadSpriteFromGif
+     *
+     * Creates a new sprite from the gif passed.
+     *
+     * @param gifFilePath
+     * @param isGif
+     */
+    void loadSpriteFromGif(std::string gifFilePath, bool isGif);
+
+    /**
      * @brief CanvasWidget
      *
      * Creates a canvas widget. Requires a sprite width and height to start.
@@ -82,7 +92,25 @@ public:
      * @param a - alpha
      */
     void setCurrentColor(int r, int g, int b, int a);
+
+
     void save(std::string s);
+
+    /**
+     * @brief createNewSprite
+     *
+     * Creates a sprite. Whooda thunk.
+     */
+    void createNewSprite(int, int);
+
+    /**
+     * @brief getCurrentFrame
+     *
+     * Returns the current frame that is being worked on.
+     *
+     * @return the current frame that is being shown.
+     */
+    int getCurrentFrame();
 
 protected:
 

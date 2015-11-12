@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <QTimer>
 #include <QColorDialog>
+#include <QInputDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -38,8 +39,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT(penToolSelected()));
     connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT(eyeDropperSelected()));
     connect(ui->paintBucketButton, SIGNAL(clicked(bool)), this, SLOT(paintBucketSelected()));
+    connect(ui->cloneFrameButton, SIGNAL(clicked(bool)), this, SLOT(cloneFrame()));
 
     connect(ui->actionNewFrame, SIGNAL(triggered(bool)), this, SLOT(newFrame()));
+    connect(ui->actionExport, SIGNAL(triggered(bool)), this, SLOT(exportGif()));
+    connect(ui->actionNewSprite, SIGNAL(triggered(bool)), this, SLOT(newSprite()));
 }
 
 MainWindow::~MainWindow()
@@ -178,12 +182,41 @@ void MainWindow::paintBucketSelected()
 
 void MainWindow::exportGif()
 {
+    // TODO: Test this please Taylor!!!
+    QFileDialog dialog(this);
+    dialog.setDefaultSuffix(".ssp");
+    QString QfileName = dialog.getSaveFileName( this, tr("Save Project"), "C://", "GIF File(*.gif)");
 
+    ui->canvas->save(QfileName.toStdString());
+
+    file = QfileName.toStdString();
+    QMessageBox::information(this, tr("File"), tr("File Saved"));
+
+//    ui->canvas->getSprite()->exportToGif(file, ui->fpsSlider->value());
 }
 
 void MainWindow::importGif()
 {
+    // TODO: Test this please Taylor!!!
+    QString QfileName = QFileDialog::getOpenFileName(this, tr("Open Project"), "C://", "Sprite Sheet Project(*.ssp);;Text Files(*.txt)");
+    std::cout << "File name: " << QfileName.toStdString() << std::endl;
+    QFile inputFile(QfileName);
 
+    file = QfileName.toStdString();
+
+    std::string ext = "";
+    if(file.find_last_of(".") !=  std::string::npos)
+    {
+        ext = file.substr(file.find_last_of(".") + 1);
+    }
+
+    else
+    {
+        QMessageBox::critical(this, tr("File Load Failed"), tr("An extension could not be found for the file!"));
+        return;
+    }
+
+//    ui->canvas->loadSpriteFromGif(file, true);
 }
 
 void MainWindow::newFrame()
@@ -193,12 +226,15 @@ void MainWindow::newFrame()
 
 void MainWindow::newSprite()
 {
+    int width = QInputDialog::getInt(this, "Width Please", "Please provide a width:", 1, 1, 64, 1);
+    int height = QInputDialog::getInt(this, "Height Please", "Please provide a height:", 1, 1, 64, 1);
 
+    ui->canvas->createNewSprite(width, height);
 }
 
 void MainWindow::cloneFrame()
 {
-
+    ui->canvas->getSprite()->cloneFrame(canvas->getCurrentFrame());
 }
 
 void MainWindow::toggleOnionSkin()

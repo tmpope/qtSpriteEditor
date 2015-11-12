@@ -204,3 +204,18 @@ void CanvasWidget::save(std::string s)
 {
     sprite->save(s);
 }
+
+void CanvasWidget::loadSpriteFromGif(std::string gifFilePath, bool isGif)
+{
+    sprite = new Sprite(gifFilePath, isGif);
+}
+
+void CanvasWidget::createNewSprite(int width, int height)
+{
+    sprite = new Sprite(width, height);
+}
+
+int CanvasWidget::getCurrentFrame()
+{
+    return currentFrame;
+}
