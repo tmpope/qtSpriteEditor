@@ -186,11 +186,12 @@ void CanvasWidget::colorSelectedPixel(int xPos, int yPos){
             std::cout << "Filling pixels at (" << xPos << ", " << yPos << ")" << std::endl;
         break;
 
-        case EYE_DROPPER:// TODO: If the current tool is an eye dropper, handle that here
+        case EYE_DROPPER:
+            std::cout << "Using eye dropper; grabbed a color." << std::endl;
             pixel = sprite->getPixel(xPos, yPos, currentFrame);
             currentColor.setRgb(pixel.r, pixel.g, pixel.b, pixel.a);
-            // TODO: Change tool back to pencil here?
-//            setCurrentTool(PENCIL);
+            std::cout << "Current color: " << pixel.r  << " " << pixel.g << " " << pixel.b << " " << std::endl;
+            setCurrentTool(PENCIL);
         break;
 
         default:

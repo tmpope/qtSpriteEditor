@@ -28,14 +28,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT(saveSprite()));
     connect(ui->actionLoad, SIGNAL(triggered(bool)), this, SLOT(loadSprite()));
-//    connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT());
-//    connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT());
+
     connect(ui->fpsSlider, SIGNAL(sliderMoved(int)), this, SLOT(setFramesPerSecond()));
     connect(playbackTimer, SIGNAL(timeout()), this, SLOT(updatePlaybackWidget()));
     connect(ui->colorSelectorButton, SIGNAL(clicked(bool)), this, SLOT(showColorDialog()));
+
     connect(colorDialog, SIGNAL(colorSelected(QColor)), this, SLOT(colorDialogColorSelected()));
-    connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT(ui->canvas->setCurrentTool(PENCIL);));
-    connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT(ui->canvas->setCurrentTool(EYE_DROPPER);));
+
+    connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT(penToolSelected()));
+    connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT(eyeDropperSelected()));
+    connect(ui->paintBucketButton, SIGNAL(clicked(bool)), this, SLOT(paintBucketSelected()));
 }
 
 MainWindow::~MainWindow()
@@ -155,10 +157,52 @@ void MainWindow::colorDialogColorSelected()
 }
 
 
+void MainWindow::penToolSelected()
+{
+    ui->canvas->setCurrentTool(CanvasWidget::PENCIL);
+}
 
 
+void MainWindow::eyeDropperSelected()
+{
+    ui->canvas->setCurrentTool(CanvasWidget::EYE_DROPPER);
+}
 
 
+void MainWindow::paintBucketSelected()
+{
+    ui->canvas->setCurrentTool(CanvasWidget::BUCKET);
+}
+
+void MainWindow::exportGif()
+{
+
+}
+
+void MainWindow::importGif()
+{
+
+}
+
+void MainWindow::newFrame()
+{
+
+}
+
+void MainWindow::newSprite()
+{
+
+}
+
+void MainWindow::cloneFrame()
+{
+
+}
+
+void MainWindow::toggleOnionSkin()
+{
+
+}
 
 
 
