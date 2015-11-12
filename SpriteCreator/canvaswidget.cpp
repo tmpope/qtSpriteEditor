@@ -14,7 +14,7 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
     lastTool = ERASER;
     sprite = new Sprite(32, 32);
 
-    currentColor = QColor::fromRgb(255, 25, 25);
+    currentColor = QColor::fromRgb(0, 0, 0, 255);
     currentFrame = 0;
 }
 
@@ -26,7 +26,6 @@ CanvasWidget::~CanvasWidget(){
 
 Sprite* CanvasWidget::getSprite()
 {
-    sprite;
     sprite->toString();
     assert(sprite);
 
@@ -119,7 +118,7 @@ void CanvasWidget::mouseReleaseEvent(QMouseEvent *event)
 
 void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
 {
-    // TODO: Onion skin stuff
+    std::cout << "This is here to get the compiler to shut up: " << paintEvent->isAccepted() << std::endl;
     if(sprite == NULL)
         return;
 
