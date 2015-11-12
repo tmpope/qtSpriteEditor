@@ -93,7 +93,7 @@ Sprite::Sprite(std::string gifFileName, bool isGif) {
                 pixels[loc].r = pixel->red;
                 pixels[loc].g = pixel->green;
                 pixels[loc].b = pixel->blue;
-                pixels[loc].a = pixel->opacity;
+                pixels[loc].a = 255 - pixel->opacity;
             }
         }
     }
