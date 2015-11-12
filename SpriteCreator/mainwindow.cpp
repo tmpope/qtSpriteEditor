@@ -38,6 +38,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT(penToolSelected()));
     connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT(eyeDropperSelected()));
     connect(ui->paintBucketButton, SIGNAL(clicked(bool)), this, SLOT(paintBucketSelected()));
+
+    connect(ui->actionNewFrame, SIGNAL(triggered(bool)), this, SLOT(newFrame()));
 }
 
 MainWindow::~MainWindow()
@@ -186,7 +188,7 @@ void MainWindow::importGif()
 
 void MainWindow::newFrame()
 {
-
+    ui->canvas->getSprite()->addFrame();
 }
 
 void MainWindow::newSprite()
