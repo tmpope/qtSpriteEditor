@@ -9,6 +9,9 @@
 #include <WriteGIF.h>
 #include "sprite.h"
 #include <cstring>
+#include <stack>          // std::stack
+#include <list>
+//#include <Magick++.h>
 
 Sprite::Sprite(int height, int width) 
 {
@@ -23,6 +26,7 @@ Sprite::Sprite(int height, int width)
 		pixels[i].b = 255;
 		pixels[i].a = 0;  //TODO except this one - 0 (transparent)
 	}
+
 }
 
 Sprite::Sprite(std::string sspString)
@@ -56,6 +60,44 @@ Sprite::Sprite(std::string sspString)
 		pixels[i].a = sprite[3 + 4 * i + 3];
 	}
 }
+
+//Sprite::Sprite(std::string gifFileName, bool isGif) {
+//    Magick::InitializeMagick("./demo");
+
+//    std::list<Magick::Image> imageList;
+//    std::vector<Magick::Image> frames;
+
+//    /* read all the frames of the animated GIF */
+//    Magick::readImages( &imageList, gifFileName);
+
+//	this->width = imageList.front().columns();
+//	this->height = imageList.front().rows();
+//	this->frameCount = imageList.size();
+//	int size = this->frameCount * this->height * this->width;
+//	this->pixels = new struct color[size];
+	
+//    std::list<Magick::Image>::const_iterator listIterator = imageList.begin();
+//	for (listIterator; listIterator != imageList.end(); ++listIterator)
+//	{
+//		frames.push_back(*listIterator);
+//	}
+//	for (int frame = 0; frame < frameCount; frame++)
+//	{
+//		for (int x = 0; x < width; x++)
+//		{
+//			for (int y = 0; y < height; y++)
+//			{
+//				int loc = frame * width * height + y * width + x;
+//				Magick::PixelPacket* pixel = frames[frame].getPixels(x, y, 1, 1);
+//				pixels[loc].r = pixel->red;
+//				pixels[loc].g = pixel->green;
+//				pixels[loc].b = pixel->blue;
+//				pixels[loc].a = pixel->opacity;
+//			}
+//		}
+//	}
+//}
+
 
 Sprite::~Sprite() 
 {
@@ -126,10 +168,8 @@ void Sprite::drawImage(unsigned char* image, const int frame)
 }
 
 
-void Sprite::exportToGif(std::string fileName) 
+void Sprite::exportToGif(std::string fileName, int fps) 
 {
-	//Should be very straightforward
-	int fps = 24;
 	int delay = 100 / fps;
 	gif::GIF* g = gif::newGIF(delay);
 	unsigned char rgbImage[width * height * 3];
@@ -199,4 +239,45 @@ int Sprite::removeFrame(int frame)
 	}
 	delete[] temp;
 	return frameCount;
+}
+
+int Sprite::cloneFrame(int frame) 
+{
+	struct color* temp = pixels;
+	int size = ++frameCount * height * width;
+	this->pixels = new struct color[size];
+	int currentFrame = 0;
+	for(int i = 0; i < frameCount - 1; i++) 
+	{
+		memcpy(pixels + currentFrame++ * width * height, temp + i * width * height, 4 * width * height);
+		if(i == frame) {
+		memcpy(pixels + currentFrame++ * width * height, temp + i * width * height, 4 * width * height);
+		}
+	}
+	delete[] temp;
+	return frameCount;
+}
+
+void Sprite::undo() {
+	// stack::push/pop
+
+	// {
+	//   std::stack<int> mystack;
+
+	//   for (int i=0; i<5; ++i) mystack.push(i);
+
+	//   std::cout << "Popping out elements...";
+	//   while (!mystack.empty())
+	//   {
+	//      std::cout << ' ' << mystack.top();
+	//      mystack.pop();
+	//   }
+	//   std::cout << '\n';
+
+	//   return 0;
+	// }
+}
+
+void Sprite::redo() {
+
 }

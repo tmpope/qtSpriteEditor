@@ -44,8 +44,8 @@ private:
 		struct color color;
 		std::vector<struct pixelLoc> pixelLocations;
 	};
-	std::stack<action> undoStack;
-	std::stack<action> redoStack;
+//	std::stack<action> undoStack;
+//	std::stack<action> redoStack;
 	int width;
 	int height;
 	int frameCount;
@@ -127,6 +127,7 @@ public:
 	 * @return [description]
 	 */
 	std::string toString();
+    void save(std::string fileName);
 	void undo();
 	void redo();
 };

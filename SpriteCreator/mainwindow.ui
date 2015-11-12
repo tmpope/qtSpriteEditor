@@ -17,8 +17,13 @@
    <string>Obey Your Thirst</string>
   </property>
   <property name="windowIcon">
+<<<<<<< HEAD
    <iconset>
     <normaloff>:/graphics/Sprite.png</normaloff>:/graphics/Sprite.png</iconset>
+=======
+   <iconset resource="graphics/graphix.qrc">
+    <normaloff>:/new/prefix1/Sprite.png</normaloff>:/new/prefix1/Sprite.png</iconset>
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(99, 94, 103);</string>
@@ -34,6 +39,7 @@
      </rect>
     </property>
    </widget>
+<<<<<<< HEAD
    <widget class="QWidget" name="widget_2" native="true">
     <property name="geometry">
      <rect>
@@ -44,11 +50,17 @@
      </rect>
     </property>
    </widget>
+=======
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
    <widget class="QToolButton" name="colorSelectorButton">
     <property name="geometry">
      <rect>
       <x>40</x>
+<<<<<<< HEAD
       <y>390</y>
+=======
+      <y>440</y>
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
       <width>33</width>
       <height>33</height>
      </rect>
@@ -60,8 +72,13 @@
      <string/>
     </property>
     <property name="icon">
+<<<<<<< HEAD
      <iconset>
       <normaloff>obey your thirst graphics/Color Wheel.png</normaloff>obey your thirst graphics/Color Wheel.png</iconset>
+=======
+     <iconset resource="graphics/graphix.qrc">
+      <normaloff>:/new/prefix1/Color Wheel.png</normaloff>:/new/prefix1/Color Wheel.png</iconset>
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
     </property>
     <property name="iconSize">
      <size>
@@ -73,7 +90,11 @@
      <bool>true</bool>
     </property>
    </widget>
+<<<<<<< HEAD
    <widget class="QSlider" name="horizontalSlider">
+=======
+   <widget class="QSlider" name="fpsSlider">
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
     <property name="geometry">
      <rect>
       <x>880</x>
@@ -86,10 +107,17 @@
      <bool>false</bool>
     </property>
     <property name="maximum">
+<<<<<<< HEAD
      <number>24</number>
     </property>
     <property name="sliderPosition">
      <number>4</number>
+=======
+     <number>60</number>
+    </property>
+    <property name="sliderPosition">
+     <number>24</number>
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -101,7 +129,11 @@
      <number>0</number>
     </property>
    </widget>
+<<<<<<< HEAD
    <widget class="QWidget" name="widget_3" native="true">
+=======
+   <widget class="QWidget" name="frameSelectionWidget" native="true">
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -124,8 +156,13 @@
      <string/>
     </property>
     <property name="icon">
+<<<<<<< HEAD
      <iconset>
       <normaloff>obey your thirst graphics/Pen-icon.png</normaloff>obey your thirst graphics/Pen-icon.png</iconset>
+=======
+     <iconset resource="graphics/graphix.qrc">
+      <normaloff>:/new/prefix1/Pen-icon.png</normaloff>:/new/prefix1/Pen-icon.png</iconset>
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
     </property>
     <property name="iconSize">
      <size>
@@ -150,8 +187,13 @@
      <string/>
     </property>
     <property name="icon">
+<<<<<<< HEAD
      <iconset>
       <normaloff>obey your thirst graphics/eyedropper-icon.png</normaloff>obey your thirst graphics/eyedropper-icon.png</iconset>
+=======
+     <iconset resource="graphics/graphix.qrc">
+      <normaloff>:/new/prefix1/eyedropper-icon.png</normaloff>:/new/prefix1/eyedropper-icon.png</iconset>
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
     </property>
     <property name="iconSize">
      <size>
@@ -176,8 +218,13 @@
      <string/>
     </property>
     <property name="icon">
+<<<<<<< HEAD
      <iconset>
       <normaloff>obey your thirst graphics/clone.png</normaloff>obey your thirst graphics/clone.png</iconset>
+=======
+     <iconset resource="graphics/graphix.qrc">
+      <normaloff>:/new/prefix1/clone.png</normaloff>:/new/prefix1/clone.png</iconset>
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
     </property>
     <property name="iconSize">
      <size>
@@ -190,7 +237,11 @@
     <property name="geometry">
      <rect>
       <x>40</x>
+<<<<<<< HEAD
       <y>440</y>
+=======
+      <y>490</y>
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
       <width>33</width>
       <height>33</height>
      </rect>
@@ -199,8 +250,13 @@
      <string/>
     </property>
     <property name="icon">
+<<<<<<< HEAD
      <iconset>
       <normaloff>obey your thirst graphics/sm-cut-onion.png</normaloff>obey your thirst graphics/sm-cut-onion.png</iconset>
+=======
+     <iconset resource="graphics/graphix.qrc">
+      <normaloff>:/new/prefix1/sm-cut-onion.png</normaloff>:/new/prefix1/sm-cut-onion.png</iconset>
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
     </property>
     <property name="iconSize">
      <size>
@@ -212,7 +268,11 @@
      <bool>true</bool>
     </property>
    </widget>
+<<<<<<< HEAD
    <widget class="QWidget" name="widget_4" native="true">
+=======
+   <widget class="QWidget" name="colorSelectionWidget" native="true">
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
     <property name="geometry">
      <rect>
       <x>780</x>
@@ -222,7 +282,11 @@
      </rect>
     </property>
    </widget>
+<<<<<<< HEAD
    <widget class="QLabel" name="label">
+=======
+   <widget class="QLabel" name="fpsLabel">
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
     <property name="geometry">
      <rect>
       <x>1050</x>
@@ -234,6 +298,48 @@
     <property name="text">
      <string>current_fps</string>
     </property>
+<<<<<<< HEAD
+=======
+   </widget>
+   <widget class="QPushButton" name="paintBucketButton">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>390</y>
+      <width>33</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="graphics/graphix.qrc">
+      <normaloff>:/new/prefix1/paint-bucket_32.png</normaloff>:/new/prefix1/paint-bucket_32.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>29</width>
+      <height>29</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="playbackLabel">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>50</y>
+      <width>121</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -270,8 +376,13 @@
   </widget>
   <action name="actionSave">
    <property name="icon">
+<<<<<<< HEAD
     <iconset>
      <normaloff>obey your thirst graphics/Lime-icon.png</normaloff>obey your thirst graphics/Lime-icon.png</iconset>
+=======
+    <iconset resource="graphics/graphix.qrc">
+     <normaloff>:/new/prefix1/Lime-icon.png</normaloff>:/new/prefix1/Lime-icon.png</iconset>
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
    </property>
    <property name="text">
     <string>Save</string>
@@ -282,8 +393,13 @@
   </action>
   <action name="actionImport">
    <property name="icon">
+<<<<<<< HEAD
     <iconset>
      <normaloff>obey your thirst graphics/layer-import-icon.png</normaloff>obey your thirst graphics/layer-import-icon.png</iconset>
+=======
+    <iconset resource="graphics/graphix.qrc">
+     <normaloff>:/new/prefix1/layer-import-icon.png</normaloff>:/new/prefix1/layer-import-icon.png</iconset>
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
    </property>
    <property name="text">
     <string>Import</string>
@@ -294,8 +410,13 @@
   </action>
   <action name="actionExport">
    <property name="icon">
+<<<<<<< HEAD
     <iconset>
      <normaloff>obey your thirst graphics/table-export-icon.png</normaloff>obey your thirst graphics/table-export-icon.png</iconset>
+=======
+    <iconset resource="graphics/graphix.qrc">
+     <normaloff>:/new/prefix1/table-export-icon.png</normaloff>:/new/prefix1/table-export-icon.png</iconset>
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
    </property>
    <property name="text">
     <string>Export</string>
@@ -306,8 +427,13 @@
   </action>
   <action name="actionLoad">
    <property name="icon">
+<<<<<<< HEAD
     <iconset>
      <normaloff>obey your thirst graphics/Lemon-icon.png</normaloff>obey your thirst graphics/Lemon-icon.png</iconset>
+=======
+    <iconset resource="graphics/graphix.qrc">
+     <normaloff>:/new/prefix1/Lemon-icon.png</normaloff>:/new/prefix1/Lemon-icon.png</iconset>
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
    </property>
    <property name="text">
     <string>Load</string>
@@ -315,6 +441,7 @@
    <property name="toolTip">
     <string>Load Sprite Sheet</string>
    </property>
+<<<<<<< HEAD
   </action>
   <action name="actionColorSelect">
    <property name="icon">
@@ -346,6 +473,39 @@
      <normaloff>obey your thirst graphics/Sprite.png</normaloff>obey your thirst graphics/Sprite.png</iconset>
    </property>
    <property name="text">
+=======
+  </action>
+  <action name="actionColorSelect">
+   <property name="icon">
+    <iconset resource="graphics/graphix.qrc">
+     <normaloff>:/new/prefix1/Color Wheel.png</normaloff>:/new/prefix1/Color Wheel.png</iconset>
+   </property>
+   <property name="text">
+    <string>ColorSelect</string>
+   </property>
+   <property name="toolTip">
+    <string>Color Selector</string>
+   </property>
+  </action>
+  <action name="actionNewFrame">
+   <property name="icon">
+    <iconset resource="graphics/graphix.qrc">
+     <normaloff>:/new/prefix1/new-file-icon.png</normaloff>:/new/prefix1/new-file-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>New Frame</string>
+   </property>
+   <property name="toolTip">
+    <string>Add New Frame</string>
+   </property>
+  </action>
+  <action name="actionNewSprite">
+   <property name="icon">
+    <iconset resource="graphics/graphix.qrc">
+     <normaloff>:/new/prefix1/Sprite.png</normaloff>:/new/prefix1/Sprite.png</iconset>
+   </property>
+   <property name="text">
+>>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
     <string>New Sprite</string>
    </property>
    <property name="toolTip">
@@ -361,6 +521,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="graphics/graphix.qrc"/>
+ </resources>
  <connections/>
 </ui>
