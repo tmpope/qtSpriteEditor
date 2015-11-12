@@ -75,6 +75,9 @@
     <property name="acceptDrops">
      <bool>false</bool>
     </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
     <property name="maximum">
      <number>60</number>
     </property>
@@ -274,6 +277,19 @@
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="selectedFrameLabel">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>760</y>
+      <width>171</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Selected Frame: </string>
     </property>
    </widget>
   </widget>

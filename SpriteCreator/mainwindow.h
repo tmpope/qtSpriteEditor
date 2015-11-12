@@ -165,6 +165,20 @@ public slots:
      */
     void showSelectedFrame();
 
+    /**
+     * @brief undo
+     *
+     * Undoes previous action.
+     */
+    void undo();
+
+    /**
+     * @brief redo
+     *
+     * Redoes previous action.
+     */
+    void redo();
+
 private:
     Ui::MainWindow *ui;
     std::string file;

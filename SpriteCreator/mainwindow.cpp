@@ -11,6 +11,7 @@
 #include <QTimer>
 #include <QColorDialog>
 #include <QInputDialog>
+#include <QShortcut>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -27,18 +28,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
     playbackFrame = 0;
 
+    // Force frameSelectorSlider to only permit showing existent frames
     ui->frameSelectorSlider->setRange(0, 0);
+    ui->selectedFrameLabel->setText(QString::number(ui->frameSelectorSlider->value() + 1));
 
     connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT(saveSprite()));
     connect(ui->actionLoad, SIGNAL(triggered(bool)), this, SLOT(loadSprite()));
 
-    connect(ui->fpsSlider, SIGNAL(sliderMoved(int)), this, SLOT(setFramesPerSecond()));
+    connect(ui->fpsSlider, SIGNAL(valueChanged(int)), this, SLOT(setFramesPerSecond()));
     connect(playbackTimer, SIGNAL(timeout()), this, SLOT(updatePlaybackWidget()));
     connect(ui->colorSelectorButton, SIGNAL(clicked(bool)), this, SLOT(showColorDialog()));
 
-    connect(ui->frameSelectorSlider, SIGNAL(sliderMoved(int)), this, SLOT(showSelectedFrame()));
-
     connect(colorDialog, SIGNAL(colorSelected(QColor)), this, SLOT(colorDialogColorSelected()));
+
+    connect(ui->frameSelectorSlider, SIGNAL(valueChanged(int)), this, SLOT(showSelectedFrame()));
 
     connect(ui->penButton, SIGNAL(clicked(bool)), this, SLOT(penToolSelected()));
     connect(ui->eyeDropperButton, SIGNAL(clicked(bool)), this, SLOT(eyeDropperSelected()));
@@ -48,6 +51,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionNewFrame, SIGNAL(triggered(bool)), this, SLOT(newFrame()));
     connect(ui->actionExport, SIGNAL(triggered(bool)), this, SLOT(exportGif()));
     connect(ui->actionNewSprite, SIGNAL(triggered(bool)), this, SLOT(newSprite()));
+
+    new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Z), this, SLOT(undo()));
+    new QShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_Z), this, SLOT(redo()));
 }
 
 MainWindow::~MainWindow()
@@ -105,6 +111,8 @@ void MainWindow::loadSprite(){
     fclose(f);
 
     ui->canvas->loadSpriteFromString(str);
+
+    // TODO: Set slider range and stuff
 }
 
 
@@ -221,6 +229,10 @@ void MainWindow::importGif()
     }
 
 //    ui->canvas->loadSpriteFromGif(file, true);
+
+    // TODO: Handle the FPS
+
+    // TODO: Slider stuff
 }
 
 void MainWindow::newFrame()
@@ -239,7 +251,7 @@ void MainWindow::newSprite()
 
 void MainWindow::cloneFrame()
 {
-    ui->canvas->getSprite()->cloneFrame(canvas->getCurrentFrame());
+    ui->canvas->getSprite()->cloneFrame(ui->canvas->getCurrentFrame());
     ui->frameSelectorSlider->setRange(0, ui->canvas->getSprite()->getFrameCount() - 1);
 }
 
@@ -250,11 +262,22 @@ void MainWindow::toggleOnionSkin()
 
 void MainWindow::showSelectedFrame()
 {
-    int currentFrame = ui->frameSelectorSlider->value();
-    ui->canvas->setCurrentFrame(currentFrame);
+    ui->selectedFrameLabel->setText(QString::number(ui->frameSelectorSlider->value() + 1));
+    ui->canvas->setCurrentFrame(ui->frameSelectorSlider->value());
+    std::cout << "Now showing frame " << ui->frameSelectorSlider->value() << std::endl;
 }
 
+void MainWindow::undo()
+{
+    ui->canvas->getSprite()->undo();
+}
 
+void MainWindow::redo()
+{
+    // TODO: This
+
+    ui->canvas->getSprite()->redo();
+}
 
 
 
