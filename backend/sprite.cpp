@@ -48,8 +48,8 @@ Sprite::Sprite(std::string sspString)
     {
         std::cout << "Improper .ssp file" << std::endl;
     }
-    this->width = sprite[0];
-    this->height = sprite[1];
+    this->height = sprite[0];
+    this->width = sprite[1];
     this->frameCount = sprite[2];
     int size = this->frameCount * this->height * this->width;
     this->pixels = new struct color[size];
@@ -71,8 +71,8 @@ Sprite::Sprite(std::string gifFileName, bool isGif) {
     /* read all the frames of the animated GIF */
     Magick::readImages( &imageList, gifFileName);
 
-    this->width = imageList.front().columns();
     this->height = imageList.front().rows();
+    this->width = imageList.front().columns();
     this->frameCount = imageList.size();
     int size = this->frameCount * this->height * this->width;
     this->pixels = new struct color[size];
