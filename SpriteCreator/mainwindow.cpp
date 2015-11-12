@@ -20,6 +20,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     std::string file = "";
 
+    ui->fpsLabel->setStyleSheet(" color : white ");
+    ui->selectedFrameLabel->setStyleSheet(" color : white ");
+
+    ui->pushButton->setStyleSheet(" color : white ");
+
     colorDialog = new QColorDialog();
 
     playbackTimer = new QTimer();
