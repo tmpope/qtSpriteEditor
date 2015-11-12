@@ -37,6 +37,9 @@ private:
     /* The current frame of the sprite that we are drawing to. */
     int currentFrame;
 
+    /* Indicates whether or not the onion skin is enabled */
+    bool onionSkinEnabled;
+
 public:
     /**
      * @brief getSprite
@@ -55,6 +58,16 @@ public:
      * @param sspString
      */
     void loadSpriteFromString(std::string sspString);
+
+    /**
+     * @brief loadSpriteFromGif
+     *
+     * Creates a new sprite from the gif passed.
+     *
+     * @param gifFilePath
+     * @param isGif
+     */
+    void loadSpriteFromGif(std::string gifFilePath, bool isGif);
 
     /**
      * @brief CanvasWidget
@@ -82,10 +95,39 @@ public:
      * @param a - alpha
      */
     void setCurrentColor(int r, int g, int b, int a);
-<<<<<<< HEAD
-=======
+
     void save(std::string s);
->>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
+
+
+    /**
+     * @brief createNewSprite
+     *
+     * Creates a sprite. Whooda thunk.
+     */
+    void createNewSprite(int, int);
+
+    /**
+     * @brief getCurrentFrame
+     *
+     * Returns the current frame that is being worked on.
+     *
+     * @return the current frame that is being shown.
+     */
+    int getCurrentFrame();
+
+    /**
+     * @brief setCurrentFrame
+     *
+     * Sets the current frame to be edited.
+     */
+    void setCurrentFrame(int);
+
+    /**
+     * @brief toggleOnionSkin
+     *
+     * Toggles onion skin on or off.
+     */
+    void toggleOnionSkin();
 
 protected:
 

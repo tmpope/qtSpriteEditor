@@ -12,7 +12,7 @@
 #include <cstring>
 #include <stack>
 #include <list>
-#include <Magick++.h>
+//#include <Magick++.h>
 
 Sprite::Sprite(int height, int width)
 {
@@ -63,40 +63,40 @@ Sprite::Sprite(std::string sspString)
 }
 
 Sprite::Sprite(std::string gifFileName, bool isGif) {
-    Magick::InitializeMagick("./demo");
+//    Magick::InitializeMagick("./demo");
 
-    std::list<Magick::Image> imageList;
-    std::vector<Magick::Image> frames;
+//    std::list<Magick::Image> imageList;
+//    std::vector<Magick::Image> frames;
 
-    /* read all the frames of the animated GIF */
-    Magick::readImages( &imageList, gifFileName);
+//    /* read all the frames of the animated GIF */
+//    Magick::readImages( &imageList, gifFileName);
 
-    this->width = imageList.front().columns();
-    this->height = imageList.front().rows();
-    this->frameCount = imageList.size();
-    int size = this->frameCount * this->height * this->width;
-    this->pixels = new struct color[size];
+//    this->width = imageList.front().columns();
+//    this->height = imageList.front().rows();
+//    this->frameCount = imageList.size();
+//    int size = this->frameCount * this->height * this->width;
+//    this->pixels = new struct color[size];
 
-    std::list<Magick::Image>::const_iterator listIterator = imageList.begin();
-    for (listIterator; listIterator != imageList.end(); ++listIterator)
-    {
-        frames.push_back(*listIterator);
-    }
-    for (int frame = 0; frame < frameCount; frame++)
-    {
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                int loc = frame * width * height + y * width + x;
-                Magick::PixelPacket* pixel = frames[frame].getPixels(x, y, 1, 1);
-                pixels[loc].r = pixel->red;
-                pixels[loc].g = pixel->green;
-                pixels[loc].b = pixel->blue;
-                pixels[loc].a = pixel->opacity;
-            }
-        }
-    }
+//    std::list<Magick::Image>::const_iterator listIterator = imageList.begin();
+//    for (listIterator; listIterator != imageList.end(); ++listIterator)
+//    {
+//        frames.push_back(*listIterator);
+//    }
+//    for (int frame = 0; frame < frameCount; frame++)
+//    {
+//        for (int x = 0; x < width; x++)
+//        {
+//            for (int y = 0; y < height; y++)
+//            {
+//                int loc = frame * width * height + y * width + x;
+//                Magick::PixelPacket* pixel = frames[frame].getPixels(x, y, 1, 1);
+//                pixels[loc].r = pixel->red;
+//                pixels[loc].g = pixel->green;
+//                pixels[loc].b = pixel->blue;
+//                pixels[loc].a = pixel->opacity;
+//            }
+//        }
+//    }
 }
 
 

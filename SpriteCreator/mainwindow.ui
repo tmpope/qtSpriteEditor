@@ -106,6 +106,9 @@
     <property name="acceptDrops">
      <bool>false</bool>
     </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
     <property name="maximum">
 <<<<<<< HEAD
      <number>24</number>
@@ -130,6 +133,7 @@
     </property>
    </widget>
 <<<<<<< HEAD
+<<<<<<< HEAD
    <widget class="QWidget" name="widget_3" native="true">
 =======
    <widget class="QWidget" name="frameSelectionWidget" native="true">
@@ -143,6 +147,8 @@
      </rect>
     </property>
    </widget>
+=======
+>>>>>>> e28d569a68193f8aac1204849a1b914417f33f10
    <widget class="QPushButton" name="penButton">
     <property name="geometry">
      <rect>
@@ -340,6 +346,41 @@
      <string/>
     </property>
 >>>>>>> 1241f70b068295bb8a2000290e52a341b0ad042a
+   </widget>
+   <widget class="QSlider" name="frameSelectorSlider">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>725</y>
+      <width>641</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>999</number>
+    </property>
+    <property name="pageStep">
+     <number>1</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="selectedFrameLabel">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>760</y>
+      <width>171</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Selected Frame: </string>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
