@@ -51,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->cloneFrameButton, SIGNAL(clicked(bool)), this, SLOT(cloneFrame()));
 
     connect(ui->actionNewFrame, SIGNAL(triggered(bool)), this, SLOT(newFrame()));
+    connect(ui->actionDeleteFrame, SIGNAL(triggered(bool)), this, SLOT(deleteFrame()));
     connect(ui->actionImport, SIGNAL(triggered(bool)), this, SLOT(importGif()));
     connect(ui->actionExport, SIGNAL(triggered(bool)), this, SLOT(exportGif()));
     connect(ui->actionNewSprite, SIGNAL(triggered(bool)), this, SLOT(newSprite()));
@@ -256,6 +257,12 @@ void MainWindow::newFrame()
     ui->frameSelectorSlider->setRange(0, ui->canvas->getSprite()->getFrameCount() - 1);
 }
 
+void MainWindow::deleteFrame()
+{
+    ui->canvas->getSprite()->removeFrame(ui->canvas->getCurrentFrame());
+    ui->frameSelectorSlider->setRange(0, ui->canvas->getSprite()->getFrameCount() - 1);
+}
+
 void MainWindow::newSprite()
 {
     int width = QInputDialog::getInt(this, "Width Please", "Please provide a width:", 1, 1, 64, 1);
@@ -290,11 +297,13 @@ void MainWindow::showSelectedFrame()
 void MainWindow::undo()
 {
     ui->canvas->getSprite()->undo();
+    ui->canvas->repaint();
 }
 
 void MainWindow::redo()
 {
     ui->canvas->getSprite()->redo();
+    ui->canvas->repaint();
 }
 
 void MainWindow::previousFrame()

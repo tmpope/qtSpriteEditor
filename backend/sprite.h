@@ -31,7 +31,6 @@ public: //because color needs to be defined before we use it, but needs to be pu
 			return ss.str();
 	    }
 	};
-private:
 	struct pixelLoc
 	{
 		pixelLoc(int _x, int _y, int _frame) : x(_x), y(_y), frame(_frame) {}
@@ -39,13 +38,19 @@ private:
 		int y;
 		int frame;
 	};
+private:
 	struct action
 	{
+        action(struct color _color, struct color _old, pixelLoc loc) : color(_color), oldColor(_old)
+		{
+            pixelLocations.push_back(loc);
+		}
 		struct color color;
+		struct color oldColor;
 		std::vector<struct pixelLoc> pixelLocations;
 	};
-//	std::stack<action> undoStack;
-//	std::stack<action> redoStack;
+	std::stack<struct action> undoStack;
+	std::stack<struct action> redoStack;
 	int width;
 	int height;
 	int frameCount;

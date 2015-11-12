@@ -485,6 +485,8 @@
    <addaction name="separator"/>
    <addaction name="actionNewFrame"/>
    <addaction name="separator"/>
+   <addaction name="actionDeleteFrame"/>
+   <addaction name="separator"/>
    <addaction name="actionNewSprite"/>
   </widget>
   <action name="actionSave">
@@ -557,6 +559,21 @@
    </property>
    <property name="toolTip">
     <string>Add New Frame</string>
+   </property>
+  </action>
+  <action name="actionDeleteFrame">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="graphics/graphix.qrc">
+     <normaloff>:/new/prefix1/delete-file-icon.png</normaloff>:/new/prefix1/delete-file-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete Frame</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete Frame</string>
    </property>
   </action>
   <action name="actionNewSprite">

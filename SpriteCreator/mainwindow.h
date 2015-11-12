@@ -137,6 +137,13 @@ public slots:
     void newFrame();
 
     /**
+     * @brief deleteFrame
+     *
+     * Deletes a frame from the current sprite.
+     */
+    void deleteFrame();
+
+    /**
      * @brief newSprite
      *
      * Creates a new sprite.
