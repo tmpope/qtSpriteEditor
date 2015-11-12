@@ -57,6 +57,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Z), this, SLOT(undo()));
     new QShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_Z), this, SLOT(redo()));
+    new QShortcut(QKeySequence(Qt::Key_A), this, SLOT(previousFrame()));
+    new QShortcut(QKeySequence(Qt::Key_D), this, SLOT(nextFrame()));
 }
 
 MainWindow::~MainWindow()
@@ -222,7 +224,7 @@ void MainWindow::exportGif()
 void MainWindow::importGif()
 {
     // TODO: Test this please Taylor!!!
-    QString QfileName = QFileDialog::getOpenFileName(this, tr("Open Project"), "C://", "GIF File(*.gif)");
+    QString QfileName = QFileDialog::getOpenFileName(this, tr("Open Project"), "C://", "GIF File(*.gif);;All Files(*)");
     std::cout << "File name: " << QfileName.toStdString() << std::endl;
     QFile inputFile(QfileName);
 
@@ -295,7 +297,40 @@ void MainWindow::redo()
     ui->canvas->getSprite()->redo();
 }
 
+void MainWindow::previousFrame()
+{
+    int here = ui->canvas->getSprite()->getFrameCount() - 1;
 
+    if(ui->canvas->getCurrentFrame() == 0)
+    {
+
+        ui->canvas->setCurrentFrame(here);
+        ui->frameSelectorSlider->setValue(here);
+    }
+    else
+    {
+        int show = ui->canvas->getCurrentFrame();
+        ui->canvas->setCurrentFrame(show - 1);
+        ui->frameSelectorSlider->setValue(show - 1);
+    }
+}
+
+void MainWindow::nextFrame()
+{
+    int here = ui->canvas->getSprite()->getFrameCount() - 1;
+
+    if(ui->canvas->getCurrentFrame() == here)
+    {
+        ui->canvas->setCurrentFrame(0);
+        ui->frameSelectorSlider->setValue(0);
+    }
+    else
+    {
+        int show = ui->canvas->getCurrentFrame();
+        ui->canvas->setCurrentFrame(show + 1);
+        ui->frameSelectorSlider->setValue(show + 1);
+    }
+}
 
 
 

@@ -179,6 +179,20 @@ public slots:
      */
     void redo();
 
+    /**
+     * @brief previousFrame
+     *
+     * Shows the previous frame.
+     */
+    void previousFrame();
+
+    /**
+     * @brief nextFrame
+     *
+     * Shows the next frame.
+     */
+    void nextFrame();
+
 private:
     Ui::MainWindow *ui;
     std::string file;

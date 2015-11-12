@@ -26,8 +26,8 @@ CanvasWidget::~CanvasWidget(){
 
 Sprite* CanvasWidget::getSprite()
 {
-    sprite->toString();
-    assert(sprite);
+//    sprite->toString();
+//    assert(srm prite);
 
     return sprite;
 }
