@@ -93,7 +93,7 @@ Sprite::Sprite(std::string gifFileName, bool isGif) {
                 pixels[loc].r = pixel->red;
                 pixels[loc].g = pixel->green;
                 pixels[loc].b = pixel->blue;
-                pixels[loc].a = pixel->opacity;
+                pixels[loc].a = 255 - pixel->opacity;
             }
         }
     }
@@ -112,6 +112,14 @@ struct Sprite::color Sprite::getPixel(int x, int y, int frame)
 
 void Sprite::setPixel(int x, int y, int frame, struct color color)
 {
+    if (!undoStack.empty() && color == undoStack.top().color)
+    {
+        undoStack.top().pixelLocations.push_back(pixelLoc(x, y, frame));
+    }
+    else
+    {
+        undoStack.push(action(color, pixels[frame * width * height + x + y * width], pixelLoc(x, y, frame)));
+    }
     pixels[frame * width * height + x + y * width] = color;
 }
 
@@ -120,6 +128,14 @@ void Sprite::fillPixel(int x, int y, int frame, struct color color)
     struct color oldColor = getPixel(x, y, frame);
     if (color == oldColor)
         return;
+    if (color == undoStack.top().color)
+    {
+        undoStack.top().pixelLocations.push_back(pixelLoc(x, y, frame));
+    }
+    else
+    {
+        undoStack.push(action(color, oldColor, pixelLoc(x, y, frame)));
+    }
     setPixel(x, y, frame, color);
     if (x - 1 >= 0 && getPixel(x - 1, y, frame) == oldColor)
     {
@@ -267,25 +283,31 @@ void Sprite::save(std::string fileName)
 }
 
 void Sprite::undo() {
-    // stack::push/pop
-
-    // {
-    //   std::stack<int> mystack;
-
-    //   for (int i=0; i<5; ++i) mystack.push(i);
-
-    //   std::cout << "Popping out elements...";
-    //   while (!mystack.empty())
-    //   {
-    //      std::cout << ' ' << mystack.top();
-    //      mystack.pop();
-    //   }
-    //   std::cout << '\n';
-
-    //   return 0;
-    // }
+	std::cout << "UNDO" << std::endl;
+    if(undoStack.empty())
+    {
+        return;
+    }
+    struct action action = undoStack.top();
+    redoStack.push(action);
+    undoStack.pop();
+    std::cout << action.color.toString() << std::endl;
+    for(int i = 0; i < action.pixelLocations.size(); i++) {
+        pixels[action.pixelLocations[i].frame * width * height + action.pixelLocations[i].x + action.pixelLocations[i].y * width] = action.oldColor;
+    }
 }
 
 void Sprite::redo() {
-
+    std::cout << "REDO" << std::endl;
+    if(redoStack.empty())
+    {
+        return;
+    }
+    struct action action = redoStack.top();
+    undoStack.push(action);
+    redoStack.pop();
+    std::cout << action.color.toString() << std::endl;
+    for(int i = 0; i < action.pixelLocations.size(); i++) {
+        pixels[action.pixelLocations[i].frame * width * height + action.pixelLocations[i].x + action.pixelLocations[i].y * width] = action.color;
+    }
 }

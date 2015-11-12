@@ -14,7 +14,7 @@ CanvasWidget::CanvasWidget(QWidget *widget) : QWidget(widget)
     lastTool = ERASER;
     sprite = new Sprite(32, 32);
 
-    currentColor = QColor::fromRgb(255, 25, 25);
+    currentColor = QColor::fromRgb(0, 0, 0, 255);
     currentFrame = 0;
 }
 
@@ -26,9 +26,8 @@ CanvasWidget::~CanvasWidget(){
 
 Sprite* CanvasWidget::getSprite()
 {
-    sprite;
-    sprite->toString();
-    assert(sprite);
+//    sprite->toString();
+//    assert(srm prite);
 
     return sprite;
 }
@@ -119,22 +118,32 @@ void CanvasWidget::mouseReleaseEvent(QMouseEvent *event)
 
 void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
 {
+    std::cout << "This is here to get the compiler to shut up: " << paintEvent->isAccepted() << std::endl;
     if(sprite == NULL)
         return;
 
     QPainter painter(this);
+    painter.setPen(Qt::green);
+    painter.drawRect(0, 0, width() - 1, height() - 1);
+
     double singleWidth = width() / (double)sprite->getWidth();
     double singleHeight = height() / (double)sprite->getHeight();
 
-    for(int row = 0; row < sprite->getHeight(); row++)
+    for(int row = 0; row < sprite->getHeight(); row++){
         for(int col = 0; col < sprite->getWidth(); col++){
             int x = singleWidth * col;
             int y = singleHeight * row;
 
             QRect rect(x, y, singleWidth, singleHeight);
-            struct Sprite::color pixelColor = sprite->getPixel(col, row, currentFrame);
-//            std::cout << "Got color from sprite" << pixelColor.r << pixelColor.g << pixelColor.b << std::endl;
-            QColor color(pixelColor.r, pixelColor.g, pixelColor.b);
+            struct Sprite::color pixelColor;
+            if(onionSkinEnabled && currentFrame != 0 && sprite->getPixel(col, row, currentFrame).a == 0){
+                pixelColor = sprite->getPixel(col, row, currentFrame - 1);
+                pixelColor.a = pixelColor.a * 0.65;
+                std::cout << "We're printing an onion skin pixel1" << std::endl;
+            }
+            else
+                pixelColor = sprite->getPixel(col, row, currentFrame);
+            QColor color(pixelColor.r, pixelColor.g, pixelColor.b, pixelColor.a);
             painter.setPen(color);
             painter.fillRect(rect, color);
 
@@ -142,6 +151,7 @@ void CanvasWidget::paintEvent(QPaintEvent *paintEvent)
                 std::cout << width() << " " << height() << std::endl;
             }
         }
+    }
 }
 
 void CanvasWidget::setCurrentTool(possible_tool_t tool)
@@ -176,7 +186,7 @@ void CanvasWidget::colorSelectedPixel(int xPos, int yPos){
         break;
 
         case ERASER:
-            pixel = Sprite::color(255, 255, 255, 255);
+            pixel = Sprite::color(255, 255, 255, 0);
             sprite->setPixel(xPos, yPos, currentFrame, pixel);
             std::cout << "Erasing pixel at (" << xPos << ", " << yPos << ")" << std::endl;
         break;
@@ -186,11 +196,12 @@ void CanvasWidget::colorSelectedPixel(int xPos, int yPos){
             std::cout << "Filling pixels at (" << xPos << ", " << yPos << ")" << std::endl;
         break;
 
-        case EYE_DROPPER:// TODO: If the current tool is an eye dropper, handle that here
+        case EYE_DROPPER:
+            std::cout << "Using eye dropper; grabbed a color." << std::endl;
             pixel = sprite->getPixel(xPos, yPos, currentFrame);
             currentColor.setRgb(pixel.r, pixel.g, pixel.b, pixel.a);
-            // TODO: Change tool back to pencil here?
-//            setCurrentTool(PENCIL);
+            std::cout << "Current color: " << pixel.r  << " " << pixel.g << " " << pixel.b << " " << std::endl;
+            setCurrentTool(PENCIL);
         break;
 
         default:
@@ -202,4 +213,32 @@ void CanvasWidget::colorSelectedPixel(int xPos, int yPos){
 void CanvasWidget::save(std::string s)
 {
     sprite->save(s);
+}
+
+void CanvasWidget::loadSpriteFromGif(std::string gifFilePath, bool isGif)
+{
+    sprite = new Sprite(gifFilePath, isGif);
+}
+
+void CanvasWidget::createNewSprite(int width, int height)
+{
+    sprite = new Sprite(width, height);
+}
+
+int CanvasWidget::getCurrentFrame()
+{
+    return currentFrame;
+}
+
+void CanvasWidget::setCurrentFrame(int frame)
+{
+    currentFrame = frame;
+    repaint();
+}
+
+void CanvasWidget::toggleOnionSkin()
+{
+    onionSkinEnabled = !onionSkinEnabled;
+    repaint();
+    std::cout << "Onion skin on: " << onionSkinEnabled << std::endl;
 }
